@@ -1,0 +1,7 @@
+fastapi[standard]==0.115.6
+pydantic==2.10.4
+python-multipart==0.0.20
+pymupdf==1.25.1
+pillow==11.0.0
+pytesseract==0.3.13
+requests==2.32.3
