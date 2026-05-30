@@ -7,9 +7,10 @@ from langchain_huggingface import HuggingFaceEmbeddings
 import jsonlines
 from pathlib import Path
 
-RAW_DIR = Path("catalogue_to_context/data")
-CHUNKS_FILE = Path("catalogue_to_context/chunks.jsonl")
-VECTORDB_DIR = Path("catalogue_to_context/vectordb")
+BASE_DIR = Path(__file__).resolve().parent
+RAW_DIR = BASE_DIR / "data"
+CHUNKS_FILE = BASE_DIR / "chunks.jsonl"
+VECTORDB_DIR = BASE_DIR / "vectordb"
 
 # Define the Markdown headers we want to split the document on
 HEADERS_TO_SPLIT_ON = [

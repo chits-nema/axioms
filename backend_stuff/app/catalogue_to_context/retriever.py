@@ -2,27 +2,30 @@ from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from pathlib import Path
 
-VECTORDB_DIR = Path("catalogue_to_context/vectordb")
+VECTORDB_DIR = Path(__file__).resolve().parent / "vectordb"
 _db = None
 
 def get_vendor_context(product: str, metrics: list[str], vendors: list[str] = None, category: str = None, k: int = 5) -> dict:
-    # ... [keep your setup] ...
+    db = _get_db()
 
     # Build query from product + metrics
     query = f"{product} {' '.join(metrics)}"
 
-    # CHANGE 4: Build a dynamic 'where' filter combining vendor and category
-    where = {}
+    filters = []
     if vendors:
-        where["vendor"] = {"$in": vendors}
+        filters.append({"vendor": {"$in": vendors}})
     if category:
-        where["category"] = category
+        filters.append({"category": category})
         
     # Chroma expects None if there are no filters
-    if not where:
+    if not filters:
         where = None
+    elif len(filters) == 1:
+        where = filters[0]
+    else:
+        where = {"$and": filters}
 
-    results = _db.similarity_search(query, k=k, filter=where)
+    results = db.similarity_search(query, k=k, filter=where)
 
     # Group results by vendor
     vendor_context = {}
@@ -34,3 +37,14 @@ def get_vendor_context(product: str, metrics: list[str], vendors: list[str] = No
 
     # Flatten each vendor's chunks into one string
     return {v: "\n\n".join(chunks) for v, chunks in vendor_context.items()}
+
+
+def _get_db():
+    global _db
+    if _db is None:
+        embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        _db = Chroma(
+            persist_directory=str(VECTORDB_DIR),
+            embedding_function=embedding,
+        )
+    return _db

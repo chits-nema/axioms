@@ -51,6 +51,11 @@ def generate_metrics_from_context(
         raise NormalisationError(f"The model returned metrics JSON, but it did not match the schema: {exc}") from exc
 
 
+def call_llm_json(prompt: str) -> tuple[dict[str, Any], str]:
+    raw_output = _call_llm(prompt)
+    return _extract_json_object(raw_output), raw_output
+
+
 def generate_requirements_criteria(
     context: dict[str, Any],
 ) -> tuple[RequirementsDiscoveryResult, dict[str, Any]]:

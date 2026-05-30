@@ -5,3 +5,8 @@ pymupdf==1.25.1
 pillow==11.0.0
 pytesseract==0.3.13
 requests==2.32.3
+chromadb
+jsonlines
+langchain-community
+langchain-huggingface
+langchain-text-splitters

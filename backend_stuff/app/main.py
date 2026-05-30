@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import metrics, normalise, requirements, upload
+from app.routes import catalog, metrics, normalise, requirements, upload
 
 
 app = FastAPI(
@@ -22,6 +22,7 @@ app.include_router(upload.router)
 app.include_router(normalise.router)
 app.include_router(metrics.router)
 app.include_router(requirements.router)
+app.include_router(catalog.router)
 
 
 @app.get("/health")

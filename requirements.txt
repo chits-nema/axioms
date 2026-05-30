@@ -1,13 +1,1 @@
-# Document processing
-docling
-
-# Vector database
-chromadb
-langchain
-langchain-community
-langchain-ollama
-
-# Utilities
-jsonlines
-
-dotenv
+-r backend_stuff/requirements.txt
