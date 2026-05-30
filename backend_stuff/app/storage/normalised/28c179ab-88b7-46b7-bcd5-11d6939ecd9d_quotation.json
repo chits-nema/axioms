@@ -1,0 +1,145 @@
+{
+  "file_id": "28c179ab-88b7-46b7-bcd5-11d6939ecd9d",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\chits\\OneDrive\\Documents\\GitHub\\axioms\\backend_stuff\\app\\storage\\uploads\\28c179ab-88b7-46b7-bcd5-11d6939ecd9d.pdf",
+  "normalised": {
+    "vendor_name": "VelocityCRM GmbH",
+    "currency": "EUR",
+    "quote_valid_until": "2026-08-29",
+    "shipping_cost": 0.0,
+    "discount": 2860.8,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "CRM Platform (100 users)",
+        "sku": "VC-CRM-100",
+        "quantity": 1.0,
+        "unit_price": 22826.0,
+        "total_price": 22826.0,
+        "delivery_days": 14.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; Go-live in 2 weeks guaranteed; offline mobile mode"
+      },
+      {
+        "product_name": "Workflow Automation (unlimited)",
+        "sku": "VC-WORKFLOW",
+        "quantity": 1.0,
+        "unit_price": 5978.0,
+        "total_price": 5978.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; No-code builder; 500+ trigger/action combinations"
+      },
+      {
+        "product_name": "Mobile Field Sales App (100 users)",
+        "sku": "VC-MOBILE-100",
+        "quantity": 1.0,
+        "unit_price": 3913.0,
+        "total_price": 3913.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; iOS & Android; works fully offline with auto-sync"
+      },
+      {
+        "product_name": "Custom Reporting Builder",
+        "sku": "VC-REPORT",
+        "quantity": 1.0,
+        "unit_price": 3043.0,
+        "total_price": 3043.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; White-label exports; scheduled PDF delivery"
+      }
+    ],
+    "risk_flags": [
+      "Discount requires annual pre-payment",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "VelocityCRM GmbH",
+    "currency": "EUR",
+    "quote_valid_until": "2026-08-29",
+    "shipping_cost": 0,
+    "discount": 2860.8,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "CRM Platform (100 users)",
+        "sku": "VC-CRM-100",
+        "quantity": 1,
+        "unit_price": 22826.0,
+        "total_price": 22826.0,
+        "delivery_days": 14,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; Go-live in 2 weeks guaranteed; offline mobile mode"
+      },
+      {
+        "product_name": "Workflow Automation (unlimited)",
+        "sku": "VC-WORKFLOW",
+        "quantity": 1,
+        "unit_price": 5978.0,
+        "total_price": 5978.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; No-code builder; 500+ trigger/action combinations"
+      },
+      {
+        "product_name": "Mobile Field Sales App (100 users)",
+        "sku": "VC-MOBILE-100",
+        "quantity": 1,
+        "unit_price": 3913.0,
+        "total_price": 3913.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; iOS & Android; works fully offline with auto-sync"
+      },
+      {
+        "product_name": "Custom Reporting Builder",
+        "sku": "VC-REPORT",
+        "quantity": 1,
+        "unit_price": 3043.0,
+        "total_price": 3043.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Annual; White-label exports; scheduled PDF delivery"
+      }
+    ],
+    "risk_flags": [
+      "Discount requires annual pre-payment",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  }
+}

@@ -28,6 +28,7 @@ class NormaliseRequest(BaseModel):
 class NormaliseResponse(BaseModel):
     file_id: str
     kind: FileKind
+    normalised_storage_path: str
     parsed: ParsedDocument
     normalised: NormalisedQuotation | NormalisedMetricsTemplate
     raw_model_output: dict

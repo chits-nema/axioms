@@ -1,0 +1,77 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and resource requirements for system setup, data migration, and staff training."
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ability to support bi-directional sync with existing SAP ERP and other business tools."
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Combined annual subscription fees, one-time migration costs, and integration service fees."
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to GDPR Article 28 and availability of necessary data processing agreements."
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Requirement for data to be hosted within the EU, specifically Frankfurt or similar jurisdictions."
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Assessment of vendor financial health and long-term viability to support the consultancy."
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Alignment with ESG standards and transparency regarding the vendor's own environmental impact."
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "integration_capability"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "sustainability_credentials"
+    }
+  ]
+}

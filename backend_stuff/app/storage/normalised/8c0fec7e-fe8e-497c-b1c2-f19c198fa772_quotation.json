@@ -1,0 +1,125 @@
+{
+  "file_id": "8c0fec7e-fe8e-497c-b1c2-f19c198fa772",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\chits\\OneDrive\\Documents\\GitHub\\axioms\\backend_stuff\\app\\storage\\uploads\\8c0fec7e-fe8e-497c-b1c2-f19c198fa772.pdf",
+  "normalised": {
+    "vendor_name": "PipelineIQ AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-28",
+    "shipping_cost": 0.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "CRM Platform (100 users)",
+        "sku": "PIQ-CRM-100",
+        "quantity": 1.0,
+        "unit_price": 18000.0,
+        "total_price": 18000.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [],
+        "notes": "200+ native integrations; unlimited custom fields"
+      },
+      {
+        "product_name": "AI Lead Scoring Module",
+        "sku": "PIQ-AI-SCORE",
+        "quantity": 1.0,
+        "unit_price": 9500.0,
+        "total_price": 9500.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [],
+        "notes": "GPT-powered call summaries"
+      },
+      {
+        "product_name": "Email & Calendar Sync (Google + M365)",
+        "sku": "PIQ-CAL-SYNC",
+        "quantity": 1.0,
+        "unit_price": 2400.0,
+        "total_price": 2400.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [],
+        "notes": "Two-way sync; no data stored outside EU"
+      },
+      {
+        "product_name": "Dedicated Implementation Consultant (30 days)",
+        "sku": "PIQ-IMPL-30D",
+        "quantity": 1.0,
+        "unit_price": 12000.0,
+        "total_price": 12000.0,
+        "delivery_days": 7.0,
+        "warranty_months": null,
+        "certifications": [],
+        "notes": "Certified CRM architect; go-live in 4 weeks"
+      }
+    ],
+    "risk_flags": [
+      "AI module requires separate data processing agreement",
+      "Swiss law governs",
+      "E&OE;",
+      "Governed by German law unless stated otherwise"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "PipelineIQ AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-28",
+    "shipping_cost": 0,
+    "discount": 0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "CRM Platform (100 users)",
+        "sku": "PIQ-CRM-100",
+        "quantity": 1,
+        "unit_price": 18000.0,
+        "total_price": 18000.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [],
+        "notes": "200+ native integrations; unlimited custom fields"
+      },
+      {
+        "product_name": "AI Lead Scoring Module",
+        "sku": "PIQ-AI-SCORE",
+        "quantity": 1,
+        "unit_price": 9500.0,
+        "total_price": 9500.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [],
+        "notes": "GPT-powered call summaries"
+      },
+      {
+        "product_name": "Email & Calendar Sync (Google + M365)",
+        "sku": "PIQ-CAL-SYNC",
+        "quantity": 1,
+        "unit_price": 2400.0,
+        "total_price": 2400.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [],
+        "notes": "Two-way sync; no data stored outside EU"
+      },
+      {
+        "product_name": "Dedicated Implementation Consultant (30 days)",
+        "sku": "PIQ-IMPL-30D",
+        "quantity": 1,
+        "unit_price": 12000.0,
+        "total_price": 12000.0,
+        "delivery_days": 7,
+        "warranty_months": null,
+        "certifications": [],
+        "notes": "Certified CRM architect; go-live in 4 weeks"
+      }
+    ],
+    "risk_flags": [
+      "AI module requires separate data processing agreement",
+      "Swiss law governs",
+      "E&OE;",
+      "Governed by German law unless stated otherwise"
+    ]
+  }
+}

@@ -1,0 +1,302 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f6f7f9;
+  color: #17202a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+code {
+  background: #edf1f5;
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+
+.shell {
+  width: min(1440px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 40px;
+}
+
+.topbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #d8dee6;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.workflow span {
+  border: 1px solid #d7e0ea;
+  border-radius: 6px;
+  background: #fff;
+  color: #5f6b7a;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.workflow .done {
+  border-color: #99d6c8;
+  background: #e7f6f2;
+  color: #116b5f;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+p {
+  color: #5f6b7a;
+  margin-top: 6px;
+}
+
+.api-field,
+.field {
+  display: grid;
+  gap: 7px;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.api-field {
+  width: min(360px, 100%);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cfd7e2;
+  border-radius: 6px;
+  background: #fff;
+  color: #17202a;
+  padding: 10px 12px;
+  outline: none;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2f80ed;
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.14);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.panel {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-height: 420px;
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+  background: #fff;
+  padding: 18px;
+}
+
+.panel-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #1f2937;
+  color: #fff;
+  font-weight: 700;
+}
+
+.file-drop {
+  display: grid;
+  place-items: center;
+  min-height: 96px;
+  border: 1px dashed #9aa7b8;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  color: #344054;
+  font-weight: 700;
+}
+
+.file-drop input {
+  display: none;
+}
+
+button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 6px;
+  background: #116b5f;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0b594f;
+}
+
+button:disabled {
+  background: #9aa7b8;
+  cursor: wait;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.output {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid #dce3ec;
+  border-radius: 6px;
+  background: #111827;
+  color: #d5f5e3;
+  padding: 12px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.criteria-list,
+.tradeoff-list {
+  display: grid;
+  gap: 10px;
+}
+
+.criterion,
+.tradeoff {
+  border: 1px solid #e0e6ee;
+  border-radius: 6px;
+  padding: 12px;
+  background: #fbfcfe;
+}
+
+.criterion {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+}
+
+.tag {
+  width: fit-content;
+  border-radius: 999px;
+  background: #e7f6f2;
+  color: #116b5f;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.criterion strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.score-control {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.score-control input {
+  padding: 0;
+  accent-color: #116b5f;
+}
+
+.tradeoff-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tradeoff-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccd6e2;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tradeoff-options input {
+  width: auto;
+}
+
+.compact input {
+  max-width: 120px;
+}
+
+@media (max-width: 900px) {
+  .topbar,
+  .grid,
+  .workflow,
+  .tradeoff-options,
+  .criterion,
+  .button-row {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    display: grid;
+  }
+}

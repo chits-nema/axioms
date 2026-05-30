@@ -1,6 +1,7 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import normalise, upload
+from app.routes import metrics, normalise, requirements, upload
 
 
 app = FastAPI(
@@ -9,8 +10,18 @@ app = FastAPI(
     version="0.1.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(upload.router)
 app.include_router(normalise.router)
+app.include_router(metrics.router)
+app.include_router(requirements.router)
 
 
 @app.get("/health")
