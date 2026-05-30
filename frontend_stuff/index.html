@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axioms Workflow Tester</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <h1>Axioms Workflow Tester</h1>
+          <p>Upload quotations, discover criteria, collect tradeoffs, and create the weighting handoff.</p>
+        </div>
+        <label class="api-field">
+          API URL
+          <input id="apiBaseUrl" value="http://127.0.0.1:8000" />
+        </label>
+      </section>
+
+      <section class="workflow">
+        <span id="uploadStatus">Upload: waiting</span>
+        <span id="extractStatus">Extract: waiting</span>
+        <span id="normaliseStatus">Normalise: waiting</span>
+        <span id="criteriaStatus">Criteria: waiting</span>
+        <span id="tradeoffStatus">Tradeoffs: waiting</span>
+        <span id="handoffStatus">Handoff: waiting</span>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <span class="step">1</span>
+            <div>
+              <h2>Upload, Extract, Normalise</h2>
+              <p>Calls <code>/upload</code>, <code>/normalise/extract</code>, then <code>/normalise</code>.</p>
+            </div>
+          </div>
+
+          <label class="field">
+            File kind
+            <select id="fileKind">
+              <option value="quotation">Quotation</option>
+              <option value="metrics_template">Metrics Template</option>
+            </select>
+          </label>
+
+          <label class="file-drop">
+            <input id="pdfFile" type="file" accept="application/pdf,.pdf" />
+            <span id="fileLabel">Choose a PDF</span>
+          </label>
+
+          <div class="button-row">
+            <button id="pipelineButton" type="button">Run PDF Pipeline</button>
+            <button id="uploadButton" type="button">Upload PDF</button>
+            <button id="extractButton" type="button">Extract Text</button>
+            <button id="normaliseButton" type="button">Normalise</button>
+          </div>
+          <pre id="normaliseOutput" class="output">No PDF normalised yet.</pre>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <span class="step">2</span>
+            <div>
+              <h2>Discover Criteria</h2>
+              <p>Calls <code>/requirements/discover</code>.</p>
+            </div>
+          </div>
+
+          <label class="field">
+            What are you purchasing?
+            <input id="purchase" value="CRM System" />
+          </label>
+
+          <label class="field">
+            Organisation context
+            <textarea id="organisationContext">150-person sustainability consultancy operating in Europe.</textarea>
+          </label>
+
+          <label class="field">
+            Success factors
+            <textarea id="successFactors">Low implementation effort
+Strong integrations
+Good sustainability credentials</textarea>
+          </label>
+
+          <label class="field">
+            Constraints
+            <textarea id="constraints">Must comply with GDPR
+Prefer EU data residency</textarea>
+          </label>
+
+          <button id="discoverButton" type="button">Discover Criteria</button>
+          <div id="criteriaList" class="criteria-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <span class="step">3</span>
+            <div>
+              <h2>Tradeoff Questions</h2>
+              <p>Calls <code>/requirements/tradeoffs</code>.</p>
+            </div>
+          </div>
+
+          <label class="field compact">
+            Number of questions
+            <input id="maxQuestions" type="number" min="1" max="20" value="8" />
+          </label>
+
+          <button id="tradeoffsButton" type="button">Generate Tradeoffs</button>
+          <form id="tradeoffForm" class="tradeoff-list"></form>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <span class="step">4</span>
+            <div>
+              <h2>Create Handoff</h2>
+              <p>Calls <code>/requirements/weighting-input</code>.</p>
+            </div>
+          </div>
+
+          <button id="handoffButton" type="button">Create Weighting Input</button>
+          <pre id="handoffOutput" class="output">No handoff created yet.</pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

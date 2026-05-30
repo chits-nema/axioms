@@ -1,0 +1,176 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "CRM System",
+    "organisation_context": "150-person sustainability consultancy operating in Europe.",
+    "success_factors": [
+      "Low implementation effort",
+      "Strong integrations",
+      "Good sustainability credentials"
+    ],
+    "constraints": [
+      "Must comply with GDPR",
+      "Prefer EU data residency"
+    ],
+    "normalised_quotations": [
+      {
+        "vendor_name": "RelateFlow CRM",
+        "currency": "EUR",
+        "quote_valid_until": "2026-08-27",
+        "shipping_cost": 0,
+        "discount": 0,
+        "payment_terms": "30 days net",
+        "items": [
+          {
+            "product_name": "Enterprise CRM Licence (100 users)",
+            "sku": "RF-ENT-100",
+            "quantity": 1,
+            "unit_price": 24000,
+            "total_price": 24000,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 27001",
+              "GDPR Art. 28",
+              "T\u00dcV S\u00dcD"
+            ],
+            "notes": "Annual; German-language UI; GDPR data residency Frankfurt"
+          },
+          {
+            "product_name": "Sales Automation Add-on",
+            "sku": "RF-SA-ADD",
+            "quantity": 1,
+            "unit_price": 6000,
+            "total_price": 6000,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 27001",
+              "GDPR Art. 28",
+              "T\u00dcV S\u00dcD"
+            ],
+            "notes": "Annual; Includes lead scoring, email sequences, pipeline automation"
+          },
+          {
+            "product_name": "Data Migration & Onboarding",
+            "sku": "RF-MIGRATE",
+            "quantity": 1,
+            "unit_price": 4500,
+            "total_price": 4500,
+            "delivery_days": 14,
+            "warranty_months": null,
+            "certifications": [],
+            "notes": "One-time; Up to 5 M records; includes 2 training sessions"
+          },
+          {
+            "product_name": "Custom SAP ERP Integration",
+            "sku": "RF-SAP-INT",
+            "quantity": 1,
+            "unit_price": 8000,
+            "total_price": 8000,
+            "delivery_days": 30,
+            "warranty_months": null,
+            "certifications": [
+              "SAP Certified"
+            ],
+            "notes": "One-time; Bi-directional sync; SAP S/4HANA compatible"
+          }
+        ],
+        "risk_flags": [
+          "SAP integration billed separately if scope changes",
+          "E&OE (Errors and Omissions Excepted)"
+        ]
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and resource requirements for system setup, data migration, and staff training."
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ability to support bi-directional sync with existing SAP ERP and other business tools."
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Combined annual subscription fees, one-time migration costs, and integration service fees."
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to GDPR Article 28 and availability of necessary data processing agreements."
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Requirement for data to be hosted within the EU, specifically Frankfurt or similar jurisdictions."
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Assessment of vendor financial health and long-term viability to support the consultancy."
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Alignment with ESG standards and transparency regarding the vendor's own environmental impact."
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Time and resource requirements for system setup, data migration, and staff training."
+      },
+      {
+        "key": "integration_capability",
+        "category": "functional",
+        "label": "Integration Capability",
+        "description": "Ability to support bi-directional sync with existing SAP ERP and other business tools."
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "Total Cost of Ownership",
+        "description": "Combined annual subscription fees, one-time migration costs, and integration service fees."
+      },
+      {
+        "key": "gdpr_compliance",
+        "category": "risks",
+        "label": "GDPR Compliance",
+        "description": "Adherence to GDPR Article 28 and availability of necessary data processing agreements."
+      },
+      {
+        "key": "data_residency",
+        "category": "risks",
+        "label": "Data Residency",
+        "description": "Requirement for data to be hosted within the EU, specifically Frankfurt or similar jurisdictions."
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Assessment of vendor financial health and long-term viability to support the consultancy."
+      },
+      {
+        "key": "sustainability_credentials",
+        "category": "strategic",
+        "label": "Sustainability Credentials",
+        "description": "Alignment with ESG standards and transparency regarding the vendor's own environmental impact."
+      }
+    ]
+  }
+}

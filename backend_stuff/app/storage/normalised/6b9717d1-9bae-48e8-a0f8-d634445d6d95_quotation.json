@@ -1,0 +1,129 @@
+{
+  "file_id": "6b9717d1-9bae-48e8-a0f8-d634445d6d95",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\chits\\OneDrive\\Documents\\GitHub\\axioms\\backend_stuff\\app\\storage\\uploads\\6b9717d1-9bae-48e8-a0f8-d634445d6d95.pdf",
+  "normalised": {
+    "vendor_name": "SecureLayer Solutions",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-29",
+    "shipping_cost": 0.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "XDR Platform Licence (500 endpoints)",
+        "sku": "SLS-XDR-500",
+        "quantity": 1.0,
+        "unit_price": 47000.0,
+        "total_price": 47000.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate",
+          "MITRE ATT&CK",
+          "Common Criteria EAL4+"
+        ],
+        "notes": "Annual; Gartner Magic Quadrant Leader 2025"
+      },
+      {
+        "product_name": "Managed Detection & Response",
+        "sku": "SLS-MDR",
+        "quantity": 1.0,
+        "unit_price": 22000.0,
+        "total_price": 22000.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate",
+          "ISO 27035"
+        ],
+        "notes": "Annual; Dedicated threat hunter assigned; MTTD < 10 min"
+      },
+      {
+        "product_name": "Security Policy Consulting (5 days)",
+        "sku": "SLS-CONSULT-5D",
+        "quantity": 1.0,
+        "unit_price": 9000.0,
+        "total_price": 9000.0,
+        "delivery_days": 30.0,
+        "warranty_months": null,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate"
+        ],
+        "notes": "Engagement; CISM/CISSP certified consultants"
+      }
+    ],
+    "risk_flags": [
+      "Auto-renewal clause applies after year 1",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "SecureLayer Solutions",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-29",
+    "shipping_cost": 0,
+    "discount": 0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "XDR Platform Licence (500 endpoints)",
+        "sku": "SLS-XDR-500",
+        "quantity": 1,
+        "unit_price": 47000.0,
+        "total_price": 47000.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate",
+          "MITRE ATT&CK",
+          "Common Criteria EAL4+"
+        ],
+        "notes": "Annual; Gartner Magic Quadrant Leader 2025"
+      },
+      {
+        "product_name": "Managed Detection & Response",
+        "sku": "SLS-MDR",
+        "quantity": 1,
+        "unit_price": 22000.0,
+        "total_price": 22000.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate",
+          "ISO 27035"
+        ],
+        "notes": "Annual; Dedicated threat hunter assigned; MTTD < 10 min"
+      },
+      {
+        "product_name": "Security Policy Consulting (5 days)",
+        "sku": "SLS-CONSULT-5D",
+        "quantity": 1,
+        "unit_price": 9000.0,
+        "total_price": 9000.0,
+        "delivery_days": 30,
+        "warranty_months": null,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FedRAMP Moderate"
+        ],
+        "notes": "Engagement; CISM/CISSP certified consultants"
+      }
+    ],
+    "risk_flags": [
+      "Auto-renewal clause applies after year 1",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  }
+}

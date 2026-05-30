@@ -1,0 +1,84 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and internal resource requirements to deploy and configure the CRM.",
+      "score": 3
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ability to connect with existing consultancy tools and data stacks.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Combined cost of licensing, implementation, and ongoing maintenance over 3 years.",
+      "score": 3
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Full adherence to EU data protection regulations.",
+      "score": 3
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Requirement for data to be hosted and processed within the EU.",
+      "score": 3
+    },
+    {
+      "key": "vendor_lock_in",
+      "category": "risks",
+      "label": "Lock-in Risk",
+      "description": "Ease of data portability and contract exit terms.",
+      "score": 2
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Vendor's commitment to ESG and carbon footprint transparency.",
+      "score": 4
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "integration_capability"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "implementation_effort"
+    }
+  ]
+}

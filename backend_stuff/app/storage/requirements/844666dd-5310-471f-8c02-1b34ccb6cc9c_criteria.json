@@ -1,0 +1,224 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "CRM System",
+    "organisation_context": "150-person sustainability consultancy operating in Europe.",
+    "success_factors": [
+      "Low implementation effort",
+      "Strong integrations",
+      "Good sustainability credentials"
+    ],
+    "constraints": [
+      "Must comply with GDPR",
+      "Prefer EU data residency"
+    ],
+    "normalised_quotations": [
+      {
+        "vendor_name": "PipelineIQ AG",
+        "currency": "EUR",
+        "quote_valid_until": "2026-07-28",
+        "shipping_cost": 0,
+        "discount": 0,
+        "payment_terms": "30 days net",
+        "items": [
+          {
+            "product_name": "CRM Platform (100 users)",
+            "sku": "PIQ-CRM-100",
+            "quantity": 1,
+            "unit_price": 18000,
+            "total_price": 18000,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [],
+            "notes": "200+ native integrations; unlimited custom fields"
+          },
+          {
+            "product_name": "AI Lead Scoring Module",
+            "sku": "PIQ-AI-SCORE",
+            "quantity": 1,
+            "unit_price": 9500,
+            "total_price": 9500,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [],
+            "notes": "GPT-powered call summaries"
+          },
+          {
+            "product_name": "Email & Calendar Sync (Google + M365)",
+            "sku": "PIQ-CAL-SYNC",
+            "quantity": 1,
+            "unit_price": 2400,
+            "total_price": 2400,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [],
+            "notes": "Two-way sync; no data stored outside EU"
+          },
+          {
+            "product_name": "Dedicated Implementation Consultant (30 days)",
+            "sku": "PIQ-IMPL-30D",
+            "quantity": 1,
+            "unit_price": 12000,
+            "total_price": 12000,
+            "delivery_days": 7,
+            "warranty_months": null,
+            "certifications": [],
+            "notes": "Certified CRM architect; go-live in 4 weeks"
+          }
+        ],
+        "risk_flags": [
+          "AI module requires separate data processing agreement",
+          "Swiss law governs",
+          "E&OE;",
+          "Governed by German law unless stated otherwise"
+        ]
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and resources required to deploy the CRM system.",
+      "score": 4
+    },
+    {
+      "key": "integrations",
+      "category": "functional",
+      "label": "Integrations",
+      "description": "Ability to connect with existing tools and systems.",
+      "score": 4
+    },
+    {
+      "key": "features",
+      "category": "functional",
+      "label": "Features",
+      "description": "Presence of required functionalities like AI lead scoring.",
+      "score": 4
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Monthly or annual licensing fees for the CRM platform.",
+      "score": 4
+    },
+    {
+      "key": "migration_cost",
+      "category": "financial",
+      "label": "Migration Cost",
+      "description": "Costs associated with data migration and system transfer.",
+      "score": 3
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Sum of all direct and indirect costs over the contract period.",
+      "score": 4
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to EU data protection regulations.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial and operational reliability of the vendor.",
+      "score": 4
+    },
+    {
+      "key": "lock_in_risk",
+      "category": "risks",
+      "label": "Lock-In Risk",
+      "description": "Difficulty in switching to alternative solutions.",
+      "score": 4
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Location of data storage and processing.",
+      "score": 4
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Time and resources required to deploy the CRM system.",
+        "score": 4
+      },
+      {
+        "key": "integrations",
+        "category": "functional",
+        "label": "Integrations",
+        "description": "Ability to connect with existing tools and systems.",
+        "score": 4
+      },
+      {
+        "key": "features",
+        "category": "functional",
+        "label": "Features",
+        "description": "Presence of required functionalities like AI lead scoring.",
+        "score": 4
+      },
+      {
+        "key": "subscription_cost",
+        "category": "financial",
+        "label": "Subscription Cost",
+        "description": "Monthly or annual licensing fees for the CRM platform.",
+        "score": 4
+      },
+      {
+        "key": "migration_cost",
+        "category": "financial",
+        "label": "Migration Cost",
+        "description": "Costs associated with data migration and system transfer.",
+        "score": 3
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "Total Cost of Ownership",
+        "description": "Sum of all direct and indirect costs over the contract period.",
+        "score": 4
+      },
+      {
+        "key": "gdpr_compliance",
+        "category": "risks",
+        "label": "GDPR Compliance",
+        "description": "Adherence to EU data protection regulations.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial and operational reliability of the vendor.",
+        "score": 4
+      },
+      {
+        "key": "lock_in_risk",
+        "category": "risks",
+        "label": "Lock-In Risk",
+        "description": "Difficulty in switching to alternative solutions.",
+        "score": 4
+      },
+      {
+        "key": "data_residency",
+        "category": "strategic",
+        "label": "Data Residency",
+        "description": "Location of data storage and processing.",
+        "score": 4
+      }
+    ]
+  }
+}

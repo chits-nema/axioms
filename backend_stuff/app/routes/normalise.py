@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, status
@@ -11,6 +12,7 @@ router = APIRouter(prefix="/normalise", tags=["normalise"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 UPLOAD_DIR = (BASE_DIR / "storage" / "uploads").resolve()
+NORMALISED_DIR = (BASE_DIR / "storage" / "normalised").resolve()
 
 
 def _resolve_uploaded_path(storage_path: str) -> Path:
@@ -33,6 +35,25 @@ def _resolve_uploaded_path(storage_path: str) -> Path:
         )
 
     return path
+
+
+def _store_normalised_json(
+    request: NormaliseRequest,
+    source_path: Path,
+    normalised: object,
+    raw_model_output: dict,
+) -> Path:
+    NORMALISED_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = NORMALISED_DIR / f"{request.file_id}_{request.kind.value}.json"
+    payload = {
+        "file_id": request.file_id,
+        "kind": request.kind.value,
+        "source_pdf": str(source_path),
+        "normalised": normalised.model_dump(mode="json"),
+        "raw_model_output": raw_model_output,
+    }
+    output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return output_path
 
 
 @router.post("/extract", response_model=ExtractResponse)
@@ -73,9 +94,12 @@ def normalise_file(request: NormaliseRequest) -> NormaliseResponse:
             detail=str(exc),
         ) from exc
 
+    normalised_path = _store_normalised_json(request, path, normalised, raw_output)
+
     return NormaliseResponse(
         file_id=request.file_id,
         kind=request.kind,
+        normalised_storage_path=str(normalised_path),
         parsed=parsed,
         normalised=normalised,
         raw_model_output=raw_output,

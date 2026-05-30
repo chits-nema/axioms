@@ -1,0 +1,109 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and resources required to deploy the CRM system.",
+      "score": 5
+    },
+    {
+      "key": "integrations",
+      "category": "functional",
+      "label": "Integrations",
+      "description": "Ability to connect with existing tools and systems.",
+      "score": 4
+    },
+    {
+      "key": "features",
+      "category": "functional",
+      "label": "Features",
+      "description": "Presence of required functionalities like AI lead scoring.",
+      "score": 3
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Monthly or annual licensing fees for the CRM platform.",
+      "score": 5
+    },
+    {
+      "key": "migration_cost",
+      "category": "financial",
+      "label": "Migration Cost",
+      "description": "Costs associated with data migration and system transfer.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Sum of all direct and indirect costs over the contract period.",
+      "score": 2
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to EU data protection regulations.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial and operational reliability of the vendor.",
+      "score": 5
+    },
+    {
+      "key": "lock_in_risk",
+      "category": "risks",
+      "label": "Lock-In Risk",
+      "description": "Difficulty in switching to alternative solutions.",
+      "score": 5
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Location of data storage and processing.",
+      "score": 5
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "subscription_cost"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "subscription_cost"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "subscription_cost"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "subscription_cost"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "data_residency"
+    },
+    {
+      "question_id": "tradeoff_8",
+      "selected_key": "data_residency"
+    }
+  ]
+}

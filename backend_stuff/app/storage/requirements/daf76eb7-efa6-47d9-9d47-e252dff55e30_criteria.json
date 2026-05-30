@@ -1,0 +1,106 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "CRM System",
+    "organisation_context": "150-person sustainability consultancy operating in Europe.",
+    "success_factors": [
+      "Low implementation effort",
+      "Strong integrations",
+      "Good sustainability credentials"
+    ],
+    "constraints": [
+      "Must comply with GDPR",
+      "Prefer EU data residency"
+    ]
+  },
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Time and internal resources required to configure and deploy the CRM."
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ability to connect with existing consultancy tools and data stacks."
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Combined costs of licensing, implementation, and ongoing maintenance."
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to EU data protection regulations and privacy standards."
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Requirement for data to be hosted and processed within the EU."
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and long-term viability of the CRM provider."
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Alignment of the vendor's environmental practices with consultancy standards."
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Time and internal resources required to configure and deploy the CRM."
+      },
+      {
+        "key": "integration_capability",
+        "category": "functional",
+        "label": "Integration Capability",
+        "description": "Ability to connect with existing consultancy tools and data stacks."
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "Total Cost of Ownership",
+        "description": "Combined costs of licensing, implementation, and ongoing maintenance."
+      },
+      {
+        "key": "gdpr_compliance",
+        "category": "risks",
+        "label": "GDPR Compliance",
+        "description": "Adherence to EU data protection regulations and privacy standards."
+      },
+      {
+        "key": "data_residency",
+        "category": "risks",
+        "label": "Data Residency",
+        "description": "Requirement for data to be hosted and processed within the EU."
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and long-term viability of the CRM provider."
+      },
+      {
+        "key": "sustainability_credentials",
+        "category": "strategic",
+        "label": "Sustainability Credentials",
+        "description": "Alignment of the vendor's environmental practices with consultancy standards."
+      }
+    ]
+  }
+}
