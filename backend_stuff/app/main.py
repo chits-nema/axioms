@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import catalog, metrics, normalise, requirements, upload
-
+from app.routes import catalog, metrics, normalise, requirements, upload, evaluation
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI(
     title="Vendor Decision API",
@@ -23,6 +24,7 @@ app.include_router(normalise.router)
 app.include_router(metrics.router)
 app.include_router(requirements.router)
 app.include_router(catalog.router)
+app.include_router(evaluation.router)
 
 
 @app.get("/health")
