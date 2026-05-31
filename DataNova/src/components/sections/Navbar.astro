@@ -3,6 +3,8 @@ import Button from '@ui/Button.astro';
 
 const currentPath = Astro.url.pathname;
 
+const serif = { fontFamily: "'Instrument Serif', serif" };
+
 // Call-to-action configuration for the primary button
 const primaryCTA = {
   text: 'Start decision',
@@ -17,13 +19,10 @@ const primaryCTA = {
     class="relative mx-auto w-full px-4 py-2 sm:px-6 lg:px-8 xl:flex xl:max-w-7xl xl:items-center xl:justify-between xl:gap-3 2xl:max-w-[85rem]"
   >
     <div class="flex items-center justify-between gap-x-1">
-      <a
-        class="dm-sans flex-none text-2xl font-light text-slate-400 focus:opacity-80 focus:outline-hidden"
-        href="/"
-        aria-label="Axioms Logo"
-        translate="no"
-        ><span class="font-semibold text-teal-700">Axi</span>oms</a
-      >
+      <a href="/" aria-label="Axiom Logo" translate="no" class="flex items-center gap-2">
+        <div class="h-2 w-2 rounded-full bg-teal-700" aria-hidden="true"></div>
+        <span class="dm-sans text-xl tracking-tight italic text-slate-950" style={serif}>Axiom</span>
+      </a>
 
       <button
         type="button"

@@ -12,11 +12,12 @@ interface Props {
   seo?: SEOProps; // Optional SEO properties to customize meta tags
   schema?: WithContext<Thing>; // Optional schema.org properties for structured data
   chrome?: boolean;
+  footerMinimal?: boolean;
   landingFonts?: boolean;
 }
 
 // Extract `seo` and `schema` from properties or define defaults
-const { seo, schema, chrome = true, landingFonts = false } = Astro.props;
+const { seo, schema, chrome = true, landingFonts = false, footerMinimal = false } = Astro.props;
 const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
 
 const ogTitle = seo?.title ?? 'Axioms - AI procurement decisions you can defend';
@@ -143,6 +144,6 @@ const defaultSchema: WithContext<Thing> = {
       <slot />
     </main>
 
-    {chrome && <Footer />}
+    {chrome && <Footer minimal={footerMinimal} />}
   </body>
 </html>
