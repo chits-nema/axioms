@@ -1,13 +1,14 @@
 ---
-export const prerender = true;
+export const prerender = false;
 import BaseLayout from '@layout/BaseLayout.astro';
 
 const mode = Astro.url.searchParams.get('mode');
 const isCatalogue = mode === 'catalogue';
 const selectedModeLabel = isCatalogue ? 'Catalogue RAG' : 'Upload quotations';
 const selectedModeDescription = isCatalogue
-  ? 'Start from catalogue context and surface a shortlist before weighting the decision.'
+  ? 'Evaluate vendors from the catalogue with retrieval, weighted metrics, and explainable rankings.'
   : 'Start with uploaded quotations and convert vendor documents into structured evidence.';
+const apiBaseUrl = import.meta.env.PUBLIC_AXIOMS_API_URL ?? 'http://127.0.0.1:8000';
 ---
 
 <BaseLayout
@@ -17,77 +18,442 @@ const selectedModeDescription = isCatalogue
   }}
 >
   <section class="min-h-screen bg-off-white px-4 pt-40 pb-16 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-[85rem] gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      <div class="rounded-[1.75rem] border border-slate-200 bg-white p-8 shadow-sm">
-        <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
-          Decision workspace
-        </p>
-        <h1 class="mt-3 text-4xl font-semibold text-slate-950 md:text-6xl">
-          {selectedModeLabel}
-        </h1>
-        <p class="mt-5 max-w-2xl text-slate-600">
-          {selectedModeDescription} The rest of the workflow stays shared so every branch ends in a
-          defensible recommendation.
-        </p>
+    <div class="mx-auto max-w-[85rem]">
+      <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <aside class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-32 lg:self-start">
+          <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
+            Decision workspace
+          </p>
+          <h1 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">
+            {selectedModeLabel}
+          </h1>
+          <p class="mt-5 text-slate-600">{selectedModeDescription}</p>
 
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="/decision?mode=quotations"
-            class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
-              isCatalogue
-                ? 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
-                : 'border-teal-700 bg-teal-700 text-white'
-            }`}
-          >
-            Upload quotations
-          </a>
-          <a
-            href="/decision?mode=catalogue"
-            class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
-              isCatalogue
-                ? 'border-teal-700 bg-teal-700 text-white'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
-            }`}
-          >
-            Use catalogue
-          </a>
-        </div>
-
-        <div class="mt-8 grid gap-4 md:grid-cols-2">
-          <div class="rounded-2xl border border-slate-200 p-5">
-            <p class="font-semibold text-slate-950">Track A: Quotations</p>
-            <p class="mt-2 text-sm text-slate-600">
-              Upload vendor PDFs and normalise them for scoring.
-            </p>
+          <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <a
+              href="/decision?mode=quotations"
+              class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
+                isCatalogue
+                  ? 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
+                  : 'border-teal-700 bg-teal-700 text-white'
+              }`}
+            >
+              Upload quotations
+            </a>
+            <a
+              href="/decision?mode=catalogue"
+              class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
+                isCatalogue
+                  ? 'border-teal-700 bg-teal-700 text-white'
+                  : 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
+              }`}
+            >
+              Use catalogue
+            </a>
           </div>
-          <div class="rounded-2xl border border-slate-200 p-5">
-            <p class="font-semibold text-slate-950">Track B: Catalogue</p>
-            <p class="mt-2 text-sm text-slate-600">
-              Use catalogue RAG when there are no quotations.
-            </p>
+
+          <div class="mt-8 rounded-2xl border border-teal-100 bg-teal-50 p-5">
+            <p class="text-sm font-semibold text-teal-900">Current API</p>
+            <p class="mt-2 break-all text-sm text-slate-600">{apiBaseUrl}</p>
           </div>
-        </div>
-      </div>
+        </aside>
 
-      <div class="rounded-[1.75rem] border border-teal-100 bg-teal-50 p-8">
-        <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
-          Selected branch
-        </p>
-        <h2 class="mt-3 text-3xl font-semibold text-slate-950">{selectedModeLabel}</h2>
-        <p class="mt-4 text-slate-600">
-          This selection can be used to open the appropriate branch of the shared workflow,
-          keeping the entry screen simple while preserving a direct route into the task.
-        </p>
+        {
+          isCatalogue ? (
+            <section
+              id="catalogue-workspace"
+              data-api-base-url={apiBaseUrl}
+              class="grid gap-5"
+            >
+              <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div class="grid gap-5">
+                  <label class="grid gap-2">
+                    <span class="text-sm font-semibold text-slate-800">Purchase request</span>
+                    <textarea
+                      id="catalogProduct"
+                      class="min-h-32 rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                    >We need a CRM for a 150-person sustainability consultancy in Europe. Prioritise GDPR compliance, low implementation effort, strong integrations, reporting, and reasonable total cost.</textarea>
+                  </label>
 
-        <div class="mt-6 rounded-2xl border border-teal-200 bg-white p-5">
-          <p class="text-sm font-semibold text-teal-900">What happens next</p>
-          <ol class="mt-3 space-y-2 text-sm text-slate-600">
-            <li>1. Capture the decision context.</li>
-            <li>2. Discover criteria and weighting.</li>
-            <li>3. Evaluate options and explain the tradeoffs.</li>
-          </ol>
-        </div>
+                  <div class="grid gap-4 md:grid-cols-[220px_1fr]">
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold text-slate-800">Category</span>
+                      <select
+                        id="catalogCategory"
+                        class="rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                      >
+                        <option value="">Any category</option>
+                        <option value="crm">CRM</option>
+                        <option value="cloud_storage">Cloud storage</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                        <option value="laptops">Laptops</option>
+                      </select>
+                    </label>
+
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold text-slate-800">Vendors</span>
+                      <input
+                        id="catalogVendors"
+                        class="rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                        placeholder="Optional, comma-separated"
+                      />
+                    </label>
+                  </div>
+
+                  <label class="grid gap-2">
+                    <span class="text-sm font-semibold text-slate-800">Metrics</span>
+                    <textarea
+                      id="catalogMetrics"
+                      class="min-h-32 rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                    >GDPR compliance: 5
+Implementation effort: 4
+Integration coverage: 4
+Reporting quality: 3
+Total cost: 5</textarea>
+                  </label>
+
+                  <div id="catalogMetricWeights" class="grid gap-3"></div>
+
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <button
+                      id="catalogEvaluateButton"
+                      type="button"
+                      class="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white transition hover:bg-teal-800 disabled:bg-slate-400"
+                    >
+                      Evaluate Catalogue
+                    </button>
+                    <button
+                      id="catalogClearMetricsButton"
+                      type="button"
+                      class="rounded-lg border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-800 transition hover:border-teal-300 hover:text-teal-900"
+                    >
+                      Use AI Metrics
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="catalogResult"
+                class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+                aria-live="polite"
+              >
+                <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-600">
+                  No catalogue evaluation yet.
+                </div>
+              </div>
+            </section>
+          ) : (
+            <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+              <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
+                Quotation branch
+              </p>
+              <h2 class="mt-3 text-3xl font-semibold text-slate-950">Upload quotations</h2>
+              <p class="mt-4 max-w-2xl text-slate-600">
+                This branch is ready for the quotation upload workflow. The catalogue evaluator is
+                available from the Use catalogue track.
+              </p>
+            </section>
+          )
+        }
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  const workspace = document.querySelector('#catalogue-workspace');
+
+  if (workspace) {
+    const state = {
+      metrics: [],
+      result: null,
+    };
+
+    const els = {
+      product: document.querySelector('#catalogProduct'),
+      category: document.querySelector('#catalogCategory'),
+      vendors: document.querySelector('#catalogVendors'),
+      metrics: document.querySelector('#catalogMetrics'),
+      weights: document.querySelector('#catalogMetricWeights'),
+      evaluateButton: document.querySelector('#catalogEvaluateButton'),
+      clearMetricsButton: document.querySelector('#catalogClearMetricsButton'),
+      result: document.querySelector('#catalogResult'),
+    };
+
+    const apiBaseUrl = workspace.dataset.apiBaseUrl;
+
+    els.metrics.addEventListener('input', () => {
+      state.metrics = parseMetrics();
+      renderMetricWeights();
+    });
+
+    els.clearMetricsButton.addEventListener('click', () => {
+      els.metrics.value = '';
+      state.metrics = [];
+      renderMetricWeights();
+    });
+
+    els.evaluateButton.addEventListener('click', async () => {
+      const product = els.product.value.trim();
+      if (!product) {
+        renderError('Describe what you want to purchase first.');
+        return;
+      }
+
+      const body = {
+        product,
+        metrics: state.metrics.map((metric) => metric.name),
+        metric_weights: Object.fromEntries(
+          state.metrics.map((metric) => [metric.name, metric.weight]),
+        ),
+        category: els.category.value || null,
+        vendors: commaList(els.vendors.value),
+      };
+
+      await withLoading(async () => {
+        els.result.innerHTML = renderEmpty('Searching catalogue and scoring vendors...');
+        const result = await apiFetch('/catalog/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+
+        state.result = result;
+        renderResult(result);
+      });
+    });
+
+    state.metrics = parseMetrics();
+    renderMetricWeights();
+
+    function parseMetrics() {
+      return lines(els.metrics.value)
+        .map((line) => {
+          const separator = line.lastIndexOf(':');
+          if (separator === -1) {
+            return { name: line, weight: 3 };
+          }
+
+          const name = line.slice(0, separator).trim();
+          const rawWeight = Number(line.slice(separator + 1).trim());
+          return {
+            name,
+            weight: clampWeight(Number.isFinite(rawWeight) ? rawWeight : 3),
+          };
+        })
+        .filter((metric) => metric.name);
+    }
+
+    function renderMetricWeights() {
+      if (!state.metrics.length) {
+        els.weights.innerHTML = renderEmpty(
+          'Leave metrics empty to let the backend generate them from the purchase request.',
+        );
+        return;
+      }
+
+      els.weights.innerHTML = state.metrics
+        .map(
+          (metric, index) => `
+            <label class="grid gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 md:grid-cols-[minmax(160px,1fr)_32px_minmax(160px,280px)] md:items-center">
+              <span class="text-sm font-semibold text-slate-800">${escapeHtml(metric.name)}</span>
+              <strong id="catalog_weight_${index}" class="text-center text-teal-800">${escapeHtml(metric.weight)}</strong>
+              <input
+                type="range"
+                min="1"
+                max="5"
+                step="1"
+                value="${escapeHtml(metric.weight)}"
+                data-catalog-metric-index="${index}"
+                class="accent-teal-700"
+              />
+            </label>
+          `,
+        )
+        .join('');
+
+      document.querySelectorAll('[data-catalog-metric-index]').forEach((slider) => {
+        slider.addEventListener('input', (event) => {
+          const index = Number(event.target.dataset.catalogMetricIndex);
+          const weight = clampWeight(Number(event.target.value));
+          state.metrics[index].weight = weight;
+          const label = document.querySelector(`#catalog_weight_${index}`);
+          if (label) {
+            label.textContent = String(weight);
+          }
+        });
+      });
+    }
+
+    function renderResult(result) {
+      const recommendation = result.recommendation ?? {};
+      const rows = result.evaluation_results ?? [];
+      const metrics = result.metrics_used ?? [];
+
+      els.result.innerHTML = `
+        <div class="grid gap-5">
+          <section class="rounded-2xl border border-teal-100 bg-teal-50 p-5">
+            <p class="text-xs font-bold tracking-[0.18em] text-teal-800 uppercase">Recommendation</p>
+            <h2 class="mt-3 text-3xl font-semibold text-slate-950">${escapeHtml(
+              recommendation.recommend_vendor ?? recommendation.vendor ?? 'Review ranking',
+            )}</h2>
+            <p class="mt-3 leading-7 text-slate-600">${escapeHtml(
+              recommendation.reasoning ??
+                recommendation.summary ??
+                'The backend returned a ranking without a narrative recommendation.',
+            )}</p>
+            ${
+              recommendation.trade_offs
+                ? `<p class="mt-3 leading-7 text-slate-600"><strong class="text-slate-900">Trade-off:</strong> ${escapeHtml(
+                    recommendation.trade_offs,
+                  )}</p>`
+                : ''
+            }
+          </section>
+
+          <section class="grid gap-3">
+            <div class="flex items-center justify-between gap-3">
+              <strong class="text-slate-950">Vendor ranking</strong>
+              <span class="text-sm font-semibold text-slate-500">${escapeHtml(metrics.length)} metrics</span>
+            </div>
+            ${renderRankingRows(rows, metrics)}
+          </section>
+
+          ${
+            result.generated_metrics_template
+              ? `<details class="rounded-2xl border border-slate-200 bg-white p-5">
+                  <summary class="cursor-pointer font-semibold text-slate-950">Generated metrics template</summary>
+                  <pre class="mt-4 max-h-80 overflow-auto rounded-lg bg-slate-950 p-4 text-xs text-teal-100">${escapeHtml(
+                    JSON.stringify(result.generated_metrics_template, null, 2),
+                  )}</pre>
+                </details>`
+              : ''
+          }
+        </div>
+      `;
+    }
+
+    function renderRankingRows(rows, metrics) {
+      if (!rows.length) {
+        return renderEmpty('No vendors were returned.');
+      }
+
+      return rows
+        .map(
+          (row, index) => `
+            <article class="grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <span class="grid size-8 place-items-center rounded-full bg-teal-100 font-bold text-teal-800">${escapeHtml(
+                  index + 1,
+                )}</span>
+                <strong class="flex-1 text-slate-950">${escapeHtml(
+                  row.vendor ?? row.index ?? 'Unknown vendor',
+                )}</strong>
+                <b class="text-teal-800">${escapeHtml(
+                  row.weighted_score ?? row.final_weighted_score ?? 'n/a',
+                )}</b>
+              </div>
+              <div class="grid gap-3 md:grid-cols-2">
+                ${metrics.map((metric) => renderMetricScore(row, metric)).join('')}
+              </div>
+            </article>
+          `,
+        )
+        .join('');
+    }
+
+    function renderMetricScore(row, metric) {
+      const score = row[metric] ?? 'n/a';
+      const reasoning = row[`${metric}_reasoning`] ?? '';
+      return `
+        <div class="grid gap-1 rounded-lg border border-slate-200 bg-white p-3">
+          <span class="text-xs font-bold text-slate-600">${escapeHtml(metric)}</span>
+          <strong class="text-xl text-teal-800">${escapeHtml(score)}</strong>
+          ${reasoning ? `<small class="leading-5 text-slate-500">${escapeHtml(reasoning)}</small>` : ''}
+        </div>
+      `;
+    }
+
+    function renderError(message) {
+      els.result.innerHTML = `<div class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">${escapeHtml(message)}</div>`;
+    }
+
+    function renderEmpty(message) {
+      return `<div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-600">${escapeHtml(message)}</div>`;
+    }
+
+    async function apiFetch(path, options) {
+      let response;
+      try {
+        response = await fetch(`${apiBaseUrl}${path}`, options);
+      } catch (error) {
+        throw new Error(
+          `Could not reach the backend at ${apiBaseUrl}. Make sure FastAPI is running. ${error.message}`,
+        );
+      }
+
+      const text = await response.text();
+      const payload = safeJson(text);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${JSON.stringify(payload)}`);
+      }
+
+      return payload;
+    }
+
+    async function withLoading(callback) {
+      const previous = els.evaluateButton.textContent;
+      els.evaluateButton.disabled = true;
+      els.evaluateButton.textContent = 'Evaluating...';
+      try {
+        await callback();
+      } catch (error) {
+        renderError(error.message);
+      } finally {
+        els.evaluateButton.disabled = false;
+        els.evaluateButton.textContent = previous;
+      }
+    }
+
+    function lines(value) {
+      return value
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+    }
+
+    function commaList(value) {
+      return value
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function clampWeight(value) {
+      return Math.min(5, Math.max(1, Math.round(value)));
+    }
+
+    function safeJson(text) {
+      if (!text) {
+        return null;
+      }
+
+      try {
+        return JSON.parse(text);
+      } catch {
+        return { raw_response: text };
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  }
+</script>

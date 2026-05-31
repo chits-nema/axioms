@@ -4,6 +4,8 @@ const state = {
   normalisedResult: null,
   criteria: [],
   questions: [],
+  catalogMetrics: [],
+  catalogResult: null,
 };
 
 const els = {
@@ -27,13 +29,33 @@ const els = {
   tradeoffForm: document.querySelector("#tradeoffForm"),
   handoffButton: document.querySelector("#handoffButton"),
   handoffOutput: document.querySelector("#handoffOutput"),
+  catalogProduct: document.querySelector("#catalogProduct"),
+  catalogCategory: document.querySelector("#catalogCategory"),
+  catalogVendors: document.querySelector("#catalogVendors"),
+  catalogMetrics: document.querySelector("#catalogMetrics"),
+  catalogMetricWeights: document.querySelector("#catalogMetricWeights"),
+  catalogEvaluateButton: document.querySelector("#catalogEvaluateButton"),
+  catalogClearMetricsButton: document.querySelector("#catalogClearMetricsButton"),
+  catalogResult: document.querySelector("#catalogResult"),
   uploadStatus: document.querySelector("#uploadStatus"),
   extractStatus: document.querySelector("#extractStatus"),
   normaliseStatus: document.querySelector("#normaliseStatus"),
   criteriaStatus: document.querySelector("#criteriaStatus"),
   tradeoffStatus: document.querySelector("#tradeoffStatus"),
   handoffStatus: document.querySelector("#handoffStatus"),
+  catalogStatus: document.querySelector("#catalogStatus"),
 };
+
+els.catalogMetrics.addEventListener("input", () => {
+  state.catalogMetrics = parseCatalogMetrics();
+  renderCatalogMetricWeights();
+});
+
+els.catalogClearMetricsButton.addEventListener("click", () => {
+  els.catalogMetrics.value = "";
+  state.catalogMetrics = [];
+  renderCatalogMetricWeights();
+});
 
 els.pdfFile.addEventListener("change", () => {
   const file = els.pdfFile.files[0];
@@ -161,6 +183,39 @@ els.handoffButton.addEventListener("click", async () => {
     showJson(els.handoffOutput, result);
     els.handoffStatus.textContent = "Handoff: ready";
     els.handoffStatus.classList.add("done");
+  });
+});
+
+els.catalogEvaluateButton.addEventListener("click", async () => {
+  const product = els.catalogProduct.value.trim();
+  if (!product) {
+    renderCatalogError("Describe what you want to purchase first.");
+    return;
+  }
+
+  const metrics = state.catalogMetrics.map((metric) => metric.name);
+  const metricWeights = Object.fromEntries(
+    state.catalogMetrics.map((metric) => [metric.name, metric.weight]),
+  );
+  const body = {
+    product,
+    metrics,
+    metric_weights: metricWeights,
+    category: els.catalogCategory.value || null,
+    vendors: commaList(els.catalogVendors.value),
+  };
+
+  await withLoading(els.catalogEvaluateButton, "Evaluating...", els.catalogResult, async () => {
+    els.catalogResult.innerHTML = `<div class="empty-state">Searching catalogue and scoring vendors...</div>`;
+    const result = await apiFetch("/catalog/evaluate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    state.catalogResult = result;
+    renderCatalogResult(result);
+    updateWorkflow();
   });
 });
 
@@ -315,12 +370,133 @@ function collectTradeoffAnswers() {
   });
 }
 
+function parseCatalogMetrics() {
+  return lines(els.catalogMetrics.value)
+    .map((line) => {
+      const separator = line.lastIndexOf(":");
+      if (separator === -1) {
+        return { name: line, weight: 3 };
+      }
+
+      const name = line.slice(0, separator).trim();
+      const rawWeight = Number(line.slice(separator + 1).trim());
+      return {
+        name,
+        weight: clampWeight(Number.isFinite(rawWeight) ? rawWeight : 3),
+      };
+    })
+    .filter((metric) => metric.name);
+}
+
+function renderCatalogMetricWeights() {
+  if (!state.catalogMetrics.length) {
+    els.catalogMetricWeights.innerHTML = `<div class="empty-state">Leave metrics empty to let the backend generate them from the purchase request.</div>`;
+    return;
+  }
+
+  els.catalogMetricWeights.innerHTML = state.catalogMetrics
+    .map(
+      (metric, index) => `
+        <label class="metric-weight">
+          <span>${escapeHtml(metric.name)}</span>
+          <strong id="catalog_weight_${index}">${escapeHtml(metric.weight)}</strong>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            step="1"
+            value="${escapeHtml(metric.weight)}"
+            data-catalog-metric-index="${index}"
+          />
+        </label>
+      `,
+    )
+    .join("");
+
+  document.querySelectorAll("[data-catalog-metric-index]").forEach((slider) => {
+    slider.addEventListener("input", (event) => {
+      const index = Number(event.target.dataset.catalogMetricIndex);
+      const weight = clampWeight(Number(event.target.value));
+      state.catalogMetrics[index].weight = weight;
+      const label = document.querySelector(`#catalog_weight_${index}`);
+      if (label) {
+        label.textContent = String(weight);
+      }
+    });
+  });
+}
+
+function renderCatalogResult(result) {
+  const recommendation = result.recommendation ?? {};
+  const rows = result.evaluation_results ?? [];
+  const metrics = result.metrics_used ?? [];
+
+  els.catalogResult.innerHTML = `
+    <section class="recommendation">
+      <span class="tag">Recommendation</span>
+      <h3>${escapeHtml(recommendation.recommend_vendor ?? recommendation.vendor ?? "Review ranking")}</h3>
+      <p>${escapeHtml(recommendation.reasoning ?? recommendation.summary ?? "The backend returned a ranking without a narrative recommendation.")}</p>
+      ${recommendation.trade_offs ? `<p><strong>Trade-off:</strong> ${escapeHtml(recommendation.trade_offs)}</p>` : ""}
+    </section>
+
+    <section class="ranking">
+      <div class="ranking-head">
+        <strong>Vendor ranking</strong>
+        <span>${escapeHtml(metrics.length)} metrics</span>
+      </div>
+      ${renderRankingRows(rows, metrics)}
+    </section>
+
+    ${result.generated_metrics_template ? `<details class="catalog-details"><summary>Generated metrics template</summary><pre class="output">${escapeHtml(JSON.stringify(result.generated_metrics_template, null, 2))}</pre></details>` : ""}
+  `;
+}
+
+function renderRankingRows(rows, metrics) {
+  if (!rows.length) {
+    return `<div class="empty-state">No vendors were returned.</div>`;
+  }
+
+  return rows
+    .map(
+      (row, index) => `
+        <article class="ranking-row">
+          <div class="ranking-title">
+            <span>${escapeHtml(index + 1)}</span>
+            <strong>${escapeHtml(row.vendor ?? row.index ?? "Unknown vendor")}</strong>
+            <b>${escapeHtml(row.weighted_score ?? row.final_weighted_score ?? "n/a")}</b>
+          </div>
+          <div class="metric-score-grid">
+            ${metrics.map((metric) => renderMetricScore(row, metric)).join("")}
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderMetricScore(row, metric) {
+  const score = row[metric] ?? "n/a";
+  const reasoning = row[`${metric}_reasoning`] ?? "";
+  return `
+    <div class="metric-score">
+      <span>${escapeHtml(metric)}</span>
+      <strong>${escapeHtml(score)}</strong>
+      ${reasoning ? `<small>${escapeHtml(reasoning)}</small>` : ""}
+    </div>
+  `;
+}
+
+function renderCatalogError(message) {
+  els.catalogResult.innerHTML = `<div class="empty-state error-state">${escapeHtml(message)}</div>`;
+}
+
 function updateWorkflow() {
   setStatus(els.uploadStatus, "Upload", Boolean(state.uploadedFile));
   setStatus(els.extractStatus, "Extract", Boolean(state.extractedDocument));
   setStatus(els.normaliseStatus, "Normalise", Boolean(state.normalisedResult));
   setStatus(els.criteriaStatus, "Criteria", Boolean(state.criteria.length));
   setStatus(els.tradeoffStatus, "Tradeoffs", Boolean(state.questions.length));
+  setStatus(els.catalogStatus, "Catalog RAG", Boolean(state.catalogResult));
 
   els.extractButton.disabled = !state.uploadedFile;
   els.normaliseButton.disabled = !state.uploadedFile;
@@ -376,6 +552,17 @@ function lines(value) {
     .filter(Boolean);
 }
 
+function commaList(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function clampWeight(value) {
+  return Math.min(5, Math.max(1, Math.round(value)));
+}
+
 function showJson(element, value) {
   element.textContent = JSON.stringify(value, null, 2);
 }
@@ -403,4 +590,6 @@ function escapeHtml(value) {
 
 renderCriteria();
 renderTradeoffMessage("Discover criteria first.");
+state.catalogMetrics = parseCatalogMetrics();
+renderCatalogMetricWeights();
 updateWorkflow();

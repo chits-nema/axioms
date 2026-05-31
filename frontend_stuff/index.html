@@ -26,9 +26,63 @@
         <span id="criteriaStatus">Criteria: waiting</span>
         <span id="tradeoffStatus">Tradeoffs: waiting</span>
         <span id="handoffStatus">Handoff: waiting</span>
+        <span id="catalogStatus">Catalog RAG: waiting</span>
       </section>
 
       <section class="grid">
+        <article class="panel catalog-panel">
+          <div class="panel-head">
+            <span class="step">RAG</span>
+            <div>
+              <h2>Catalogue RAG Evaluation</h2>
+              <p>Calls <code>/catalog/evaluate</code> with purchase text, metrics, weights, and optional filters.</p>
+            </div>
+          </div>
+
+          <label class="field">
+            Purchase request
+            <textarea id="catalogProduct">We need a CRM for a 150-person sustainability consultancy in Europe. Prioritise GDPR compliance, low implementation effort, strong integrations, reporting, and reasonable total cost.</textarea>
+          </label>
+
+          <div class="split-fields">
+            <label class="field">
+              Category
+              <select id="catalogCategory">
+                <option value="">Any category</option>
+                <option value="crm">CRM</option>
+                <option value="cloud_storage">Cloud storage</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="laptops">Laptops</option>
+              </select>
+            </label>
+
+            <label class="field">
+              Vendors
+              <input id="catalogVendors" placeholder="Optional, comma-separated" />
+            </label>
+          </div>
+
+          <label class="field">
+            Metrics
+            <textarea id="catalogMetrics">GDPR compliance: 5
+Implementation effort: 4
+Integration coverage: 4
+Reporting quality: 3
+Total cost: 5</textarea>
+          </label>
+
+          <div id="catalogMetricWeights" class="metric-weight-list"></div>
+
+          <div class="button-row catalog-actions">
+            <button id="catalogEvaluateButton" type="button">Evaluate Catalogue</button>
+            <button id="catalogClearMetricsButton" type="button">Use AI Metrics</button>
+          </div>
+
+          <div id="catalogResult" class="catalog-result">
+            <div class="empty-state">No catalogue evaluation yet.</div>
+          </div>
+        </article>
+
         <article class="panel">
           <div class="panel-head">
             <span class="step">1</span>

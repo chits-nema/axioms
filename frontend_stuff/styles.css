@@ -45,7 +45,7 @@ code {
 
 .workflow {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 18px;
 }
@@ -140,6 +140,10 @@ textarea:focus {
   padding: 18px;
 }
 
+.catalog-panel {
+  grid-column: 1 / -1;
+}
+
 .panel-head {
   display: flex;
   gap: 12px;
@@ -199,6 +203,10 @@ button:disabled {
   gap: 10px;
 }
 
+.catalog-actions {
+  grid-template-columns: 1fr 1fr;
+}
+
 .output {
   max-height: 300px;
   overflow: auto;
@@ -212,7 +220,9 @@ button:disabled {
 }
 
 .criteria-list,
-.tradeoff-list {
+.tradeoff-list,
+.metric-weight-list,
+.catalog-result {
   display: grid;
   gap: 10px;
 }
@@ -261,6 +271,158 @@ button:disabled {
   accent-color: #116b5f;
 }
 
+.split-fields {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+}
+
+.empty-state {
+  border: 1px solid #e0e6ee;
+  border-radius: 6px;
+  background: #fbfcfe;
+  color: #5f6b7a;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.error-state {
+  border-color: #f4b4b4;
+  background: #fff5f5;
+  color: #a33a3a;
+}
+
+.metric-weight {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 32px minmax(160px, 280px);
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e0e6ee;
+  border-radius: 6px;
+  background: #fbfcfe;
+  padding: 10px 12px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.metric-weight strong {
+  color: #116b5f;
+  text-align: center;
+}
+
+.metric-weight input {
+  padding: 0;
+  accent-color: #116b5f;
+}
+
+.recommendation,
+.ranking,
+.catalog-details {
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+
+.recommendation h3 {
+  margin: 10px 0 0;
+  font-size: 22px;
+}
+
+.recommendation p {
+  line-height: 1.5;
+}
+
+.ranking {
+  display: grid;
+  gap: 10px;
+}
+
+.ranking-head,
+.ranking-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ranking-head span {
+  color: #5f6b7a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ranking-row {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #e0e6ee;
+  border-radius: 6px;
+  background: #fbfcfe;
+  padding: 12px;
+}
+
+.ranking-title span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #e7f6f2;
+  color: #116b5f;
+  font-weight: 800;
+}
+
+.ranking-title strong {
+  flex: 1;
+}
+
+.ranking-title b {
+  color: #116b5f;
+}
+
+.metric-score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+
+.metric-score {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #e1e8f0;
+  border-radius: 6px;
+  background: #fff;
+  padding: 10px;
+}
+
+.metric-score span {
+  color: #344054;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.metric-score strong {
+  color: #116b5f;
+  font-size: 18px;
+}
+
+.metric-score small {
+  color: #5f6b7a;
+  line-height: 1.4;
+}
+
+.catalog-details summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.catalog-details .output {
+  margin: 12px 0 0;
+}
+
 .tradeoff-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -292,7 +454,9 @@ button:disabled {
   .workflow,
   .tradeoff-options,
   .criterion,
-  .button-row {
+  .button-row,
+  .split-fields,
+  .metric-weight {
     grid-template-columns: 1fr;
   }
 
