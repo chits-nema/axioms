@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+ 
+# Frontend
+DataNova/node_modules/
+DataNova/.astro/
+DataNova/dist/
+ 
+# Git
+.git/
+.gitignore
+ 
+# Misc
+*.md
+.DS_Store
+ 
