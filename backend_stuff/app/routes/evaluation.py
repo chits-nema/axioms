@@ -71,7 +71,7 @@ def evaluate(request: EvaluateRequest, export_pdf: bool =False):
         return Response(
             content=pdf_bytes,
             media_type="application/pdf",
-            headers={"Content-Disposition": "attachment; filename=evaluation_report.pdf"}
+            headers={"Content-Disposition": "attachment; filename=axiom_evaluation_report.pdf"}
         )
 
     return {

@@ -1,0 +1,95 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "api_extensibility",
+      "category": "functional",
+      "label": "API & Integration",
+      "description": "Ability to integrate with existing supermarket software stacks and custom fields.",
+      "score": 3
+    },
+    {
+      "key": "latency_performance",
+      "category": "functional",
+      "label": "System Latency",
+      "description": "Response time for CRM operations to ensure high productivity for the IT team.",
+      "score": 5
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Total cost including licensing, modules, and potential bandwidth/egress fees.",
+      "score": 5
+    },
+    {
+      "key": "payment_flexibility",
+      "category": "financial",
+      "label": "Payment Terms",
+      "description": "Alignment of payment terms (e.g., 14 vs 60 days) with internal cash flow.",
+      "score": 2
+    },
+    {
+      "key": "gdpr_compliance_depth",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Strict adherence to GDPR Art. 28 and data processing requirements under German law.",
+      "score": 5
+    },
+    {
+      "key": "support_availability",
+      "category": "risks",
+      "label": "Support SLA",
+      "description": "Availability of technical support (e.g., 24/7 vs business hours) and response time guarantees.",
+      "score": 1
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Guarantee that data is hosted within Germany or the EU to satisfy legal constraints.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "strategic",
+      "label": "Vendor Stability",
+      "description": "Long-term viability of the vendor to support the CRM platform for the software company.",
+      "score": 4
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "api_extensibility"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "gdpr_compliance_depth"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "gdpr_compliance_depth"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "gdpr_compliance_depth"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "data_residency"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "api_extensibility"
+    },
+    {
+      "question_id": "tradeoff_8",
+      "selected_key": "vendor_stability"
+    }
+  ]
+}

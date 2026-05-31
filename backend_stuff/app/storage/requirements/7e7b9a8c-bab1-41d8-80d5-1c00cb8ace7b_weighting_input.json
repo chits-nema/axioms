@@ -1,0 +1,84 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "system_latency",
+      "category": "functional",
+      "label": "System Latency",
+      "description": "Ability to maintain sub-100ms response times for core CRM operations.",
+      "score": 4
+    },
+    {
+      "key": "feature_completeness",
+      "category": "functional",
+      "label": "Feature Set",
+      "description": "Availability of integrated ticketing, knowledge base, and analytics modules.",
+      "score": 2
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Total expenditure including licensing, implementation, and support within the 20k budget.",
+      "score": 5
+    },
+    {
+      "key": "payment_flexibility",
+      "category": "financial",
+      "label": "Payment Terms",
+      "description": "Alignment of payment cycles with internal cash flow (e.g., 60 days net).",
+      "score": 4
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Strict adherence to GDPR Art. 28 and German data protection regulations.",
+      "score": 5
+    },
+    {
+      "key": "support_availability",
+      "category": "risks",
+      "label": "Support SLA",
+      "description": "Availability of technical support during CET business hours or beyond.",
+      "score": 2
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Requirement for data to be hosted within Germany or the EU to satisfy legal constraints.",
+      "score": 5
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "system_latency"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "data_residency"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "data_residency"
+    }
+  ]
+}
