@@ -699,8 +699,12 @@ const activeRoute = backendRoutes.find(route =>
 
         state.handoff = handoff;
         state.evaluation = result;
-        renderEvaluation(result);
-        showQuotationView('evaluation');
+        sessionStorage.setItem('axiom_evaluation_result', JSON.stringify(result));
+        sessionStorage.setItem('axiom_evaluation_request', JSON.stringify({
+          weighting_input_storage_path: handoff.weighting_input_storage_path,
+          normalised_storage_paths: state.normalisedResults.map(n => n.normalised_storage_path),
+        }));
+        window.location.href = '/results';
         updateQuotationState();
       });
     });
@@ -1341,7 +1345,9 @@ const activeRoute = backendRoutes.find(route =>
         });
 
         state.result = result;
-        renderResult(result);
+        sessionStorage.setItem('axiom_evaluation_result', JSON.stringify(result));
+        sessionStorage.setItem('axiom_evaluation_request', JSON.stringify(null));
+        window.location.href = '/results';
       });
     });
 
