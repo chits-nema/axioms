@@ -1,0 +1,120 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "sofware system",
+    "organisation_context": "No category filter selected. No vendor filter selected.",
+    "success_factors": [
+      "sastainability .",
+      "Low cost",
+      "Select the strongest vendor for sofware system."
+    ],
+    "constraints": [
+      "long contracts"
+    ],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "core_functionality",
+      "category": "functional",
+      "label": "Core Functionality",
+      "description": "Ability of the software to meet primary operational requirements.",
+      "score": 5
+    },
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Estimated time and resources required for deployment and onboarding.",
+      "score": 3
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Comprehensive cost including licensing, maintenance, and support.",
+      "score": 5
+    },
+    {
+      "key": "contract_flexibility",
+      "category": "risks",
+      "label": "Contract Flexibility",
+      "description": "Ability to avoid long-term lock-in and negotiate favorable termination terms.",
+      "score": 4
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and market longevity of the software provider.",
+      "score": 4
+    },
+    {
+      "key": "sustainability_rating",
+      "category": "strategic",
+      "label": "Sustainability Rating",
+      "description": "Vendor's commitment to carbon reduction and sustainable operations.",
+      "score": 3
+    },
+    {
+      "key": "strategic_alignment",
+      "category": "strategic",
+      "label": "Strategic Alignment",
+      "description": "How well the vendor's roadmap aligns with long-term organizational goals.",
+      "score": 4
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "core_functionality",
+        "category": "functional",
+        "label": "Core Functionality",
+        "description": "Ability of the software to meet primary operational requirements.",
+        "score": 5
+      },
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Estimated time and resources required for deployment and onboarding.",
+        "score": 3
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "Total Cost of Ownership",
+        "description": "Comprehensive cost including licensing, maintenance, and support.",
+        "score": 5
+      },
+      {
+        "key": "contract_flexibility",
+        "category": "risks",
+        "label": "Contract Flexibility",
+        "description": "Ability to avoid long-term lock-in and negotiate favorable termination terms.",
+        "score": 4
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and market longevity of the software provider.",
+        "score": 4
+      },
+      {
+        "key": "sustainability_rating",
+        "category": "strategic",
+        "label": "Sustainability Rating",
+        "description": "Vendor's commitment to carbon reduction and sustainable operations.",
+        "score": 3
+      },
+      {
+        "key": "strategic_alignment",
+        "category": "strategic",
+        "label": "Strategic Alignment",
+        "description": "How well the vendor's roadmap aligns with long-term organizational goals.",
+        "score": 4
+      }
+    ]
+  }
+}

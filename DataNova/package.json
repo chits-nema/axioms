@@ -34,6 +34,7 @@
     "astro-font": "^1.1.0",
     "astro-seo": "^1.1.0",
     "astro-seo-schema": "^6.0.0",
+    "axios": "^1.16.1",
     "mdast-util-to-string": "^4.0.0",
     "preline": "^4.2.0",
     "react": "^19.2.6",

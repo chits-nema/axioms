@@ -1,0 +1,83 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "api_integration_capability",
+      "category": "functional",
+      "label": "API Integration",
+      "description": "Ability to provide seamless, low-latency API connectivity for software development workflows.",
+      "score": 5
+    },
+    {
+      "key": "system_latency",
+      "category": "functional",
+      "label": "Latency Performance",
+      "description": "System responsiveness and data retrieval speeds to ensure developer productivity.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost",
+      "description": "All-in cost including licensing, implementation, and support, evaluated against the 20,000 EUR budget.",
+      "score": 5
+    },
+    {
+      "key": "payment_terms_flexibility",
+      "category": "financial",
+      "label": "Payment Terms",
+      "description": "Alignment of payment schedules with internal cash flow requirements.",
+      "score": 2
+    },
+    {
+      "key": "gdpr_compliance_depth",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Strict adherence to German and EU data protection laws, specifically GDPR Art. 28.",
+      "score": 5
+    },
+    {
+      "key": "data_security_standards",
+      "category": "risks",
+      "label": "Security Standards",
+      "description": "Presence of robust security certifications (e.g., ISO 27001) and encryption protocols.",
+      "score": 4
+    },
+    {
+      "key": "vendor_support_sla",
+      "category": "risks",
+      "label": "Support SLA",
+      "description": "Quality of technical support and incident response times.",
+      "score": 1
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Guarantee that data is hosted within Germany or the EU to meet legal requirements.",
+      "score": 5
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "api_integration_capability"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "gdpr_compliance_depth"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "gdpr_compliance_depth"
+    }
+  ]
+}

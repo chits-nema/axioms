@@ -1,0 +1,131 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "software system",
+    "organisation_context": "Catalogue RAG purchase flow. No category filter selected. No vendor filter selected.",
+    "success_factors": [
+      "Select the strongest vendor for software system.",
+      "Use catalogue evidence and buyer priorities to define scoring criteria."
+    ],
+    "constraints": [],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "rag_accuracy",
+      "category": "functional",
+      "label": "RAG Accuracy",
+      "description": "Precision and relevance of retrieved information in the catalogue search results.",
+      "score": 5
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "System Integration",
+      "description": "Ease of connecting with existing catalogue data sources and APIs.",
+      "score": 4
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Recurring annual or monthly licensing fees.",
+      "score": 4
+    },
+    {
+      "key": "implementation_effort",
+      "category": "financial",
+      "label": "Implementation Effort",
+      "description": "Estimated professional services and internal resource hours required for deployment.",
+      "score": 3
+    },
+    {
+      "key": "security_compliance",
+      "category": "risks",
+      "label": "Security & Compliance",
+      "description": "Adherence to data protection standards and enterprise security protocols.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and long-term viability of the software provider.",
+      "score": 3
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment with long-term digital transformation and catalogue management goals.",
+      "score": 4
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Ability to host and process data within required geographic boundaries.",
+      "score": 4
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "rag_accuracy",
+        "category": "functional",
+        "label": "RAG Accuracy",
+        "description": "Precision and relevance of retrieved information in the catalogue search results.",
+        "score": 5
+      },
+      {
+        "key": "integration_capability",
+        "category": "functional",
+        "label": "System Integration",
+        "description": "Ease of connecting with existing catalogue data sources and APIs.",
+        "score": 4
+      },
+      {
+        "key": "subscription_cost",
+        "category": "financial",
+        "label": "Subscription Cost",
+        "description": "Recurring annual or monthly licensing fees.",
+        "score": 4
+      },
+      {
+        "key": "implementation_effort",
+        "category": "financial",
+        "label": "Implementation Effort",
+        "description": "Estimated professional services and internal resource hours required for deployment.",
+        "score": 3
+      },
+      {
+        "key": "security_compliance",
+        "category": "risks",
+        "label": "Security & Compliance",
+        "description": "Adherence to data protection standards and enterprise security protocols.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and long-term viability of the software provider.",
+        "score": 3
+      },
+      {
+        "key": "strategic_fit",
+        "category": "strategic",
+        "label": "Strategic Fit",
+        "description": "Alignment with long-term digital transformation and catalogue management goals.",
+        "score": 4
+      },
+      {
+        "key": "data_residency",
+        "category": "strategic",
+        "label": "Data Residency",
+        "description": "Ability to host and process data within required geographic boundaries.",
+        "score": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "CRM system",
+    "organisation_context": "Category: crm. No vendor filter selected.",
+    "success_factors": [
+      "Select the strongest vendor for CRM system."
+    ],
+    "constraints": [
+      "Only consider catalogue category crm."
+    ],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "core_crm_features",
+      "category": "functional",
+      "label": "Core CRM Features",
+      "description": "Completeness of lead management, pipeline tracking, and contact management modules.",
+      "score": 5
+    },
+    {
+      "key": "system_integrations",
+      "category": "functional",
+      "label": "Integrations",
+      "description": "Ability to integrate with existing email, marketing automation, and ERP systems.",
+      "score": 4
+    },
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Estimated time and technical resources required for deployment and data migration.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Combined cost of licensing, implementation, training, and ongoing maintenance over 3 years.",
+      "score": 5
+    },
+    {
+      "key": "security_compliance",
+      "category": "risks",
+      "label": "Security & Compliance",
+      "description": "Adherence to SOC2, GDPR, and internal data protection standards.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and market longevity of the CRM provider.",
+      "score": 3
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment with long-term digital transformation goals and scalability requirements.",
+      "score": 4
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "core_crm_features",
+        "category": "functional",
+        "label": "Core CRM Features",
+        "description": "Completeness of lead management, pipeline tracking, and contact management modules.",
+        "score": 5
+      },
+      {
+        "key": "system_integrations",
+        "category": "functional",
+        "label": "Integrations",
+        "description": "Ability to integrate with existing email, marketing automation, and ERP systems.",
+        "score": 4
+      },
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Estimated time and technical resources required for deployment and data migration.",
+        "score": 4
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "TCO",
+        "description": "Combined cost of licensing, implementation, training, and ongoing maintenance over 3 years.",
+        "score": 5
+      },
+      {
+        "key": "security_compliance",
+        "category": "risks",
+        "label": "Security & Compliance",
+        "description": "Adherence to SOC2, GDPR, and internal data protection standards.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and market longevity of the CRM provider.",
+        "score": 3
+      },
+      {
+        "key": "strategic_fit",
+        "category": "strategic",
+        "label": "Strategic Fit",
+        "description": "Alignment with long-term digital transformation goals and scalability requirements.",
+        "score": 4
+      }
+    ]
+  }
+}

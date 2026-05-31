@@ -1,0 +1,121 @@
+{
+  "file_id": "1cf64570-81c1-432d-b214-6a0a8ca8947d",
+  "kind": "quotation",
+  "source_pdf": "/home/nayachewsudon/axioms/backend_stuff/app/storage/uploads/1cf64570-81c1-432d-b214-6a0a8ca8947d.pdf",
+  "normalised": {
+    "vendor_name": "CustomerFirst GmbH",
+    "currency": "EUR",
+    "quote_valid_until": "2026-09-26",
+    "shipping_cost": 0.0,
+    "discount": 0.0,
+    "payment_terms": "60 days net",
+    "items": [
+      {
+        "product_name": "CRM Suite \u2014 Professional (100 users)",
+        "sku": "CF-PRO-100",
+        "quantity": 1.0,
+        "unit_price": 15600.0,
+        "total_price": 15600.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Best-value tier; unlimited storage, API calls & custom fields"
+      },
+      {
+        "product_name": "Customer Service Module",
+        "sku": "CF-CS-MOD",
+        "quantity": 1.0,
+        "unit_price": 7200.0,
+        "total_price": 7200.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Ticketing, live chat, and knowledge base included"
+      },
+      {
+        "product_name": "Analytics & Reporting Dashboard",
+        "sku": "CF-ANALYTICS",
+        "quantity": 1.0,
+        "unit_price": 4800.0,
+        "total_price": 4800.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "50+ pre-built reports; drag-and-drop builder"
+      }
+    ],
+    "risk_flags": [
+      "Support limited to business hours (CET)",
+      "E&OE (Errors and Omissions Excepted)",
+      "Uptime SLA 99.5%",
+      "Incident SLA 120 min"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "CustomerFirst GmbH",
+    "currency": "EUR",
+    "quote_valid_until": "2026-09-26",
+    "shipping_cost": 0,
+    "discount": 0,
+    "payment_terms": "60 days net",
+    "items": [
+      {
+        "product_name": "CRM Suite \u2014 Professional (100 users)",
+        "sku": "CF-PRO-100",
+        "quantity": 1,
+        "unit_price": 15600.0,
+        "total_price": 15600.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Best-value tier; unlimited storage, API calls & custom fields"
+      },
+      {
+        "product_name": "Customer Service Module",
+        "sku": "CF-CS-MOD",
+        "quantity": 1,
+        "unit_price": 7200.0,
+        "total_price": 7200.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "Ticketing, live chat, and knowledge base included"
+      },
+      {
+        "product_name": "Analytics & Reporting Dashboard",
+        "sku": "CF-ANALYTICS",
+        "quantity": 1,
+        "unit_price": 4800.0,
+        "total_price": 4800.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "ISO 27001",
+          "GDPR Art. 28"
+        ],
+        "notes": "50+ pre-built reports; drag-and-drop builder"
+      }
+    ],
+    "risk_flags": [
+      "Support limited to business hours (CET)",
+      "E&OE (Errors and Omissions Excepted)",
+      "Uptime SLA 99.5%",
+      "Incident SLA 120 min"
+    ]
+  }
+}

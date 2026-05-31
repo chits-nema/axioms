@@ -1,0 +1,131 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "cloude system",
+    "organisation_context": "Catalogue RAG purchase flow. No category filter selected. No vendor filter selected.",
+    "success_factors": [
+      "Select the strongest vendor for cloude system.",
+      "Use catalogue evidence and buyer priorities to define scoring criteria."
+    ],
+    "constraints": [],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "rag_accuracy",
+      "category": "functional",
+      "label": "RAG Accuracy",
+      "description": "Precision and relevance of retrieved context in generated responses.",
+      "score": 5
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ease of connecting with existing enterprise data sources and APIs.",
+      "score": 4
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Recurring monthly or annual licensing fees.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Combined costs of implementation, maintenance, and usage over 3 years.",
+      "score": 3
+    },
+    {
+      "key": "security_compliance",
+      "category": "risks",
+      "label": "Security Compliance",
+      "description": "Adherence to SOC2, ISO 27001, and enterprise-grade encryption standards.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and market longevity of the provider.",
+      "score": 3
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Ability to host and process data within specific geographic regions.",
+      "score": 4
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment with long-term AI roadmap and enterprise architecture goals.",
+      "score": 3
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "rag_accuracy",
+        "category": "functional",
+        "label": "RAG Accuracy",
+        "description": "Precision and relevance of retrieved context in generated responses.",
+        "score": 5
+      },
+      {
+        "key": "integration_capability",
+        "category": "functional",
+        "label": "Integration Capability",
+        "description": "Ease of connecting with existing enterprise data sources and APIs.",
+        "score": 4
+      },
+      {
+        "key": "subscription_cost",
+        "category": "financial",
+        "label": "Subscription Cost",
+        "description": "Recurring monthly or annual licensing fees.",
+        "score": 4
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "TCO",
+        "description": "Combined costs of implementation, maintenance, and usage over 3 years.",
+        "score": 3
+      },
+      {
+        "key": "security_compliance",
+        "category": "risks",
+        "label": "Security Compliance",
+        "description": "Adherence to SOC2, ISO 27001, and enterprise-grade encryption standards.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and market longevity of the provider.",
+        "score": 3
+      },
+      {
+        "key": "data_residency",
+        "category": "strategic",
+        "label": "Data Residency",
+        "description": "Ability to host and process data within specific geographic regions.",
+        "score": 4
+      },
+      {
+        "key": "strategic_fit",
+        "category": "strategic",
+        "label": "Strategic Fit",
+        "description": "Alignment with long-term AI roadmap and enterprise architecture goals.",
+        "score": 3
+      }
+    ]
+  }
+}

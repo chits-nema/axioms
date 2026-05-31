@@ -1,0 +1,136 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "storage for the company",
+    "organisation_context": "300 employee company working on data visualization Category: cloud_storage. No vendor filter selected.",
+    "success_factors": [
+      "reliable storage",
+      "Sustainability.",
+      "pricing",
+      "Select the strongest vendor for storage for the company."
+    ],
+    "constraints": [
+      "Confidentiality",
+      "Only consider catalogue category cloud_storage."
+    ],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "data_reliability",
+      "category": "functional",
+      "label": "Data Reliability",
+      "description": "Guaranteed uptime and durability metrics for stored data assets.",
+      "score": 5
+    },
+    {
+      "key": "scalability",
+      "category": "functional",
+      "label": "Scalability",
+      "description": "Ability to handle increasing data volumes from visualization workloads without performance degradation.",
+      "score": 4
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Monthly or annual recurring costs for storage capacity and egress fees.",
+      "score": 5
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Comprehensive cost including storage, data transfer, and management overhead.",
+      "score": 4
+    },
+    {
+      "key": "security_confidentiality",
+      "category": "risks",
+      "label": "Security & Confidentiality",
+      "description": "Encryption standards and access control mechanisms to ensure data privacy.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and market longevity of the cloud storage provider.",
+      "score": 3
+    },
+    {
+      "key": "sustainability",
+      "category": "strategic",
+      "label": "Sustainability",
+      "description": "Carbon footprint of data centers and commitment to renewable energy usage.",
+      "score": 4
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Ability to control the geographic location of stored data to meet compliance requirements.",
+      "score": 3
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "data_reliability",
+        "category": "functional",
+        "label": "Data Reliability",
+        "description": "Guaranteed uptime and durability metrics for stored data assets.",
+        "score": 5
+      },
+      {
+        "key": "scalability",
+        "category": "functional",
+        "label": "Scalability",
+        "description": "Ability to handle increasing data volumes from visualization workloads without performance degradation.",
+        "score": 4
+      },
+      {
+        "key": "subscription_cost",
+        "category": "financial",
+        "label": "Subscription Cost",
+        "description": "Monthly or annual recurring costs for storage capacity and egress fees.",
+        "score": 5
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "TCO",
+        "description": "Comprehensive cost including storage, data transfer, and management overhead.",
+        "score": 4
+      },
+      {
+        "key": "security_confidentiality",
+        "category": "risks",
+        "label": "Security & Confidentiality",
+        "description": "Encryption standards and access control mechanisms to ensure data privacy.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and market longevity of the cloud storage provider.",
+        "score": 3
+      },
+      {
+        "key": "sustainability",
+        "category": "strategic",
+        "label": "Sustainability",
+        "description": "Carbon footprint of data centers and commitment to renewable energy usage.",
+        "score": 4
+      },
+      {
+        "key": "data_residency",
+        "category": "strategic",
+        "label": "Data Residency",
+        "description": "Ability to control the geographic location of stored data to meet compliance requirements.",
+        "score": 3
+      }
+    ]
+  }
+}

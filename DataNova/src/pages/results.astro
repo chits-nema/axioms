@@ -1,0 +1,360 @@
+---
+export const prerender = false;
+import BaseLayout from '@layout/BaseLayout.astro';
+import { apiBaseUrl } from '@/lib/api';
+---
+
+<BaseLayout
+  chrome={false}
+  landingFonts={true}
+  seo={{
+    title: 'Evaluation Results - Axiom',
+    description: 'Vendor evaluation results and comparison matrix.',
+  }}
+>
+  <div
+    class="min-h-screen bg-off-white text-slate-900"
+    style="font-family: 'Inter', system-ui, sans-serif"
+  >
+    <header class="mx-auto flex max-w-7xl items-center justify-between px-6 pt-6 sm:px-10">
+      <a href="/" class="flex items-center gap-2" aria-label="Axiom home">
+        <div class="h-2 w-2 rounded-full bg-teal-700" aria-hidden="true"></div>
+        <span
+          class="text-xl tracking-tight italic text-slate-950"
+          style="font-family: 'Instrument Serif', serif"
+        >Axiom</span>
+      </a>
+      <nav class="hidden items-center gap-8 text-sm md:flex">
+        <a href="/#how" class="transition-colors hover:text-teal-700">How it works</a>
+        <a href="/#tracks" class="transition-colors hover:text-teal-700">Tracks</a>
+        <a href="/decision?mode=quotations" class="transition-colors hover:text-teal-700">Quotations</a>
+        <a href="/decision?mode=catalogue" class="transition-colors hover:text-teal-700">Catalogue</a>
+      </nav>
+      <a
+        href="/decision?mode=quotations"
+        class="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+      >
+        New evaluation
+      </a>
+    </header>
+
+    <section class="mx-auto max-w-7xl px-6 pt-16 pb-20 sm:px-10 sm:pt-20">
+
+      <!-- No result state -->
+      <div id="noResult" hidden class="hidden">
+        <div class="rounded-2xl border border-slate-200 bg-white p-10 text-center">
+          <p class="text-sm text-slate-500">No evaluation result found.</p>
+          <a
+            href="/decision?mode=quotations"
+            class="mt-6 inline-block rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800"
+          >
+            Start an evaluation
+          </a>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="resultsContent" hidden class="hidden grid gap-10">
+
+        <!-- Header -->
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs tracking-[0.18em] uppercase text-slate-500">
+              <span class="h-1.5 w-1.5 rounded-full bg-teal-700"></span>
+              Evaluation results
+            </div>
+            <h1
+              class="mt-4 text-5xl leading-[1.02] tracking-tight text-slate-950 sm:text-6xl"
+              style="font-family: 'Instrument Serif', serif"
+              id="resultsTitle"
+            >
+              Vendor ranking
+            </h1>
+            <p class="mt-3 text-sm text-slate-500" id="resultsSubtitle"></p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href="/decision?mode=quotations"
+              class="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+            >
+              ← Back to workspace
+            </a>
+            <button
+              id="downloadPdfButton"
+              type="button"
+              class="rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+            >
+              Download PDF report
+            </button>
+          </div>
+        </div>
+
+        <!-- Recommendation card -->
+        <div
+          id="recommendationCard"
+          class="overflow-hidden rounded-2xl border border-teal-200 bg-white shadow-[0_30px_80px_-40px_rgba(15,118,110,0.25)]"
+        >
+          <div class="border-b border-teal-100 bg-teal-50 px-6 py-5">
+            <div class="text-[10px] tracking-[0.3em] uppercase text-teal-700">Recommendation</div>
+            <h2
+              id="recommendedVendor"
+              class="mt-3 text-4xl leading-tight text-slate-950"
+              style="font-family: 'Instrument Serif', serif"
+            ></h2>
+          </div>
+          <div class="grid gap-4 p-6 sm:grid-cols-2">
+            <div>
+              <div class="text-[10px] tracking-[0.22em] uppercase text-slate-500">Reasoning</div>
+              <p id="recommendationReasoning" class="mt-2 text-sm leading-6 text-slate-700"></p>
+            </div>
+            <div>
+              <div class="text-[10px] tracking-[0.22em] uppercase text-slate-500">Trade-offs</div>
+              <p id="recommendationTradeoffs" class="mt-2 text-sm leading-6 text-slate-700"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison matrix -->
+        <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          <div class="border-b border-slate-200 px-6 py-5">
+            <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">Comparison matrix</div>
+            <h2
+              class="mt-3 text-3xl text-slate-950"
+              style="font-family: 'Instrument Serif', serif"
+            >
+              Score breakdown
+            </h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm" id="matrixTable">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50" id="matrixHead"></tr>
+              </thead>
+              <tbody id="matrixBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Vendor cards -->
+        <div>
+          <div class="mb-5 flex items-center justify-between gap-3">
+            <h2 class="text-sm font-medium text-slate-950">Detailed vendor profiles</h2>
+            <span id="metricsCount" class="text-[10px] tracking-[0.22em] uppercase text-slate-500"></span>
+          </div>
+          <div id="vendorCards" class="grid gap-5"></div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline define:vars={{ apiBaseUrl }}>
+  const serif = "font-family: 'Instrument Serif', serif";
+
+  function init() {
+    const raw = sessionStorage.getItem('axiom_evaluation_result');
+    const request = sessionStorage.getItem('axiom_evaluation_request');
+
+    if (!raw) {
+      document.querySelector('#noResult').hidden = false;
+      document.querySelector('#noResult').classList.remove('hidden');
+      return;
+    }
+
+    const result = JSON.parse(raw);
+    const requestData = request ? JSON.parse(request) : null;
+
+    document.querySelector('#resultsContent').hidden = false;
+    document.querySelector('#resultsContent').classList.remove('hidden');
+
+    renderRecommendation(result);
+    renderMatrix(result);
+    renderVendorCards(result);
+
+    document.querySelector('#downloadPdfButton').addEventListener('click', async () => {
+      if (!requestData) {
+        alert('Cannot generate PDF — original request data not found.');
+        return;
+      }
+
+      const btn = document.querySelector('#downloadPdfButton');
+      btn.disabled = true;
+      btn.textContent = 'Generating PDF...';
+
+      try {
+       const response = await fetch(`${apiBaseUrl}/evaluate?export_pdf=true`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData),
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'axiom_evaluation_report.pdf';
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        alert(`PDF generation failed: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Download PDF report';
+      }
+    });
+  }
+
+  function renderRecommendation(result) {
+    const rec = result.recommendation ?? {};
+    const rankings = result.rankings ?? result.evaluation_results ?? [];
+
+    document.querySelector('#resultsTitle').textContent =
+      rankings.length === 1 ? 'Vendor evaluation' : `${rankings.length} vendors ranked`;
+    document.querySelector('#resultsSubtitle').textContent =
+      `${inferMetrics(rankings).length} metrics evaluated`;
+
+    document.querySelector('#recommendedVendor').textContent =
+      rec.recommended_vendor ?? rec.recommend_vendor ?? rec.vendor ?? 'See ranking below';
+    document.querySelector('#recommendationReasoning').textContent =
+      rec.reasoning ?? rec.summary ?? '—';
+    document.querySelector('#recommendationTradeoffs').textContent =
+      rec.trade_offs ?? rec.tradeoffs ?? '—';
+  }
+
+  function renderMatrix(result) {
+    const rows = result.rankings ?? result.evaluation_results ?? [];
+    const metrics = inferMetrics(rows);
+
+    if (!rows.length) return;
+
+    // Header
+    const head = document.querySelector('#matrixHead');
+    head.innerHTML = `
+      <th class="px-5 py-4 text-left text-[10px] tracking-[0.22em] uppercase text-slate-500 font-medium">Vendor</th>
+      ${metrics.map(m => `
+        <th class="px-5 py-4 text-left text-[10px] tracking-[0.22em] uppercase text-slate-500 font-medium whitespace-nowrap">
+          ${escapeHtml(m.replaceAll('_', ' '))}
+        </th>
+      `).join('')}
+      <th class="px-5 py-4 text-left text-[10px] tracking-[0.22em] uppercase text-slate-500 font-medium">Score</th>
+    `;
+
+    // Body
+    const body = document.querySelector('#matrixBody');
+    const maxScore = Math.max(...rows.map(r => Number(r.weighted_score ?? r.final_weighted_score ?? 0)));
+
+    body.innerHTML = rows.map((row, index) => {
+      const score = row.weighted_score ?? row.final_weighted_score ?? 'n/a';
+      const isTop = index === 0;
+
+      return `
+        <tr class="border-b border-slate-100 ${isTop ? 'bg-teal-50/40' : 'hover:bg-slate-50'} transition-colors">
+          <td class="px-5 py-4">
+            <div class="flex items-center gap-3">
+              <span class="grid size-6 shrink-0 place-items-center rounded-full ${isTop ? 'bg-teal-700 text-white' : 'border border-slate-200 bg-white text-slate-500'} text-xs font-medium">
+                ${index + 1}
+              </span>
+              <span class="font-medium text-slate-950">${escapeHtml(row.vendor ?? row.vendor_name ?? 'Unknown')}</span>
+            </div>
+          </td>
+          ${metrics.map(m => {
+            const s = row[m];
+            const pct = s != null ? (Number(s) / 10) * 100 : 0;
+            return `
+              <td class="px-5 py-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 text-sm font-medium ${Number(s) >= 7 ? 'text-teal-700' : Number(s) >= 4 ? 'text-slate-700' : 'text-red-500'}">${s ?? '—'}</span>
+                  <div class="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                    <div class="h-full rounded-full ${Number(s) >= 7 ? 'bg-teal-600' : Number(s) >= 4 ? 'bg-slate-400' : 'bg-red-400'}" style="width: ${pct}%"></div>
+                  </div>
+                </div>
+              </td>
+            `;
+          }).join('')}
+          <td class="px-5 py-4">
+            <span class="text-sm font-semibold ${isTop ? 'text-teal-700' : 'text-slate-700'}">${score}</span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function renderVendorCards(result) {
+    const rows = result.rankings ?? result.evaluation_results ?? [];
+    const metrics = inferMetrics(rows);
+    const container = document.querySelector('#vendorCards');
+
+    document.querySelector('#metricsCount').textContent = `${metrics.length} metrics`;
+
+    container.innerHTML = rows.map((row, index) => {
+      const score = row.weighted_score ?? row.final_weighted_score ?? 'n/a';
+      const isTop = index === 0;
+
+      return `
+        <article class="overflow-hidden rounded-2xl border ${isTop ? 'border-teal-200' : 'border-slate-200'} bg-white">
+          <div class="flex items-center justify-between gap-4 border-b ${isTop ? 'border-teal-100 bg-teal-50' : 'border-slate-100'} px-6 py-5">
+            <div class="flex items-center gap-3">
+              <span class="grid size-8 place-items-center rounded-full ${isTop ? 'bg-teal-700 text-white' : 'border border-slate-200 bg-white text-slate-500'} text-sm font-medium">
+                ${index + 1}
+              </span>
+              <h3 class="text-lg font-medium text-slate-950">${escapeHtml(row.vendor ?? row.vendor_name ?? 'Unknown')}</h3>
+              ${isTop ? '<span class="rounded-full bg-teal-700 px-3 py-1 text-[10px] font-medium tracking-[0.18em] uppercase text-white">Recommended</span>' : ''}
+            </div>
+            <b class="text-2xl font-semibold ${isTop ? 'text-teal-700' : 'text-slate-700'}">${score}</b>
+          </div>
+
+          <div class="grid gap-3 p-6 sm:grid-cols-2 lg:grid-cols-3">
+            ${metrics.map(metric => {
+              const s = row[metric];
+              const reasoning = row[`${metric}_reasoning`] ?? '';
+              const weighted = row[`${metric}_weighted`];
+              const scoreNum = Number(s);
+              const color = scoreNum >= 7 ? 'text-teal-700' : scoreNum >= 4 ? 'text-slate-700' : 'text-red-500';
+              const barColor = scoreNum >= 7 ? 'bg-teal-600' : scoreNum >= 4 ? 'bg-slate-400' : 'bg-red-400';
+              const pct = s != null ? (scoreNum / 10) * 100 : 0;
+
+              return `
+                <div class="grid gap-2 rounded-xl border border-slate-200 bg-off-white p-4">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-[10px] tracking-[0.18em] text-slate-500 uppercase">${escapeHtml(metric.replaceAll('_', ' '))}</span>
+                    ${weighted != null ? `<span class="text-[10px] text-slate-400">${weighted}</span>` : ''}
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <strong class="text-2xl font-semibold ${color}">${s ?? '—'}</strong>
+                    <div class="flex-1 h-1.5 overflow-hidden rounded-full bg-slate-200">
+                      <div class="h-full rounded-full ${barColor}" style="width: ${pct}%"></div>
+                    </div>
+                  </div>
+                  ${reasoning ? `<p class="text-xs leading-5 text-slate-500">${escapeHtml(reasoning)}</p>` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function inferMetrics(rows) {
+    const ignored = new Set(['vendor', 'index', 'vendor_name', 'weighted_score', 'final_weighted_score']);
+    return Object.keys(rows[0] ?? {}).filter(
+      key => !ignored.has(key) && !key.endsWith('_reasoning') && !key.endsWith('_weighted')
+    );
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

@@ -1,0 +1,120 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "Our team, the IT team, wants to buy laptop for the entire department. We are a team of 15 but we only have a budget of 14000 euros. Please help us find good laptops. The RAM must be 32 GB.",
+    "organisation_context": "We are a team of 15 people. Our company is a software company that makes software for supermarkets. Category: laptops. No vendor filter selected.",
+    "success_factors": [
+      "Good latency and bandwidth",
+      "Select the strongest vendor for Our team, the IT team, wants to buy laptop for the entire department. We are a team of 15 but we only have a budget of 14000 euros. Please help us find good laptops. The RAM must be 32 GB.."
+    ],
+    "constraints": [
+      "Comply with German law",
+      "Only consider catalogue category laptops."
+    ],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "ram_capacity",
+      "category": "functional",
+      "label": "RAM Capacity",
+      "description": "Must provide 32GB of RAM to support software development workloads.",
+      "score": 5
+    },
+    {
+      "key": "performance_latency",
+      "category": "functional",
+      "label": "Performance & Latency",
+      "description": "Processor and hardware capability to ensure low latency for development environments.",
+      "score": 4
+    },
+    {
+      "key": "unit_price",
+      "category": "financial",
+      "label": "Unit Price",
+      "description": "Cost per unit to ensure the total for 15 laptops remains under the 14,000 EUR budget.",
+      "score": 5
+    },
+    {
+      "key": "warranty_support",
+      "category": "financial",
+      "label": "Warranty & Support",
+      "description": "Cost and duration of hardware support included in the purchase price.",
+      "score": 3
+    },
+    {
+      "key": "german_compliance",
+      "category": "risks",
+      "label": "German Legal Compliance",
+      "description": "Hardware and vendor practices must comply with German consumer and data protection laws.",
+      "score": 5
+    },
+    {
+      "key": "vendor_reliability",
+      "category": "risks",
+      "label": "Vendor Reliability",
+      "description": "Stability of the vendor to provide consistent hardware and long-term support.",
+      "score": 3
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment of hardware durability and performance with the needs of a software development team.",
+      "score": 4
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "ram_capacity",
+        "category": "functional",
+        "label": "RAM Capacity",
+        "description": "Must provide 32GB of RAM to support software development workloads.",
+        "score": 5
+      },
+      {
+        "key": "performance_latency",
+        "category": "functional",
+        "label": "Performance & Latency",
+        "description": "Processor and hardware capability to ensure low latency for development environments.",
+        "score": 4
+      },
+      {
+        "key": "unit_price",
+        "category": "financial",
+        "label": "Unit Price",
+        "description": "Cost per unit to ensure the total for 15 laptops remains under the 14,000 EUR budget.",
+        "score": 5
+      },
+      {
+        "key": "warranty_support",
+        "category": "financial",
+        "label": "Warranty & Support",
+        "description": "Cost and duration of hardware support included in the purchase price.",
+        "score": 3
+      },
+      {
+        "key": "german_compliance",
+        "category": "risks",
+        "label": "German Legal Compliance",
+        "description": "Hardware and vendor practices must comply with German consumer and data protection laws.",
+        "score": 5
+      },
+      {
+        "key": "vendor_reliability",
+        "category": "risks",
+        "label": "Vendor Reliability",
+        "description": "Stability of the vendor to provide consistent hardware and long-term support.",
+        "score": 3
+      },
+      {
+        "key": "strategic_fit",
+        "category": "strategic",
+        "label": "Strategic Fit",
+        "description": "Alignment of hardware durability and performance with the needs of a software development team.",
+        "score": 4
+      }
+    ]
+  }
+}
