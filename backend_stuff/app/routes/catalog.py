@@ -1,15 +1,10 @@
-import json
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
 from app.catalogue_to_context.retriever import get_vendor_context
-from app.services.normaliser import (
-    NormalisationError,
-    call_llm_json,
-    generate_metrics_from_context,
-)
+from app.services.normaliser import NormalisationError, generate_metrics_from_context
 from app.weighted_metrics.matrix_calc import build_comparison_matrix
 from app.weighted_metrics.llm_scorer import recommend_vendor
 
@@ -22,18 +17,6 @@ class PurchaseRequest(BaseModel):
     metric_weights: dict[str, float] = Field(default_factory=dict, description="Optional metric weights.")
     category: str | None = Field(default=None, description="Optional catalogue category filter.")
     vendors: list[str] = Field(default_factory=list, description="Optional vendor filter.")
-
-
-class VendorScore(BaseModel):
-    vendor_name: str
-    scores: dict[str, int]
-    final_weighted_score: float
-    justification: str
-
-
-class FinalRecommendation(BaseModel):
-    rankings: list[VendorScore]
-    summary: str
 
 
 @router.post("/evaluate", response_model=dict[str, Any])
@@ -57,33 +40,39 @@ def evaluate_catalog_purchase(request: PurchaseRequest) -> dict[str, Any]:
             detail="No relevant vendor documents found in the catalogue.",
         )
 
-    context = "\n\n".join(
-        f"### VENDOR: {vendor} ###\n{snippets}" for vendor, snippets in vendor_data.items()
-    )
-    
     vendors = [{"name": vendor, "description": snippets} for vendor, snippets in vendor_data.items()]
-    criteria = [{"key": m, "label": m, "category": "functional", "description": "", "score": request.metric_weights.get(m, 3)} for m in metrics]
+    criteria = [
+        {
+            "key": metric,
+            "label": metric,
+            "category": "functional",
+            "description": "",
+            "score": request.metric_weights.get(metric, 3),
+        }
+        for metric in metrics
+    ]
 
-    try: 
+    try:
         matrix = build_comparison_matrix(
             vendors=vendors,
             criteria=criteria,
             quotations=[],
-            tradeoff_answers=[]
+            tradeoff_answers=[],
         )
-    except Exception as exc: 
+    except Exception as exc:
         raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=str(exc)) from exc
-    
+
     evaluation_results = matrix.reset_index().to_dict(orient="records")
-    recommendation = recommend_vendor(evaluation_results,criteria)
+    recommendation = recommend_vendor(evaluation_results, criteria)
     return {
-        "status": "success", 
+        "status": "success",
         "evaluated_product": request.product,
         "metrics_used": metrics,
         "generated_metrics_template": generated_metrics_template,
         "evaluation_results": evaluation_results,
-        "recommendation": recommendation
+        "recommendation": recommendation,
     }
+
 
 def _generate_metrics_for_catalog(request: PurchaseRequest) -> tuple[list[str], dict[str, Any]]:
     try:

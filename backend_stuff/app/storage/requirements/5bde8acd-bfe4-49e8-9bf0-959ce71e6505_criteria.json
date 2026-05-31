@@ -1,0 +1,132 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "what ever",
+    "organisation_context": "Category: crm. No vendor filter selected.",
+    "success_factors": [
+      "Select the strongest vendor for what ever."
+    ],
+    "constraints": [
+      "Only consider catalogue category crm."
+    ],
+    "normalised_quotations": []
+  },
+  "criteria": [
+    {
+      "key": "core_crm_features",
+      "category": "functional",
+      "label": "Core CRM Features",
+      "description": "Breadth and depth of lead management, pipeline tracking, and contact management capabilities.",
+      "score": 5
+    },
+    {
+      "key": "integration_ecosystem",
+      "category": "functional",
+      "label": "Integration Ecosystem",
+      "description": "Availability of native connectors for existing marketing and accounting software stacks.",
+      "score": 4
+    },
+    {
+      "key": "subscription_cost",
+      "category": "financial",
+      "label": "Subscription Cost",
+      "description": "Annual recurring licensing fees per user seat.",
+      "score": 4
+    },
+    {
+      "key": "implementation_effort",
+      "category": "financial",
+      "label": "Implementation Effort",
+      "description": "Estimated professional services costs and internal resource hours required for deployment.",
+      "score": 3
+    },
+    {
+      "key": "data_security",
+      "category": "risks",
+      "label": "Data Security",
+      "description": "Compliance with SOC2 Type II, encryption standards, and access control protocols.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and market longevity of the CRM provider.",
+      "score": 3
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment with long-term organizational goals for sales automation and customer experience.",
+      "score": 4
+    },
+    {
+      "key": "data_residency",
+      "category": "strategic",
+      "label": "Data Residency",
+      "description": "Ability to host and process customer data within specific geographic regions.",
+      "score": 3
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "core_crm_features",
+        "category": "functional",
+        "label": "Core CRM Features",
+        "description": "Breadth and depth of lead management, pipeline tracking, and contact management capabilities.",
+        "score": 5
+      },
+      {
+        "key": "integration_ecosystem",
+        "category": "functional",
+        "label": "Integration Ecosystem",
+        "description": "Availability of native connectors for existing marketing and accounting software stacks.",
+        "score": 4
+      },
+      {
+        "key": "subscription_cost",
+        "category": "financial",
+        "label": "Subscription Cost",
+        "description": "Annual recurring licensing fees per user seat.",
+        "score": 4
+      },
+      {
+        "key": "implementation_effort",
+        "category": "financial",
+        "label": "Implementation Effort",
+        "description": "Estimated professional services costs and internal resource hours required for deployment.",
+        "score": 3
+      },
+      {
+        "key": "data_security",
+        "category": "risks",
+        "label": "Data Security",
+        "description": "Compliance with SOC2 Type II, encryption standards, and access control protocols.",
+        "score": 5
+      },
+      {
+        "key": "vendor_stability",
+        "category": "risks",
+        "label": "Vendor Stability",
+        "description": "Financial health and market longevity of the CRM provider.",
+        "score": 3
+      },
+      {
+        "key": "strategic_fit",
+        "category": "strategic",
+        "label": "Strategic Fit",
+        "description": "Alignment with long-term organizational goals for sales automation and customer experience.",
+        "score": 4
+      },
+      {
+        "key": "data_residency",
+        "category": "strategic",
+        "label": "Data Residency",
+        "description": "Ability to host and process customer data within specific geographic regions.",
+        "score": 3
+      }
+    ]
+  }
+}

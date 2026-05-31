@@ -23,3 +23,5 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+\backend_stuff\app\weighted_metrics\llm_scorer.py
