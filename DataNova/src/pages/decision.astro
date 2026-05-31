@@ -1,60 +1,106 @@
 ---
 export const prerender = false;
 import BaseLayout from '@layout/BaseLayout.astro';
+import { apiBaseUrl, backendRoutes } from '@/lib/api';
 
 const mode = Astro.url.searchParams.get('mode');
 const isCatalogue = mode === 'catalogue';
 const selectedModeLabel = isCatalogue ? 'Catalogue RAG' : 'Upload quotations';
 const selectedModeDescription = isCatalogue
-  ? 'Evaluate vendors from the catalogue with retrieval, weighted metrics, and explainable rankings.'
-  : 'Start with uploaded quotations and convert vendor documents into structured evidence.';
-const apiBaseUrl = import.meta.env.PUBLIC_AXIOMS_API_URL ?? 'http://127.0.0.1:8000';
+  ? 'Search catalogue context, weight purchase criteria, and produce an explainable vendor ranking.'
+  : 'Upload vendor quotations and turn document evidence into a structured procurement decision.';
+const serif = { fontFamily: "'Instrument Serif', serif" };
+const sans = { fontFamily: "'Inter', system-ui, sans-serif" };
+const activeRoute = backendRoutes.find(route =>
+  route.path === (isCatalogue ? '/catalog/evaluate' : '/upload/normalise')
+);
 ---
 
 <BaseLayout
+  chrome={false}
+  landingFonts={true}
   seo={{
     title: 'Decision Workspace - Axioms',
-    description: 'Choose a procurement evaluation track and run the Axioms decision workflow.',
+    description: 'Run the Axioms procurement decision workflow from uploaded quotations or catalogue RAG.',
   }}
 >
-  <section class="min-h-screen bg-off-white px-4 pt-40 pb-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-[85rem]">
-      <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-        <aside class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-32 lg:self-start">
-          <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
+  <div class="min-h-screen bg-off-white text-slate-900" style={sans}>
+    <header class="mx-auto flex max-w-7xl items-center justify-between px-6 pt-6 sm:px-10">
+      <a href="/" class="flex items-center gap-2" aria-label="Axiom home">
+        <div class="h-2 w-2 rounded-full bg-teal-700" aria-hidden="true"></div>
+        <span class="text-xl tracking-tight italic text-slate-950" style={serif}>Axiom</span>
+      </a>
+      <nav class="hidden items-center gap-8 text-sm md:flex">
+        <a href="/#how" class="transition-colors hover:text-teal-700">How it works</a>
+        <a href="/#tracks" class="transition-colors hover:text-teal-700">Tracks</a>
+        <a href="/decision?mode=quotations" class="transition-colors hover:text-teal-700">
+          Quotations
+        </a>
+        <a href="/decision?mode=catalogue" class="transition-colors hover:text-teal-700">
+          Catalogue
+        </a>
+      </nav>
+      <a
+        href={isCatalogue ? '/decision?mode=quotations' : '/decision?mode=catalogue'}
+        class="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+      >
+        {isCatalogue ? 'Use quotations' : 'Use catalogue'}
+      </a>
+    </header>
+
+    <section class="mx-auto max-w-7xl px-6 pt-16 pb-10 sm:px-10 sm:pt-20">
+      <div class="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+        <aside class="lg:sticky lg:top-8">
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs tracking-[0.18em] uppercase text-slate-500">
+            <span class="h-1.5 w-1.5 rounded-full bg-teal-700"></span>
             Decision workspace
-          </p>
-          <h1 class="mt-3 text-4xl font-semibold text-slate-950 md:text-5xl">
+          </div>
+          <h1 class="text-5xl leading-[1.02] tracking-tight text-slate-950 sm:text-6xl" style={serif}>
             {selectedModeLabel}
           </h1>
-          <p class="mt-5 text-slate-600">{selectedModeDescription}</p>
+          <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-600">
+            {selectedModeDescription}
+          </p>
 
           <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             <a
               href="/decision?mode=quotations"
-              class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
+              class={`rounded-full px-6 py-3 text-center text-sm font-medium transition-colors ${
                 isCatalogue
-                  ? 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
-                  : 'border-teal-700 bg-teal-700 text-white'
+                  ? 'border border-slate-200 bg-white text-slate-900 hover:bg-slate-50'
+                  : 'bg-teal-700 text-white hover:bg-teal-800'
               }`}
             >
               Upload quotations
             </a>
             <a
               href="/decision?mode=catalogue"
-              class={`rounded-lg border px-5 py-3 text-center font-medium transition ${
+              class={`rounded-full px-6 py-3 text-center text-sm font-medium transition-colors ${
                 isCatalogue
-                  ? 'border-teal-700 bg-teal-700 text-white'
-                  : 'border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-900'
+                  ? 'bg-teal-700 text-white hover:bg-teal-800'
+                  : 'border border-slate-200 bg-white text-slate-900 hover:bg-slate-50'
               }`}
             >
               Use catalogue
             </a>
           </div>
 
-          <div class="mt-8 rounded-2xl border border-teal-100 bg-teal-50 p-5">
-            <p class="text-sm font-semibold text-teal-900">Current API</p>
-            <p class="mt-2 break-all text-sm text-slate-600">{apiBaseUrl}</p>
+          <div class="mt-10 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200">
+            <div class="bg-white p-6">
+              <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">Backend</div>
+              <p class="mt-3 break-all text-sm leading-relaxed text-slate-600">{apiBaseUrl}</p>
+            </div>
+            {activeRoute && (
+              <div class="bg-white p-6">
+                <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                  Active route
+                </div>
+                <p class="mt-3 text-sm font-medium text-slate-950">{activeRoute.path}</p>
+                <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                  {activeRoute.description}
+                </p>
+              </div>
+            )}
           </div>
         </aside>
 
@@ -65,22 +111,35 @@ const apiBaseUrl = import.meta.env.PUBLIC_AXIOMS_API_URL ?? 'http://127.0.0.1:80
               data-api-base-url={apiBaseUrl}
               class="grid gap-5"
             >
-              <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div class="grid gap-5">
+              <div
+                data-catalogue-view="product"
+                class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_30px_80px_-40px_rgba(15,118,110,0.35)]"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Catalogue input
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    What do you want to buy?
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
                   <label class="grid gap-2">
-                    <span class="text-sm font-semibold text-slate-800">Purchase request</span>
+                    <span class="text-sm font-medium text-slate-900">Purchase request</span>
                     <textarea
                       id="catalogProduct"
-                      class="min-h-32 rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
-                    >We need a CRM for a 150-person sustainability consultancy in Europe. Prioritise GDPR compliance, low implementation effort, strong integrations, reporting, and reasonable total cost.</textarea>
+                      placeholder="Example: describe the product, business context, goals, constraints, and priorities."
+                      class="min-h-36 rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                    ></textarea>
                   </label>
 
                   <div class="grid gap-4 md:grid-cols-[220px_1fr]">
                     <label class="grid gap-2">
-                      <span class="text-sm font-semibold text-slate-800">Category</span>
+                      <span class="text-sm font-medium text-slate-900">Category</span>
                       <select
                         id="catalogCategory"
-                        class="rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                        class="rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
                       >
                         <option value="">Any category</option>
                         <option value="crm">CRM</option>
@@ -91,274 +150,924 @@ const apiBaseUrl = import.meta.env.PUBLIC_AXIOMS_API_URL ?? 'http://127.0.0.1:80
                     </label>
 
                     <label class="grid gap-2">
-                      <span class="text-sm font-semibold text-slate-800">Vendors</span>
+                      <span class="text-sm font-medium text-slate-900">Vendor filter</span>
                       <input
                         id="catalogVendors"
-                        class="rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
+                        class="rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
                         placeholder="Optional, comma-separated"
                       />
                     </label>
                   </div>
 
-                  <label class="grid gap-2">
-                    <span class="text-sm font-semibold text-slate-800">Metrics</span>
-                    <textarea
-                      id="catalogMetrics"
-                      class="min-h-32 rounded-lg border border-slate-200 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-700/10"
-                    >GDPR compliance: 5
-Implementation effort: 4
-Integration coverage: 4
-Reporting quality: 3
-Total cost: 5</textarea>
-                  </label>
+                  <button
+                    id="catalogDiscoverButton"
+                    type="button"
+                    class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+                  >
+                    Set criteria
+                  </button>
+                </div>
+              </div>
+
+              <div
+                data-catalogue-view="criteria"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Catalogue criteria
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    Tune metrics and scores.
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
+                  <div id="catalogRequestReview" class="grid gap-3"></div>
 
                   <div id="catalogMetricWeights" class="grid gap-3"></div>
 
                   <div class="grid gap-3 sm:grid-cols-2">
                     <button
-                      id="catalogEvaluateButton"
+                      id="catalogBackToProductButton"
                       type="button"
-                      class="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white transition hover:bg-teal-800 disabled:bg-slate-400"
+                      class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
                     >
-                      Evaluate Catalogue
+                      Back to product
                     </button>
                     <button
-                      id="catalogClearMetricsButton"
+                      id="catalogContinueTradeoffsButton"
                       type="button"
-                      class="rounded-lg border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-800 transition hover:border-teal-300 hover:text-teal-900"
+                      class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
                     >
-                      Use AI Metrics
+                      Continue to tradeoffs
                     </button>
                   </div>
                 </div>
               </div>
 
               <div
+                data-catalogue-view="tradeoffs"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Catalogue tradeoffs
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    Choose what matters more.
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
+                  <label class="grid max-w-48 gap-2">
+                    <span class="text-sm font-medium text-slate-900">Questions</span>
+                    <input
+                      id="catalogMaxQuestions"
+                      type="number"
+                      min="1"
+                      max="20"
+                      value="8"
+                      class="rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                    />
+                  </label>
+
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <button
+                      id="catalogBackToCriteriaButton"
+                      type="button"
+                      class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+                    >
+                      Back to criteria
+                    </button>
+                    <button
+                      id="catalogEvaluateButton"
+                      type="button"
+                      class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+                    >
+                      Evaluate catalogue
+                    </button>
+                  </div>
+
+                  <form id="catalogTradeoffForm" class="grid gap-3"></form>
+                </div>
+              </div>
+
+              <div
+                data-catalogue-view="evaluation"
                 id="catalogResult"
-                class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
                 aria-live="polite"
               >
-                <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-600">
-                  No catalogue evaluation yet.
+                <div class="p-6">
+                  <div class="rounded-xl border border-slate-200 bg-off-white p-5 text-sm font-medium text-slate-600">
+                    No catalogue evaluation yet.
+                  </div>
                 </div>
               </div>
             </section>
           ) : (
-            <section class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-              <p class="text-sm font-semibold tracking-[0.22em] text-teal-800 uppercase">
-                Quotation branch
-              </p>
-              <h2 class="mt-3 text-3xl font-semibold text-slate-950">Upload quotations</h2>
-              <p class="mt-4 max-w-2xl text-slate-600">
-                This branch is ready for the quotation upload workflow. The catalogue evaluator is
-                available from the Use catalogue track.
-              </p>
+            <section
+              id="quotation-workspace"
+              data-api-base-url={apiBaseUrl}
+              class="grid gap-5"
+            >
+              <div
+                data-quotation-view="upload"
+                class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_30px_80px_-40px_rgba(15,118,110,0.35)]"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Quotation input
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    Upload vendor PDFs.
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
+                  <label class="grid min-h-40 cursor-pointer place-items-center rounded-2xl border border-dashed border-slate-300 bg-off-white p-6 text-center transition-colors hover:border-teal-700/40 hover:bg-white">
+                    <input
+                      id="quotationFiles"
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      multiple
+                      class="sr-only"
+                    />
+                    <span class="grid size-14 place-items-center rounded-full border border-slate-200 bg-white text-2xl text-teal-700 shadow-sm" aria-hidden="true">
+                      +
+                    </span>
+                    <span class="mt-4 text-sm font-medium text-slate-950" id="quotationFileLabel">
+                      Press to choose quotation PDFs
+                    </span>
+                    <span class="mt-2 max-w-md text-sm leading-6 text-slate-500">
+                      Upload one or more vendor quotation PDFs. They will be stored and normalised
+                      before criteria discovery.
+                    </span>
+                  </label>
+
+                  <div id="quotationSelectedFiles" class="grid gap-2"></div>
+
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <button
+                      id="quotationPipelineButton"
+                      type="button"
+                      class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+                    >
+                      Upload and normalise
+                    </button>
+                    <button
+                      id="quotationResetButton"
+                      type="button"
+                      class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+                    >
+                      Reset workspace
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                data-quotation-view="criteria"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Decision context
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    Discover scoring criteria.
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
+                  <div id="quotationDocumentReview" class="grid gap-3"></div>
+
+                  <label class="grid gap-2">
+                    <span class="text-sm font-medium text-slate-900">What are you purchasing?</span>
+                    <input
+                      id="quotationPurchase"
+                      placeholder="Example: name the product or service you are buying."
+                      class="rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                    />
+                  </label>
+
+                  <label class="grid gap-2">
+                    <span class="text-sm font-medium text-slate-900">Organisation context</span>
+                    <textarea
+                      id="quotationOrganisationContext"
+                      placeholder="Example: describe the buyer, team size, geography, and operating context."
+                      class="min-h-24 rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                    ></textarea>
+                  </label>
+
+                  <div class="grid gap-4 md:grid-cols-2">
+                    <label class="grid gap-2">
+                      <span class="text-sm font-medium text-slate-900">Success factors</span>
+                      <textarea
+                        id="quotationSuccessFactors"
+                        placeholder="Example: one desired outcome per line."
+                        class="min-h-28 rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                      ></textarea>
+                    </label>
+
+                    <label class="grid gap-2">
+                      <span class="text-sm font-medium text-slate-900">Constraints</span>
+                      <textarea
+                        id="quotationConstraints"
+                        placeholder="Example: one hard requirement or constraint per line."
+                        class="min-h-28 rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                      ></textarea>
+                    </label>
+                  </div>
+
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <button
+                      id="quotationBackToUploadButton"
+                      type="button"
+                      class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+                    >
+                      Back to upload
+                    </button>
+                    <button
+                      id="quotationDiscoverButton"
+                      type="button"
+                      class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+                    >
+                      Discover criteria
+                    </button>
+                  </div>
+
+                  <div id="quotationCriteriaList" class="grid gap-3"></div>
+
+                  <button
+                    id="quotationContinueTradeoffsButton"
+                    type="button"
+                    class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50 disabled:bg-slate-100 disabled:text-slate-400"
+                  >
+                    Continue to tradeoffs
+                  </button>
+                </div>
+              </div>
+
+              <div
+                data-quotation-view="tradeoffs"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
+              >
+                <div class="border-b border-slate-200 px-6 py-5">
+                  <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">
+                    Weighting
+                  </div>
+                  <h2 class="mt-3 text-3xl text-slate-950" style={serif}>
+                    Capture tradeoffs.
+                  </h2>
+                </div>
+
+                <div class="grid gap-5 p-6">
+                  <label class="grid max-w-48 gap-2">
+                    <span class="text-sm font-medium text-slate-900">Questions</span>
+                    <input
+                      id="quotationMaxQuestions"
+                      type="number"
+                      min="1"
+                      max="20"
+                      value="8"
+                      class="rounded-xl border border-slate-200 bg-off-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-700/10"
+                    />
+                  </label>
+
+                  <div class="grid gap-3 sm:grid-cols-2">
+                    <button
+                      id="quotationBackToCriteriaButton"
+                      type="button"
+                      class="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+                    >
+                      Back to criteria
+                    </button>
+                    <button
+                      id="quotationEvaluateButton"
+                      type="button"
+                      class="rounded-full bg-teal-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-800 disabled:bg-slate-400"
+                    >
+                      Evaluate vendors
+                    </button>
+                  </div>
+
+                  <form id="quotationTradeoffForm" class="grid gap-3"></form>
+                </div>
+              </div>
+
+              <div
+                data-quotation-view="evaluation"
+                id="quotationResult"
+                hidden
+                class="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white"
+                aria-live="polite"
+              >
+                <div class="p-6">
+                  <div class="rounded-xl border border-slate-200 bg-off-white p-5 text-sm font-medium text-slate-600">
+                    No quotation workflow output yet.
+                  </div>
+                </div>
+              </div>
             </section>
           )
         }
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </BaseLayout>
 
 <script is:inline>
-  const workspace = document.querySelector('#catalogue-workspace');
+  function initQuotationWorkspace() {
+    const workspace = document.querySelector('#quotation-workspace');
 
-  if (workspace) {
+    if (!workspace || workspace.dataset.initialized === 'true') {
+      return;
+    }
+
+    workspace.dataset.initialized = 'true';
+
     const state = {
-      metrics: [],
-      result: null,
+      selectedFiles: [],
+      normalisedResults: [],
+      criteria: [],
+      questions: [],
+      handoff: null,
+      evaluation: null,
     };
 
     const els = {
-      product: document.querySelector('#catalogProduct'),
-      category: document.querySelector('#catalogCategory'),
-      vendors: document.querySelector('#catalogVendors'),
-      metrics: document.querySelector('#catalogMetrics'),
-      weights: document.querySelector('#catalogMetricWeights'),
-      evaluateButton: document.querySelector('#catalogEvaluateButton'),
-      clearMetricsButton: document.querySelector('#catalogClearMetricsButton'),
-      result: document.querySelector('#catalogResult'),
+      views: [...document.querySelectorAll('[data-quotation-view]')],
+      files: document.querySelector('#quotationFiles'),
+      fileLabel: document.querySelector('#quotationFileLabel'),
+      selectedFiles: document.querySelector('#quotationSelectedFiles'),
+      pipelineButton: document.querySelector('#quotationPipelineButton'),
+      resetButton: document.querySelector('#quotationResetButton'),
+      purchase: document.querySelector('#quotationPurchase'),
+      organisationContext: document.querySelector('#quotationOrganisationContext'),
+      successFactors: document.querySelector('#quotationSuccessFactors'),
+      constraints: document.querySelector('#quotationConstraints'),
+      backToUploadButton: document.querySelector('#quotationBackToUploadButton'),
+      discoverButton: document.querySelector('#quotationDiscoverButton'),
+      documentReview: document.querySelector('#quotationDocumentReview'),
+      continueTradeoffsButton: document.querySelector('#quotationContinueTradeoffsButton'),
+      criteriaList: document.querySelector('#quotationCriteriaList'),
+      maxQuestions: document.querySelector('#quotationMaxQuestions'),
+      backToCriteriaButton: document.querySelector('#quotationBackToCriteriaButton'),
+      evaluateButton: document.querySelector('#quotationEvaluateButton'),
+      tradeoffForm: document.querySelector('#quotationTradeoffForm'),
+      result: document.querySelector('#quotationResult'),
     };
 
     const apiBaseUrl = workspace.dataset.apiBaseUrl;
 
-    els.metrics.addEventListener('input', () => {
-      state.metrics = parseMetrics();
-      renderMetricWeights();
+    els.files.addEventListener('change', () => {
+      state.selectedFiles = mergeFiles(state.selectedFiles, [...els.files.files]);
+      els.files.value = '';
+      els.fileLabel.textContent = state.selectedFiles.length
+        ? `${state.selectedFiles.length} PDF${state.selectedFiles.length === 1 ? '' : 's'} selected`
+        : 'Press to choose quotation PDFs';
+      state.normalisedResults = [];
+      state.criteria = [];
+      state.questions = [];
+      state.handoff = null;
+      state.evaluation = null;
+      renderSelectedFiles();
+      renderDocumentReview([]);
+      renderCriteria();
+      renderTradeoffMessage('Discover criteria first.');
+      showQuotationView('upload');
+      updateQuotationState();
     });
 
-    els.clearMetricsButton.addEventListener('click', () => {
-      els.metrics.value = '';
-      state.metrics = [];
-      renderMetricWeights();
+    els.selectedFiles.addEventListener('click', event => {
+      const removeButton = event.target.closest('[data-remove-quotation-file]');
+      if (!removeButton) {
+        return;
+      }
+
+      const index = Number(removeButton.dataset.removeQuotationFile);
+      state.selectedFiles.splice(index, 1);
+      els.fileLabel.textContent = state.selectedFiles.length
+        ? `${state.selectedFiles.length} PDF${state.selectedFiles.length === 1 ? '' : 's'} selected`
+        : 'Press to choose quotation PDFs';
+      state.normalisedResults = [];
+      state.criteria = [];
+      state.questions = [];
+      state.handoff = null;
+      state.evaluation = null;
+      renderSelectedFiles();
+      renderDocumentReview([]);
+      renderCriteria();
+      renderTradeoffMessage('Discover criteria first.');
+      showQuotationView('upload');
+      updateQuotationState();
     });
 
-    els.evaluateButton.addEventListener('click', async () => {
-      const product = els.product.value.trim();
-      if (!product) {
-        renderError('Describe what you want to purchase first.');
+    els.pipelineButton.addEventListener('click', async () => {
+      await withButton(els.pipelineButton, 'Normalising...', async () => {
+        const results = await uploadAndNormalise();
+        state.normalisedResults = results;
+        state.criteria = [];
+        state.questions = [];
+        state.handoff = null;
+        state.evaluation = null;
+        renderSelectedFiles();
+        renderDocumentReview(results);
+        renderCriteria();
+        renderTradeoffMessage('Discover criteria from the normalised quotations.');
+        showQuotationView('criteria');
+        updateQuotationState();
+      });
+    });
+
+    els.resetButton.addEventListener('click', () => {
+      els.files.value = '';
+      els.fileLabel.textContent = 'Press to choose quotation PDFs';
+      state.selectedFiles = [];
+      state.normalisedResults = [];
+      state.criteria = [];
+      state.questions = [];
+      state.handoff = null;
+      state.evaluation = null;
+      renderSelectedFiles();
+      renderDocumentReview([]);
+      renderCriteria();
+      renderTradeoffMessage('Discover criteria first.');
+      renderOutput('No quotation workflow output yet.');
+      showQuotationView('upload');
+      updateQuotationState();
+    });
+
+    els.backToUploadButton.addEventListener('click', () => {
+      showQuotationView('upload');
+    });
+
+    els.result.addEventListener('click', event => {
+      if (event.target.closest('[data-quotation-back-to-tradeoffs]')) {
+        showQuotationView('tradeoffs');
+      }
+    });
+
+    els.discoverButton.addEventListener('click', async () => {
+      if (!state.normalisedResults.length) {
+        renderError('Upload and normalise at least one quotation PDF first.');
         return;
       }
 
       const body = {
-        product,
-        metrics: state.metrics.map((metric) => metric.name),
-        metric_weights: Object.fromEntries(
-          state.metrics.map((metric) => [metric.name, metric.weight]),
-        ),
-        category: els.category.value || null,
-        vendors: commaList(els.vendors.value),
+        purchase: els.purchase.value.trim(),
+        organisation_context: els.organisationContext.value.trim(),
+        success_factors: lines(els.successFactors.value),
+        constraints: lines(els.constraints.value),
+        normalised_quotations: state.normalisedResults.map(result => result.normalised),
       };
 
-      await withLoading(async () => {
-        els.result.innerHTML = renderEmpty('Searching catalogue and scoring vendors...');
-        const result = await apiFetch('/catalog/evaluate', {
+      await withButton(els.discoverButton, 'Discovering...', async () => {
+        const result = await apiFetch('/requirements/discover', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
         });
 
-        state.result = result;
-        renderResult(result);
+        state.criteria = result.criteria ?? [];
+        state.questions = [];
+        state.handoff = null;
+        state.evaluation = null;
+        renderCriteria();
+        renderTradeoffMessage('Generate tradeoffs from the discovered criteria.');
+        showQuotationView('criteria');
+        updateQuotationState();
       });
     });
 
-    state.metrics = parseMetrics();
-    renderMetricWeights();
+    els.continueTradeoffsButton.addEventListener('click', async () => {
+      await generateQuotationTradeoffs({ showView: true });
+    });
 
-    function parseMetrics() {
-      return lines(els.metrics.value)
-        .map((line) => {
-          const separator = line.lastIndexOf(':');
-          if (separator === -1) {
-            return { name: line, weight: 3 };
-          }
+    els.maxQuestions.addEventListener('change', async () => {
+      if (state.criteria.length && !els.views.find(view => view.dataset.quotationView === 'tradeoffs')?.hidden) {
+        await generateQuotationTradeoffs({ showView: true });
+      }
+    });
 
-          const name = line.slice(0, separator).trim();
-          const rawWeight = Number(line.slice(separator + 1).trim());
-          return {
-            name,
-            weight: clampWeight(Number.isFinite(rawWeight) ? rawWeight : 3),
-          };
-        })
-        .filter((metric) => metric.name);
-    }
+    els.backToCriteriaButton.addEventListener('click', () => {
+      showQuotationView('criteria');
+    });
 
-    function renderMetricWeights() {
-      if (!state.metrics.length) {
-        els.weights.innerHTML = renderEmpty(
-          'Leave metrics empty to let the backend generate them from the purchase request.',
-        );
+    els.evaluateButton.addEventListener('click', async () => {
+      const tradeoffAnswers = collectTradeoffAnswers();
+      if (!state.criteria.length || !state.questions.length) {
+        renderError('Discover criteria and generate tradeoffs first.');
         return;
       }
 
-      els.weights.innerHTML = state.metrics
+      const unanswered = tradeoffAnswers.filter(answer => !answer.selected_key);
+      if (unanswered.length) {
+        renderError('Answer every tradeoff question before creating the handoff.');
+        return;
+      }
+
+      const body = {
+        criteria: state.criteria,
+        tradeoff_answers: tradeoffAnswers,
+      };
+
+      await withButton(els.evaluateButton, 'Evaluating...', async () => {
+        const handoff = await apiFetch('/requirements/weighting-input', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+
+        const result = await apiFetch('/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            weighting_input_storage_path: handoff.weighting_input_storage_path,
+            normalised_storage_paths: state.normalisedResults.map(
+              normalised => normalised.normalised_storage_path
+            ),
+          }),
+        });
+
+        state.handoff = handoff;
+        state.evaluation = result;
+        renderEvaluation(result);
+        showQuotationView('evaluation');
+        updateQuotationState();
+      });
+    });
+
+    renderCriteria();
+    renderTradeoffMessage('Discover criteria first.');
+    renderSelectedFiles();
+    renderDocumentReview([]);
+    showQuotationView('upload');
+    updateQuotationState();
+
+    async function uploadAndNormalise() {
+      const files = state.selectedFiles;
+      if (!files.length) {
+        throw new Error('Choose one or more PDF files first.');
+      }
+
+      const formData = new FormData();
+      formData.append('kind', 'quotation');
+      files.forEach(file => formData.append('files', file));
+
+      return apiFetch('/upload/normalise', {
+        method: 'POST',
+        body: formData,
+      });
+    }
+
+    async function generateQuotationTradeoffs({ showView }) {
+      if (!state.criteria.length) {
+        renderError('Discover criteria before generating tradeoffs.');
+        return;
+      }
+
+      await withButton(els.continueTradeoffsButton, 'Building tradeoffs...', async () => {
+        const result = await apiFetch('/requirements/tradeoffs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            criteria: state.criteria,
+            max_questions: Number(els.maxQuestions.value || 8),
+          }),
+        });
+
+        state.questions = result.questions ?? [];
+        state.handoff = null;
+        state.evaluation = null;
+        renderTradeoffs();
+        if (showView) {
+          showQuotationView('tradeoffs');
+        }
+        updateQuotationState();
+      });
+    }
+
+    function mergeFiles(existingFiles, incomingFiles) {
+      const filesBySignature = new Map(
+        existingFiles.map(file => [fileSignature(file), file])
+      );
+
+      incomingFiles.forEach(file => {
+        filesBySignature.set(fileSignature(file), file);
+      });
+
+      return [...filesBySignature.values()];
+    }
+
+    function fileSignature(file) {
+      return `${file.name}:${file.size}:${file.lastModified}`;
+    }
+
+    function renderSelectedFiles() {
+      if (!state.selectedFiles.length) {
+        els.selectedFiles.innerHTML = '';
+        return;
+      }
+
+      els.selectedFiles.innerHTML = `
+        <div class="rounded-xl border border-slate-200 bg-off-white p-4">
+          <div class="text-[10px] tracking-[0.22em] uppercase text-slate-500">Selected PDFs</div>
+          <div class="mt-3 grid gap-2">
+            ${state.selectedFiles
+              .map(
+                (file, index) => `
+                  <div class="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                    <span class="truncate text-sm font-medium text-slate-950">${escapeHtml(
+                      file.name
+                    )}</span>
+                    <div class="flex shrink-0 items-center gap-3">
+                      <span class="text-xs text-slate-500">${escapeHtml(formatBytes(file.size))}</span>
+                      <button
+                        type="button"
+                        data-remove-quotation-file="${index}"
+                        class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                `
+              )
+              .join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDocumentReview(results) {
+      if (!results.length) {
+        els.documentReview.innerHTML = '';
+        return;
+      }
+
+      els.documentReview.innerHTML = `
+        <section class="rounded-xl border border-slate-200 bg-off-white p-4">
+          <div class="text-[10px] tracking-[0.22em] uppercase text-slate-500">Uploaded document review</div>
+          <div class="mt-3 grid gap-3">
+            ${results.map(result => renderDocumentReviewCard(result)).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderDocumentReviewCard(result) {
+      const quote = result.normalised ?? {};
+      const items = quote.items ?? [];
+      const total = items.reduce((sum, item) => sum + Number(item.total_price ?? 0), 0);
+      const deliveryDays = items
+        .map(item => item.delivery_days)
+        .filter(value => value !== null && value !== undefined);
+      const delivery = deliveryDays.length ? `${Math.min(...deliveryDays)}-${Math.max(...deliveryDays)} days` : 'n/a';
+      const risks = quote.risk_flags?.length ? quote.risk_flags.join(', ') : 'No risk flags extracted';
+
+      return `
+        <article class="rounded-lg border border-slate-200 bg-white p-4">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p class="text-sm font-medium text-slate-950">${escapeHtml(
+                quote.vendor_name ?? result.original_filename
+              )}</p>
+              <p class="mt-1 text-xs text-slate-500">${escapeHtml(result.original_filename)}</p>
+            </div>
+            <span class="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">${escapeHtml(
+              items.length
+            )} item${items.length === 1 ? '' : 's'}</span>
+          </div>
+          <dl class="mt-4 grid gap-3 text-sm md:grid-cols-3">
+            <div>
+              <dt class="text-xs tracking-[0.16em] text-slate-500 uppercase">Value</dt>
+              <dd class="mt-1 font-medium text-slate-950">${escapeHtml(
+                total ? `${quote.currency ?? ''} ${total.toFixed(2)}`.trim() : 'n/a'
+              )}</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-[0.16em] text-slate-500 uppercase">Delivery</dt>
+              <dd class="mt-1 font-medium text-slate-950">${escapeHtml(delivery)}</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-[0.16em] text-slate-500 uppercase">Payment</dt>
+              <dd class="mt-1 font-medium text-slate-950">${escapeHtml(
+                quote.payment_terms ?? 'n/a'
+              )}</dd>
+            </div>
+          </dl>
+          <p class="mt-3 text-sm leading-6 text-slate-600">${escapeHtml(risks)}</p>
+        </article>
+      `;
+    }
+
+    function renderCriteria() {
+      if (!state.criteria.length) {
+        els.criteriaList.innerHTML = renderEmpty('No criteria yet.');
+        return;
+      }
+
+      els.criteriaList.innerHTML = state.criteria
         .map(
-          (metric, index) => `
-            <label class="grid gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 md:grid-cols-[minmax(160px,1fr)_32px_minmax(160px,280px)] md:items-center">
-              <span class="text-sm font-semibold text-slate-800">${escapeHtml(metric.name)}</span>
-              <strong id="catalog_weight_${index}" class="text-center text-teal-800">${escapeHtml(metric.weight)}</strong>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                value="${escapeHtml(metric.weight)}"
-                data-catalog-metric-index="${index}"
-                class="accent-teal-700"
-              />
-            </label>
-          `,
+          criterion => `
+            <article class="grid gap-3 rounded-xl border border-slate-200 bg-off-white p-4 md:grid-cols-[130px_1fr]">
+              <span class="h-fit rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-500 uppercase">${escapeHtml(
+                criterion.category ?? 'criterion'
+              )}</span>
+              <div>
+                <strong class="text-sm font-medium text-slate-950">${escapeHtml(
+                  criterion.label ?? criterion.key
+                )}</strong>
+                <p class="mt-1 text-sm leading-6 text-slate-600">${escapeHtml(
+                  criterion.description ?? ''
+                )}</p>
+                <label class="mt-4 grid gap-2 text-sm font-medium text-slate-900">
+                  <span>Importance <strong id="quotation_score_${escapeHtml(
+                    criterion.key
+                  )}" class="text-teal-700">${escapeHtml(criterion.score ?? 3)}</strong>/5</span>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    value="${escapeHtml(criterion.score ?? 3)}"
+                    data-quotation-criterion-key="${escapeHtml(criterion.key)}"
+                    class="accent-teal-700"
+                  />
+                </label>
+              </div>
+            </article>
+          `
         )
         .join('');
 
-      document.querySelectorAll('[data-catalog-metric-index]').forEach((slider) => {
-        slider.addEventListener('input', (event) => {
-          const index = Number(event.target.dataset.catalogMetricIndex);
-          const weight = clampWeight(Number(event.target.value));
-          state.metrics[index].weight = weight;
-          const label = document.querySelector(`#catalog_weight_${index}`);
+      document.querySelectorAll('[data-quotation-criterion-key]').forEach(slider => {
+        slider.addEventListener('input', event => {
+          const input = event.target;
+          const key = input.dataset.quotationCriterionKey;
+          const score = Number(input.value);
+          const criterion = state.criteria.find(item => item.key === key);
+          if (criterion) {
+            criterion.score = score;
+          }
+
+          const label = document.querySelector(`#quotation_score_${CSS.escape(key)}`);
           if (label) {
-            label.textContent = String(weight);
+            label.textContent = String(score);
           }
         });
       });
     }
 
-    function renderResult(result) {
-      const recommendation = result.recommendation ?? {};
-      const rows = result.evaluation_results ?? [];
-      const metrics = result.metrics_used ?? [];
+    function renderTradeoffs() {
+      if (!state.questions.length) {
+        renderTradeoffMessage('No tradeoff questions generated.');
+        return;
+      }
+
+      els.tradeoffForm.innerHTML = state.questions
+        .map(
+          question => `
+            <fieldset class="rounded-xl border border-slate-200 bg-off-white p-4">
+              <legend class="px-1 text-sm font-medium text-slate-950">${escapeHtml(
+                question.prompt
+              )}</legend>
+              <div class="mt-3 grid gap-3 md:grid-cols-2">
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 transition-colors hover:border-teal-700/40">
+                  <input type="radio" name="${escapeHtml(
+                    question.question_id
+                  )}" value="${escapeHtml(question.left_key)}" class="size-4 accent-teal-700" />
+                  ${escapeHtml(question.left_label)}
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 transition-colors hover:border-teal-700/40">
+                  <input type="radio" name="${escapeHtml(
+                    question.question_id
+                  )}" value="${escapeHtml(question.right_key)}" class="size-4 accent-teal-700" />
+                  ${escapeHtml(question.right_label)}
+                </label>
+              </div>
+            </fieldset>
+          `
+        )
+        .join('');
+    }
+
+    function renderTradeoffMessage(message) {
+      els.tradeoffForm.innerHTML = renderEmpty(message);
+    }
+
+    function collectTradeoffAnswers() {
+      return state.questions.map(question => {
+        const selected = document.querySelector(`input[name="${question.question_id}"]:checked`);
+        return {
+          question_id: question.question_id,
+          selected_key: selected?.value ?? '',
+        };
+      });
+    }
+
+    function renderNormalisedSummary(results) {
+      const rows = results
+        .map(result => {
+          const vendor = result.normalised?.vendor_name ?? result.original_filename;
+          return `
+            <article class="rounded-xl border border-slate-200 bg-off-white p-4">
+              <p class="text-sm font-medium text-slate-950">${escapeHtml(vendor)}</p>
+              <p class="mt-1 break-all text-xs leading-5 text-slate-500">${escapeHtml(
+                result.normalised_storage_path
+              )}</p>
+            </article>
+          `;
+        })
+        .join('');
 
       els.result.innerHTML = `
-        <div class="grid gap-5">
-          <section class="rounded-2xl border border-teal-100 bg-teal-50 p-5">
-            <p class="text-xs font-bold tracking-[0.18em] text-teal-800 uppercase">Recommendation</p>
-            <h2 class="mt-3 text-3xl font-semibold text-slate-950">${escapeHtml(
-              recommendation.recommend_vendor ?? recommendation.vendor ?? 'Review ranking',
-            )}</h2>
-            <p class="mt-3 leading-7 text-slate-600">${escapeHtml(
-              recommendation.reasoning ??
-                recommendation.summary ??
-                'The backend returned a ranking without a narrative recommendation.',
-            )}</p>
-            ${
-              recommendation.trade_offs
-                ? `<p class="mt-3 leading-7 text-slate-600"><strong class="text-slate-900">Trade-off:</strong> ${escapeHtml(
-                    recommendation.trade_offs,
-                  )}</p>`
-                : ''
-            }
-          </section>
+        <div class="border-b border-slate-200 px-6 py-5">
+          <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">Normalised quotations</div>
+          <h2 class="mt-3 text-4xl leading-tight text-slate-950" style="font-family:'Instrument Serif',serif">${escapeHtml(
+            results.length
+          )} file${results.length === 1 ? '' : 's'} ready</h2>
+        </div>
+        <div class="grid gap-3 p-6">${rows}</div>
+      `;
+    }
 
-          <section class="grid gap-3">
-            <div class="flex items-center justify-between gap-3">
-              <strong class="text-slate-950">Vendor ranking</strong>
-              <span class="text-sm font-semibold text-slate-500">${escapeHtml(metrics.length)} metrics</span>
-            </div>
-            ${renderRankingRows(rows, metrics)}
-          </section>
+    function renderEvaluation(result) {
+      const recommendation = result.recommendation ?? {};
+      const rows = result.rankings ?? result.evaluation_results ?? [];
+      const metrics = inferMetrics(rows);
 
+      els.result.innerHTML = `
+        <div class="border-b border-slate-200 px-6 py-5">
+          <button
+            type="button"
+            data-quotation-back-to-tradeoffs
+            class="mb-5 rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+          >
+            Back to tradeoffs
+          </button>
+          <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">Recommendation</div>
+          <h2 class="mt-3 text-4xl leading-tight text-slate-950" style="font-family:'Instrument Serif',serif">${escapeHtml(
+            recommendation.recommend_vendor ?? recommendation.vendor ?? 'Review ranking'
+          )}</h2>
+          <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-600">${escapeHtml(
+            recommendation.reasoning ??
+              recommendation.summary ??
+              'The backend returned a ranking without a narrative recommendation.'
+          )}</p>
           ${
-            result.generated_metrics_template
-              ? `<details class="rounded-2xl border border-slate-200 bg-white p-5">
-                  <summary class="cursor-pointer font-semibold text-slate-950">Generated metrics template</summary>
-                  <pre class="mt-4 max-h-80 overflow-auto rounded-lg bg-slate-950 p-4 text-xs text-teal-100">${escapeHtml(
-                    JSON.stringify(result.generated_metrics_template, null, 2),
-                  )}</pre>
-                </details>`
+            recommendation.trade_offs
+              ? `<p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600"><strong class="text-slate-900">Trade-off:</strong> ${escapeHtml(
+                  recommendation.trade_offs
+                )}</p>`
               : ''
           }
+        </div>
+        <div class="grid gap-4 p-6">
+          <div class="flex items-center justify-between gap-3">
+            <strong class="text-sm font-medium text-slate-950">Vendor ranking</strong>
+            <span class="text-[10px] tracking-[0.22em] uppercase text-slate-500">${escapeHtml(
+              metrics.length
+            )} metrics</span>
+          </div>
+          ${renderRankingRows(rows, metrics)}
         </div>
       `;
     }
 
     function renderRankingRows(rows, metrics) {
       if (!rows.length) {
-        return renderEmpty('No vendors were returned.');
+        return renderEmpty('No vendor rankings were returned.');
       }
 
       return rows
         .map(
           (row, index) => `
-            <article class="grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <article class="grid gap-4 rounded-xl border border-slate-200 bg-off-white p-4">
               <div class="flex items-center justify-between gap-3">
-                <span class="grid size-8 place-items-center rounded-full bg-teal-100 font-bold text-teal-800">${escapeHtml(
-                  index + 1,
+                <span class="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-sm font-medium text-teal-700">${escapeHtml(
+                  index + 1
                 )}</span>
-                <strong class="flex-1 text-slate-950">${escapeHtml(
-                  row.vendor ?? row.index ?? 'Unknown vendor',
+                <strong class="flex-1 text-sm font-medium text-slate-950">${escapeHtml(
+                  row.vendor ?? row.index ?? row.vendor_name ?? 'Unknown vendor'
                 )}</strong>
-                <b class="text-teal-800">${escapeHtml(
-                  row.weighted_score ?? row.final_weighted_score ?? 'n/a',
+                <b class="text-sm font-medium text-teal-700">${escapeHtml(
+                  row.weighted_score ?? row.final_weighted_score ?? 'n/a'
                 )}</b>
               </div>
               <div class="grid gap-3 md:grid-cols-2">
-                ${metrics.map((metric) => renderMetricScore(row, metric)).join('')}
+                ${metrics.map(metric => renderMetricScore(row, metric)).join('')}
               </div>
             </article>
-          `,
+          `
         )
         .join('');
     }
@@ -367,20 +1076,48 @@ Total cost: 5</textarea>
       const score = row[metric] ?? 'n/a';
       const reasoning = row[`${metric}_reasoning`] ?? '';
       return `
-        <div class="grid gap-1 rounded-lg border border-slate-200 bg-white p-3">
-          <span class="text-xs font-bold text-slate-600">${escapeHtml(metric)}</span>
-          <strong class="text-xl text-teal-800">${escapeHtml(score)}</strong>
+        <div class="grid gap-1 rounded-xl border border-slate-200 bg-white p-4">
+          <span class="text-[10px] tracking-[0.18em] text-slate-500 uppercase">${escapeHtml(metric)}</span>
+          <strong class="text-xl font-medium text-teal-700">${escapeHtml(score)}</strong>
           ${reasoning ? `<small class="leading-5 text-slate-500">${escapeHtml(reasoning)}</small>` : ''}
         </div>
       `;
     }
 
+    function inferMetrics(rows) {
+      const ignored = new Set(['vendor', 'index', 'vendor_name', 'weighted_score', 'final_weighted_score']);
+      return Object.keys(rows[0] ?? {}).filter(
+        key => !ignored.has(key) && !key.endsWith('_reasoning') && !key.endsWith('_weighted')
+      );
+    }
+
+    function renderOutput(message) {
+      els.result.innerHTML = `<div class="p-6">${renderEmpty(message)}</div>`;
+    }
+
     function renderError(message) {
-      els.result.innerHTML = `<div class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">${escapeHtml(message)}</div>`;
+      els.result.innerHTML = `<div class="p-6"><div class="rounded-xl border border-red-200 bg-red-50 p-5 text-sm font-medium text-red-700">${escapeHtml(
+        message
+      )}</div></div>`;
+      showQuotationView('evaluation');
     }
 
     function renderEmpty(message) {
-      return `<div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-600">${escapeHtml(message)}</div>`;
+      return `<div class="rounded-xl border border-slate-200 bg-off-white p-5 text-sm font-medium text-slate-600">${escapeHtml(message)}</div>`;
+    }
+
+    function updateQuotationState() {
+      els.discoverButton.disabled = !state.normalisedResults.length;
+      els.continueTradeoffsButton.disabled = !state.criteria.length;
+      els.evaluateButton.disabled = !state.questions.length;
+    }
+
+    function showQuotationView(viewName) {
+      els.views.forEach(view => {
+        const isActive = view.dataset.quotationView === viewName;
+        view.hidden = !isActive;
+        view.classList.toggle('hidden', !isActive);
+      });
     }
 
     async function apiFetch(path, options) {
@@ -389,7 +1126,7 @@ Total cost: 5</textarea>
         response = await fetch(`${apiBaseUrl}${path}`, options);
       } catch (error) {
         throw new Error(
-          `Could not reach the backend at ${apiBaseUrl}. Make sure FastAPI is running. ${error.message}`,
+          `Could not reach the backend at ${apiBaseUrl}. Make sure FastAPI is running. ${error.message}`
         );
       }
 
@@ -403,36 +1140,42 @@ Total cost: 5</textarea>
       return payload;
     }
 
-    async function withLoading(callback) {
-      const previous = els.evaluateButton.textContent;
-      els.evaluateButton.disabled = true;
-      els.evaluateButton.textContent = 'Evaluating...';
+    async function withButton(button, label, callback) {
+      const previous = button.textContent;
+      button.disabled = true;
+      button.textContent = label;
       try {
         await callback();
       } catch (error) {
         renderError(error.message);
       } finally {
-        els.evaluateButton.disabled = false;
-        els.evaluateButton.textContent = previous;
+        button.disabled = false;
+        button.textContent = previous;
+        updateQuotationState();
       }
     }
 
     function lines(value) {
       return value
         .split('\n')
-        .map((line) => line.trim())
+        .map(line => line.trim())
         .filter(Boolean);
     }
 
-    function commaList(value) {
-      return value
-        .split(',')
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes)) {
+        return '';
+      }
 
-    function clampWeight(value) {
-      return Math.min(5, Math.max(1, Math.round(value)));
+      if (bytes < 1024) {
+        return `${bytes} B`;
+      }
+
+      if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(1)} KB`;
+      }
+
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
     }
 
     function safeJson(text) {
@@ -456,4 +1199,565 @@ Total cost: 5</textarea>
         .replaceAll("'", '&#039;');
     }
   }
+
+  initQuotationWorkspace();
+  document.addEventListener('astro:page-load', initQuotationWorkspace);
+</script>
+
+<script is:inline>
+  function initCatalogueWorkspace() {
+    const workspace = document.querySelector('#catalogue-workspace');
+
+    if (!workspace || workspace.dataset.initialized === 'true') {
+      return;
+    }
+
+    workspace.dataset.initialized = 'true';
+
+    const state = {
+      criteria: [],
+      metrics: [],
+      questions: [],
+      tradeoffAnswers: [],
+      result: null,
+    };
+
+    const els = {
+      views: [...document.querySelectorAll('[data-catalogue-view]')],
+      product: document.querySelector('#catalogProduct'),
+      category: document.querySelector('#catalogCategory'),
+      vendors: document.querySelector('#catalogVendors'),
+      weights: document.querySelector('#catalogMetricWeights'),
+      discoverButton: document.querySelector('#catalogDiscoverButton'),
+      backToProductButton: document.querySelector('#catalogBackToProductButton'),
+      continueTradeoffsButton: document.querySelector('#catalogContinueTradeoffsButton'),
+      maxQuestions: document.querySelector('#catalogMaxQuestions'),
+      backToCriteriaButton: document.querySelector('#catalogBackToCriteriaButton'),
+      evaluateButton: document.querySelector('#catalogEvaluateButton'),
+      requestReview: document.querySelector('#catalogRequestReview'),
+      tradeoffForm: document.querySelector('#catalogTradeoffForm'),
+      result: document.querySelector('#catalogResult'),
+    };
+
+    const apiBaseUrl = workspace.dataset.apiBaseUrl;
+
+    els.discoverButton.addEventListener('click', async () => {
+      const product = els.product.value.trim();
+      if (!product) {
+        renderError('Describe what you want to purchase first.');
+        return;
+      }
+
+      const body = {
+        project_name: product,
+        buying_context: product,
+        goals: [`Select the strongest vendor for ${product}.`],
+        constraints: els.category.value ? [`Category: ${els.category.value}`] : [],
+        must_have_requirements: commaList(els.vendors.value).map(vendor => `Consider ${vendor}`),
+      };
+
+      await withButton(els.discoverButton, 'Setting criteria...', async () => {
+        els.result.innerHTML = renderShell(renderEmpty('Connecting to backend and setting criteria...'));
+        showCatalogueView('evaluation');
+
+        const result = await setCatalogueCriteria(body, product);
+
+        state.criteria = metricsToCriteria(result.metrics_template?.metrics ?? []);
+        state.metrics = state.criteria.map(criterion => ({
+          name: criterion.key,
+          weight: criterion.score,
+        }));
+        state.questions = [];
+        state.tradeoffAnswers = [];
+        state.result = null;
+        renderRequestReview();
+        renderMetricWeights();
+        await buildCatalogueTradeoffs();
+        renderTradeoffs();
+        showCatalogueView('tradeoffs');
+      });
+    });
+
+    els.backToProductButton.addEventListener('click', () => {
+      showCatalogueView('product');
+    });
+
+    els.continueTradeoffsButton.addEventListener('click', async () => {
+      await generateCatalogueTradeoffs({ showView: true });
+    });
+
+    els.maxQuestions.addEventListener('change', async () => {
+      if (state.criteria.length && !els.views.find(view => view.dataset.catalogueView === 'tradeoffs')?.hidden) {
+        await generateCatalogueTradeoffs({ showView: true });
+      }
+    });
+
+    els.backToCriteriaButton.addEventListener('click', () => {
+      showCatalogueView('criteria');
+    });
+
+    els.result.addEventListener('click', event => {
+      if (event.target.closest('[data-catalogue-back-to-tradeoffs]')) {
+        showCatalogueView('tradeoffs');
+      }
+    });
+
+    els.evaluateButton.addEventListener('click', async () => {
+      const product = els.product.value.trim();
+      if (!product) {
+        renderError('Describe what you want to purchase first.');
+        return;
+      }
+
+      if (!state.criteria.length) {
+        renderError('Discover criteria before evaluating catalogue vendors.');
+        return;
+      }
+
+      const tradeoffAnswers = collectTradeoffAnswers();
+      const unanswered = tradeoffAnswers.filter(answer => !answer.selected_key);
+      if (state.questions.length && unanswered.length) {
+        renderError('Answer every tradeoff question before evaluating vendors.');
+        return;
+      }
+
+      applyTradeoffWeights(tradeoffAnswers);
+
+      await withButton(els.evaluateButton, 'Evaluating...', async () => {
+        els.result.innerHTML = renderShell(renderEmpty('Searching catalogue and scoring vendors...'));
+        showCatalogueView('evaluation');
+        const result = await apiFetch('/catalog/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product,
+            metrics: state.metrics.map(metric => metric.name),
+            metric_weights: Object.fromEntries(
+              state.metrics.map(metric => [metric.name, metric.weight])
+            ),
+            category: els.category.value || null,
+            vendors: commaList(els.vendors.value),
+          }),
+        });
+
+        state.result = result;
+        renderResult(result);
+      });
+    });
+
+    renderMetricWeights();
+    renderTradeoffMessage('Discover catalogue criteria first.');
+    renderRequestReview();
+    showCatalogueView('product');
+
+    function metricsToCriteria(metrics) {
+      return metrics
+        .map(metric => ({
+          key: metric.name,
+          label: metric.name,
+          category: metric.category ?? 'functional',
+          description: metric.description ?? '',
+          score: clampWeight(metric.score ?? Math.round((metric.weight ?? 0.6) * 5) || 3),
+        }))
+        .filter(metric => metric.key);
+    }
+
+    async function setCatalogueCriteria(metricsGuideBody, product) {
+      try {
+        return await apiFetch('/metrics/guide', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(metricsGuideBody),
+        });
+      } catch (error) {
+        const fallback = await apiFetch('/catalog/evaluate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product,
+            metrics: [],
+            metric_weights: {},
+            category: els.category.value || null,
+            vendors: commaList(els.vendors.value),
+          }),
+        });
+
+        if (!fallback.generated_metrics_template) {
+          throw error;
+        }
+
+        return {
+          metrics_template: fallback.generated_metrics_template,
+          raw_model_output: fallback,
+        };
+      }
+    }
+
+    async function generateCatalogueTradeoffs({ showView }) {
+      if (!state.criteria.length) {
+        renderError('Discover criteria before generating tradeoffs.');
+        return;
+      }
+
+      await withButton(els.continueTradeoffsButton, 'Building tradeoffs...', async () => {
+        await buildCatalogueTradeoffs();
+        if (showView) {
+          showCatalogueView('tradeoffs');
+        }
+      });
+    }
+
+    async function buildCatalogueTradeoffs() {
+      const result = await apiFetch('/requirements/tradeoffs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          criteria: state.criteria,
+          max_questions: Number(els.maxQuestions.value || 8),
+        }),
+      });
+
+      state.questions = result.questions ?? [];
+      state.tradeoffAnswers = [];
+    }
+
+    function renderRequestReview() {
+      const product = els.product.value.trim();
+      if (!product) {
+        els.requestReview.innerHTML = '';
+        return;
+      }
+
+      const category = els.category.value || 'Any category';
+      const vendors = commaList(els.vendors.value);
+      els.requestReview.innerHTML = `
+        <section class="rounded-xl border border-slate-200 bg-off-white p-4">
+          <div class="text-[10px] tracking-[0.22em] uppercase text-slate-500">Catalogue request review</div>
+          <div class="mt-3 rounded-lg border border-slate-200 bg-white p-4">
+            <p class="text-sm leading-6 text-slate-700">${escapeHtml(product)}</p>
+            <dl class="mt-4 grid gap-3 text-sm md:grid-cols-2">
+              <div>
+                <dt class="text-xs tracking-[0.16em] text-slate-500 uppercase">Category</dt>
+                <dd class="mt-1 font-medium text-slate-950">${escapeHtml(category)}</dd>
+              </div>
+              <div>
+                <dt class="text-xs tracking-[0.16em] text-slate-500 uppercase">Vendor filter</dt>
+                <dd class="mt-1 font-medium text-slate-950">${escapeHtml(
+                  vendors.length ? vendors.join(', ') : 'No vendor filter'
+                )}</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderMetricWeights() {
+      if (!state.criteria.length) {
+        els.weights.innerHTML = renderEmpty(
+          'No catalogue criteria yet. Start by describing the product you want to buy.'
+        );
+        return;
+      }
+
+      els.weights.innerHTML = state.criteria
+        .map(
+          (criterion, index) => `
+            <article class="grid gap-3 rounded-xl border border-slate-200 bg-off-white p-4 md:grid-cols-[130px_1fr]">
+              <span class="h-fit rounded-full border border-slate-200 bg-white px-3 py-1 text-[10px] font-medium tracking-[0.18em] text-slate-500 uppercase">${escapeHtml(
+                criterion.category ?? 'criterion'
+              )}</span>
+              <div>
+                <strong class="text-sm font-medium text-slate-950">${escapeHtml(
+                  criterion.label ?? criterion.key
+                )}</strong>
+                <p class="mt-1 text-sm leading-6 text-slate-600">${escapeHtml(
+                  criterion.description ?? ''
+                )}</p>
+                <label class="mt-4 grid gap-2 text-sm font-medium text-slate-900">
+                  <span>Importance <strong id="catalog_weight_${index}" class="text-teal-700">${escapeHtml(
+                    criterion.score ?? 3
+                  )}</strong>/5</span>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    value="${escapeHtml(criterion.score ?? 3)}"
+                    data-catalog-metric-index="${index}"
+                    class="accent-teal-700"
+                  />
+                </label>
+              </div>
+            </article>
+          `
+        )
+        .join('');
+
+      document.querySelectorAll('[data-catalog-metric-index]').forEach(slider => {
+        slider.addEventListener('input', event => {
+          const input = event.target;
+          const index = Number(input.dataset.catalogMetricIndex);
+          const weight = clampWeight(Number(input.value));
+          state.criteria[index].score = weight;
+          state.metrics[index] = {
+            name: state.criteria[index].key,
+            weight,
+          };
+          const label = document.querySelector(`#catalog_weight_${index}`);
+          if (label) {
+            label.textContent = String(weight);
+          }
+        });
+      });
+    }
+
+    function renderTradeoffs() {
+      if (!state.questions.length) {
+        renderTradeoffMessage('No tradeoff questions generated.');
+        return;
+      }
+
+      els.tradeoffForm.innerHTML = state.questions
+        .map(
+          question => `
+            <fieldset class="rounded-xl border border-slate-200 bg-off-white p-4">
+              <legend class="px-1 text-sm font-medium text-slate-950">${escapeHtml(
+                question.prompt
+              )}</legend>
+              <div class="mt-3 grid gap-3 md:grid-cols-2">
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 transition-colors hover:border-teal-700/40">
+                  <input type="radio" name="${escapeHtml(
+                    question.question_id
+                  )}" value="${escapeHtml(question.left_key)}" class="size-4 accent-teal-700" />
+                  ${escapeHtml(question.left_label)}
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 transition-colors hover:border-teal-700/40">
+                  <input type="radio" name="${escapeHtml(
+                    question.question_id
+                  )}" value="${escapeHtml(question.right_key)}" class="size-4 accent-teal-700" />
+                  ${escapeHtml(question.right_label)}
+                </label>
+              </div>
+            </fieldset>
+          `
+        )
+        .join('');
+    }
+
+    function renderTradeoffMessage(message) {
+      els.tradeoffForm.innerHTML = renderEmpty(message);
+    }
+
+    function collectTradeoffAnswers() {
+      return state.questions.map(question => {
+        const selected = document.querySelector(`input[name="${question.question_id}"]:checked`);
+        return {
+          question_id: question.question_id,
+          selected_key: selected?.value ?? '',
+        };
+      });
+    }
+
+    function applyTradeoffWeights(tradeoffAnswers) {
+      const selectedCounts = tradeoffAnswers.reduce((counts, answer) => {
+        counts[answer.selected_key] = (counts[answer.selected_key] ?? 0) + 1;
+        return counts;
+      }, {});
+
+      state.metrics = state.criteria.map(criterion => ({
+        name: criterion.key,
+        weight: clampWeight((criterion.score ?? 3) + (selectedCounts[criterion.key] ?? 0)),
+      }));
+    }
+
+    function renderResult(result) {
+      const recommendation = result.recommendation ?? {};
+      const rows = result.evaluation_results ?? [];
+      const metrics = result.metrics_used ?? [];
+
+      els.result.innerHTML = `
+        <div class="border-b border-slate-200 px-6 py-5">
+          <button
+            type="button"
+            data-catalogue-back-to-tradeoffs
+            class="mb-5 rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-50"
+          >
+            Back to tradeoffs
+          </button>
+          <div class="text-[10px] tracking-[0.3em] uppercase text-slate-500">Recommendation</div>
+          <h2 class="mt-3 text-4xl leading-tight text-slate-950" style="font-family:'Instrument Serif',serif">${escapeHtml(
+            recommendation.recommend_vendor ?? recommendation.vendor ?? 'Review ranking'
+          )}</h2>
+          <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-600">${escapeHtml(
+            recommendation.reasoning ??
+              recommendation.summary ??
+              'The backend returned a ranking without a narrative recommendation.'
+          )}</p>
+          ${
+            recommendation.trade_offs
+              ? `<p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600"><strong class="text-slate-900">Trade-off:</strong> ${escapeHtml(
+                  recommendation.trade_offs
+                )}</p>`
+              : ''
+          }
+        </div>
+
+        <div class="grid gap-4 p-6">
+          <div class="flex items-center justify-between gap-3">
+            <strong class="text-sm font-medium text-slate-950">Vendor ranking</strong>
+            <span class="text-[10px] tracking-[0.22em] uppercase text-slate-500">${escapeHtml(metrics.length)} metrics</span>
+          </div>
+          ${renderRankingRows(rows, metrics)}
+          ${
+            result.generated_metrics_template
+              ? `<details class="rounded-xl border border-slate-200 bg-white p-5">
+                  <summary class="cursor-pointer text-sm font-medium text-slate-950">Generated metrics template</summary>
+                  <pre class="mt-4 max-h-80 overflow-auto rounded-xl bg-slate-950 p-4 text-xs text-teal-100">${escapeHtml(
+                    JSON.stringify(result.generated_metrics_template, null, 2)
+                  )}</pre>
+                </details>`
+              : ''
+          }
+        </div>
+      `;
+    }
+
+    function renderRankingRows(rows, metrics) {
+      if (!rows.length) {
+        return renderEmpty('No vendors were returned.');
+      }
+
+      return rows
+        .map(
+          (row, index) => `
+            <article class="grid gap-4 rounded-xl border border-slate-200 bg-off-white p-4">
+              <div class="flex items-center justify-between gap-3">
+                <span class="grid size-8 place-items-center rounded-full border border-slate-200 bg-white text-sm font-medium text-teal-700">${escapeHtml(
+                  index + 1
+                )}</span>
+                <strong class="flex-1 text-sm font-medium text-slate-950">${escapeHtml(
+                  row.vendor ?? row.index ?? 'Unknown vendor'
+                )}</strong>
+                <b class="text-sm font-medium text-teal-700">${escapeHtml(
+                  row.weighted_score ?? row.final_weighted_score ?? 'n/a'
+                )}</b>
+              </div>
+              <div class="grid gap-3 md:grid-cols-2">
+                ${metrics.map(metric => renderMetricScore(row, metric)).join('')}
+              </div>
+            </article>
+          `
+        )
+        .join('');
+    }
+
+    function renderMetricScore(row, metric) {
+      const score = row[metric] ?? 'n/a';
+      const reasoning = row[`${metric}_reasoning`] ?? '';
+      return `
+        <div class="grid gap-1 rounded-xl border border-slate-200 bg-white p-4">
+          <span class="text-[10px] tracking-[0.18em] text-slate-500 uppercase">${escapeHtml(metric)}</span>
+          <strong class="text-xl font-medium text-teal-700">${escapeHtml(score)}</strong>
+          ${reasoning ? `<small class="leading-5 text-slate-500">${escapeHtml(reasoning)}</small>` : ''}
+        </div>
+      `;
+    }
+
+    function renderError(message) {
+      els.result.innerHTML = renderShell(
+        `<div class="rounded-xl border border-red-200 bg-red-50 p-5 text-sm font-medium text-red-700">${escapeHtml(message)}</div>`
+      );
+      showCatalogueView('evaluation');
+    }
+
+    function renderEmpty(message) {
+      return `<div class="rounded-xl border border-slate-200 bg-off-white p-5 text-sm font-medium text-slate-600">${escapeHtml(message)}</div>`;
+    }
+
+    function renderShell(content) {
+      return `<div class="p-6">${content}</div>`;
+    }
+
+    async function apiFetch(path, options) {
+      let response;
+      try {
+        response = await fetch(`${apiBaseUrl}${path}`, options);
+      } catch (error) {
+        throw new Error(
+          `Could not reach the backend at ${apiBaseUrl}. Make sure FastAPI is running. ${error.message}`
+        );
+      }
+
+      const text = await response.text();
+      const payload = safeJson(text);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${JSON.stringify(payload)}`);
+      }
+
+      return payload;
+    }
+
+    async function withLoading(callback) {
+      await withButton(els.evaluateButton, 'Evaluating...', callback);
+    }
+
+    async function withButton(button, label, callback) {
+      const previous = button.textContent;
+      button.disabled = true;
+      button.textContent = label;
+      try {
+        await callback();
+      } catch (error) {
+        renderError(error.message);
+      } finally {
+        button.disabled = false;
+        button.textContent = previous;
+      }
+    }
+
+    function commaList(value) {
+      return value
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function clampWeight(value) {
+      return Math.min(5, Math.max(1, Math.round(value)));
+    }
+
+    function showCatalogueView(viewName) {
+      els.views.forEach(view => {
+        const isActive = view.dataset.catalogueView === viewName;
+        view.hidden = !isActive;
+        view.classList.toggle('hidden', !isActive);
+      });
+    }
+
+    function safeJson(text) {
+      if (!text) {
+        return null;
+      }
+
+      try {
+        return JSON.parse(text);
+      } catch {
+        return { raw_response: text };
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  }
+
+  initCatalogueWorkspace();
+  document.addEventListener('astro:page-load', initCatalogueWorkspace);
 </script>

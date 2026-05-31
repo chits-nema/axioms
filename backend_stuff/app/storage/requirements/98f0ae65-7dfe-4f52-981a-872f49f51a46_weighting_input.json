@@ -1,0 +1,95 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Capability",
+      "description": "Ability to integrate with existing cloud infrastructure (Azure/AWS) and internal workflows like Jira.",
+      "score": 5
+    },
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Complexity of deployment, including onboarding support and time-to-value.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Comprehensive cost including licensing, egress fees, support, and professional services.",
+      "score": 4
+    },
+    {
+      "key": "payment_flexibility",
+      "category": "financial",
+      "label": "Payment Terms",
+      "description": "Alignment of payment terms (e.g., 60 days net) with startup cash flow requirements.",
+      "score": 4
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Strict adherence to GDPR requirements and availability of Data Processing Agreements.",
+      "score": 5
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Guarantee that data is stored and processed within the EU.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and long-term viability of the vendor to ensure service continuity.",
+      "score": 3
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Alignment with renewable energy sector values, including carbon footprint and ESG transparency.",
+      "score": 4
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "implementation_effort"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "payment_flexibility"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "data_residency"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "vendor_stability"
+    },
+    {
+      "question_id": "tradeoff_8",
+      "selected_key": "sustainability_credentials"
+    }
+  ]
+}

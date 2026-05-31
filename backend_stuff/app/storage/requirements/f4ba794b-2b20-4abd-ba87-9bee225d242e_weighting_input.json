@@ -1,0 +1,95 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Ease of setup and configuration to ensure rapid adoption by the 150-person team.",
+      "score": 5
+    },
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integration Strength",
+      "description": "Ability to connect with existing consultancy tools via robust APIs.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost of Ownership",
+      "description": "Comprehensive view of subscription fees, onboarding costs, and long-term maintenance.",
+      "score": 4
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Strict adherence to EU data protection regulations and Art. 28 requirements.",
+      "score": 5
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Guarantee that all customer data is stored and processed within the EU.",
+      "score": 5
+    },
+    {
+      "key": "vendor_stability",
+      "category": "risks",
+      "label": "Vendor Stability",
+      "description": "Financial health and operational longevity of the provider.",
+      "score": 3
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability Credentials",
+      "description": "Alignment with the consultancy's mission, including carbon footprint and ESG reporting.",
+      "score": 4
+    },
+    {
+      "key": "strategic_fit",
+      "category": "strategic",
+      "label": "Strategic Fit",
+      "description": "Alignment with the long-term growth and operational needs of a sustainability consultancy.",
+      "score": 3
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "total_cost_of_ownership"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "integration_capability"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "gdpr_compliance"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "sustainability_credentials"
+    },
+    {
+      "question_id": "tradeoff_8",
+      "selected_key": "implementation_effort"
+    }
+  ]
+}

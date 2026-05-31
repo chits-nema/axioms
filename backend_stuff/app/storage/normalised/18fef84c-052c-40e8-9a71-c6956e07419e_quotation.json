@@ -1,0 +1,137 @@
+{
+  "file_id": "18fef84c-052c-40e8-9a71-c6956e07419e",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\inti3\\Hachaton\\axioms\\backend_stuff\\app\\storage\\uploads\\18fef84c-052c-40e8-9a71-c6956e07419e.pdf",
+  "normalised": {
+    "vendor_name": "EnterpriseTech Solutions",
+    "currency": "EUR",
+    "quote_valid_until": "2026-08-26",
+    "shipping_cost": 0.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "ExecutivePad Elite \u2014 Core Ultra",
+        "sku": "ET-EXEC-ELITE-OLED",
+        "quantity": 50.0,
+        "unit_price": 2200.0,
+        "total_price": 110000.0,
+        "delivery_days": 14.0,
+        "warranty_months": 60.0,
+        "certifications": [
+          "MIL-STD-810H",
+          "TCO 9.0",
+          "Intel Evo",
+          "EPEAT Gold"
+        ],
+        "notes": "Core Ultra 9, 64 GB RAM, 2 TB NVMe, 14\" OLED 120 Hz; Thunderbolt 4 x2; dual SIM LTE; 3 kg carbon fibre chassis"
+      },
+      {
+        "product_name": "5-Year On-site Next Business Day Warranty + Accidental Damage",
+        "sku": "ET-WARR-5YNBD",
+        "quantity": 50.0,
+        "unit_price": 320.0,
+        "total_price": 16000.0,
+        "delivery_days": 14.0,
+        "warranty_months": 60.0,
+        "certifications": [],
+        "notes": "Covers liquid damage, drops; no-quibble replacement in year 1"
+      },
+      {
+        "product_name": "USB-C Docking Station (5K display support)",
+        "sku": "ET-DOCK-USBC",
+        "quantity": 50.0,
+        "unit_price": 185.0,
+        "total_price": 9250.0,
+        "delivery_days": 14.0,
+        "warranty_months": 24.0,
+        "certifications": [
+          "Thunderbolt 4 Certified"
+        ],
+        "notes": "100W PD pass-through; dual 4K or single 5K"
+      },
+      {
+        "product_name": "5-Year Asset Management Licence",
+        "sku": "ET-ASSET-5Y",
+        "quantity": 50.0,
+        "unit_price": 40.0,
+        "total_price": 2000.0,
+        "delivery_days": 14.0,
+        "warranty_months": 60.0,
+        "certifications": [],
+        "notes": "Real-time inventory, patch status & geo-tracking"
+      }
+    ],
+    "risk_flags": [
+      "Leasing option available \u2014 ask for separate quote",
+      "E&OE (Errors and Omissions Excepted)",
+      "Prices exclusive of VAT"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "EnterpriseTech Solutions",
+    "currency": "EUR",
+    "quote_valid_until": "2026-08-26",
+    "shipping_cost": 0,
+    "discount": 0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "ExecutivePad Elite \u2014 Core Ultra",
+        "sku": "ET-EXEC-ELITE-OLED",
+        "quantity": 50,
+        "unit_price": 2200.0,
+        "total_price": 110000.0,
+        "delivery_days": 14,
+        "warranty_months": 60,
+        "certifications": [
+          "MIL-STD-810H",
+          "TCO 9.0",
+          "Intel Evo",
+          "EPEAT Gold"
+        ],
+        "notes": "Core Ultra 9, 64 GB RAM, 2 TB NVMe, 14\" OLED 120 Hz; Thunderbolt 4 x2; dual SIM LTE; 3 kg carbon fibre chassis"
+      },
+      {
+        "product_name": "5-Year On-site Next Business Day Warranty + Accidental Damage",
+        "sku": "ET-WARR-5YNBD",
+        "quantity": 50,
+        "unit_price": 320.0,
+        "total_price": 16000.0,
+        "delivery_days": 14,
+        "warranty_months": 60,
+        "certifications": [],
+        "notes": "Covers liquid damage, drops; no-quibble replacement in year 1"
+      },
+      {
+        "product_name": "USB-C Docking Station (5K display support)",
+        "sku": "ET-DOCK-USBC",
+        "quantity": 50,
+        "unit_price": 185.0,
+        "total_price": 9250.0,
+        "delivery_days": 14,
+        "warranty_months": 24,
+        "certifications": [
+          "Thunderbolt 4 Certified"
+        ],
+        "notes": "100W PD pass-through; dual 4K or single 5K"
+      },
+      {
+        "product_name": "5-Year Asset Management Licence",
+        "sku": "ET-ASSET-5Y",
+        "quantity": 50,
+        "unit_price": 40.0,
+        "total_price": 2000.0,
+        "delivery_days": 14,
+        "warranty_months": 60,
+        "certifications": [],
+        "notes": "Real-time inventory, patch status & geo-tracking"
+      }
+    ],
+    "risk_flags": [
+      "Leasing option available \u2014 ask for separate quote",
+      "E&OE (Errors and Omissions Excepted)",
+      "Prices exclusive of VAT"
+    ]
+  }
+}

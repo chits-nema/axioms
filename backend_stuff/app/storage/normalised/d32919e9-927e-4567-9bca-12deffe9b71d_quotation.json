@@ -1,0 +1,89 @@
+{
+  "file_id": "d32919e9-927e-4567-9bca-12deffe9b71d",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\inti3\\Hachaton\\axioms\\backend_stuff\\app\\storage\\uploads\\d32919e9-927e-4567-9bca-12deffe9b71d.pdf",
+  "normalised": {
+    "vendor_name": "GreenTech Hardware AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-09-29",
+    "shipping_cost": 0.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "EcoBook Business 15 \u2014 Core Ultra 5, 16 GB RAM, 512 GB SSD, recycled aluminium chassis",
+        "sku": "GT-ECO15-ICU5",
+        "quantity": 50.0,
+        "unit_price": 1050.0,
+        "total_price": 52500.0,
+        "delivery_days": 12.0,
+        "warranty_months": 36.0,
+        "certifications": [
+          "EU Ecolabel",
+          "EPEAT Gold",
+          "Carbon Neutral",
+          "RoHS",
+          "ENERGY STAR"
+        ],
+        "notes": "80% recycled materials; 100% renewable energy in production"
+      },
+      {
+        "product_name": "3-Year On-site Warranty + Eco Return Programme",
+        "sku": "GT-WARR-3YOS-ECO",
+        "quantity": 50.0,
+        "unit_price": 150.0,
+        "total_price": 7500.0,
+        "delivery_days": 12.0,
+        "warranty_months": 36.0,
+        "certifications": [],
+        "notes": "End-of-life unit returned; 95% components recycled or refurbished"
+      }
+    ],
+    "risk_flags": [
+      "Recycled chassis: minor cosmetic variance between units",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "GreenTech Hardware AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-09-29",
+    "shipping_cost": 0,
+    "discount": 0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "EcoBook Business 15 \u2014 Core Ultra 5, 16 GB RAM, 512 GB SSD, recycled aluminium chassis",
+        "sku": "GT-ECO15-ICU5",
+        "quantity": 50,
+        "unit_price": 1050.0,
+        "total_price": 52500.0,
+        "delivery_days": 12,
+        "warranty_months": 36,
+        "certifications": [
+          "EU Ecolabel",
+          "EPEAT Gold",
+          "Carbon Neutral",
+          "RoHS",
+          "ENERGY STAR"
+        ],
+        "notes": "80% recycled materials; 100% renewable energy in production"
+      },
+      {
+        "product_name": "3-Year On-site Warranty + Eco Return Programme",
+        "sku": "GT-WARR-3YOS-ECO",
+        "quantity": 50,
+        "unit_price": 150.0,
+        "total_price": 7500.0,
+        "delivery_days": 12,
+        "warranty_months": 36,
+        "certifications": [],
+        "notes": "End-of-life unit returned; 95% components recycled or refurbished"
+      }
+    ],
+    "risk_flags": [
+      "Recycled chassis: minor cosmetic variance between units",
+      "E&OE (Errors and Omissions Excepted)"
+    ]
+  }
+}

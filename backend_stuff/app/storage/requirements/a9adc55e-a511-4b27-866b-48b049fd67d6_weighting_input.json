@@ -1,0 +1,95 @@
+{
+  "status": "ready_for_weight_calculation",
+  "criteria": [
+    {
+      "key": "hardware_performance",
+      "category": "functional",
+      "label": "Performance & Specs",
+      "description": "Evaluation of CPU, RAM, and storage capabilities against user requirements.",
+      "score": 4
+    },
+    {
+      "key": "warranty_service_level",
+      "category": "functional",
+      "label": "Warranty & Support",
+      "description": "Comparison of on-site vs carry-in service, response times, and duration.",
+      "score": 5
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "Total Cost",
+      "description": "Aggregated cost including hardware, shipping, warranties, and accessories.",
+      "score": 5
+    },
+    {
+      "key": "payment_terms",
+      "category": "financial",
+      "label": "Payment Terms",
+      "description": "Flexibility of payment windows (e.g., 30 vs 45 days net).",
+      "score": 3
+    },
+    {
+      "key": "compliance_and_security",
+      "category": "risks",
+      "label": "Compliance & Security",
+      "description": "Adherence to industry standards (SOC 2, ISO, FINMA) and data protection requirements.",
+      "score": 5
+    },
+    {
+      "key": "logistics_and_customs",
+      "category": "risks",
+      "label": "Logistics Risk",
+      "description": "Exposure to cross-border VAT, customs duties, and delivery lead times.",
+      "score": 4
+    },
+    {
+      "key": "sustainability_rating",
+      "category": "strategic",
+      "label": "Sustainability",
+      "description": "Environmental certifications (EPEAT, TCO, Energy Star) and hardware longevity.",
+      "score": 3
+    },
+    {
+      "key": "lifecycle_management",
+      "category": "strategic",
+      "label": "Lifecycle Management",
+      "description": "Availability of asset management tools, pre-enrollment services, and upgradeability.",
+      "score": 4
+    }
+  ],
+  "tradeoff_answers": [
+    {
+      "question_id": "tradeoff_1",
+      "selected_key": "hardware_performance"
+    },
+    {
+      "question_id": "tradeoff_2",
+      "selected_key": "warranty_service_level"
+    },
+    {
+      "question_id": "tradeoff_3",
+      "selected_key": "compliance_and_security"
+    },
+    {
+      "question_id": "tradeoff_4",
+      "selected_key": "payment_terms"
+    },
+    {
+      "question_id": "tradeoff_5",
+      "selected_key": "sustainability_rating"
+    },
+    {
+      "question_id": "tradeoff_6",
+      "selected_key": "logistics_and_customs"
+    },
+    {
+      "question_id": "tradeoff_7",
+      "selected_key": "hardware_performance"
+    },
+    {
+      "question_id": "tradeoff_8",
+      "selected_key": "hardware_performance"
+    }
+  ]
+}

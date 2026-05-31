@@ -1,0 +1,131 @@
+{
+  "file_id": "95bd0278-e4a4-4709-9bf0-f93a4611875b",
+  "kind": "quotation",
+  "source_pdf": "C:\\Users\\inti3\\Hachaton\\axioms\\backend_stuff\\app\\storage\\uploads\\95bd0278-e4a4-4709-9bf0-f93a4611875b.pdf",
+  "normalised": {
+    "vendor_name": "DataHaven AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-27",
+    "shipping_cost": 1200.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "Enterprise NAS Appliance \u2014 50 TB usable",
+        "sku": "DH-NAS-50T",
+        "quantity": 1.0,
+        "unit_price": 10200.0,
+        "total_price": 10200.0,
+        "delivery_days": 21.0,
+        "warranty_months": 36.0,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA",
+          "WORM",
+          "SEC 17a-4"
+        ],
+        "notes": "Hardware shipped & racked on-site; RAID-6"
+      },
+      {
+        "product_name": "Version Control & Snapshots",
+        "sku": "DH-SNAP",
+        "quantity": 1.0,
+        "unit_price": 3400.0,
+        "total_price": 3400.0,
+        "delivery_days": 1.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA"
+        ],
+        "notes": "256 snapshots per volume, 1-min granularity"
+      },
+      {
+        "product_name": "Disaster Recovery-as-a-Service",
+        "sku": "DH-DRAAS",
+        "quantity": 1.0,
+        "unit_price": 7800.0,
+        "total_price": 7800.0,
+        "delivery_days": 3.0,
+        "warranty_months": 12.0,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA",
+          "ISO 22301"
+        ],
+        "notes": "RTO < 4 hrs, RPO < 1 hr; tested quarterly"
+      }
+    ],
+    "risk_flags": [
+      "Conflicting governing law: Quote mentions Swiss law governs, but footer states governed by German law",
+      "E&OE (Errors and Omissions Excepted)",
+      "Prices exclusive of VAT"
+    ]
+  },
+  "raw_model_output": {
+    "vendor_name": "DataHaven AG",
+    "currency": "EUR",
+    "quote_valid_until": "2026-07-27",
+    "shipping_cost": 1200.0,
+    "discount": 0.0,
+    "payment_terms": "30 days net",
+    "items": [
+      {
+        "product_name": "Enterprise NAS Appliance \u2014 50 TB usable",
+        "sku": "DH-NAS-50T",
+        "quantity": 1,
+        "unit_price": 10200.0,
+        "total_price": 10200.0,
+        "delivery_days": 21,
+        "warranty_months": 36,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA",
+          "WORM",
+          "SEC 17a-4"
+        ],
+        "notes": "Hardware shipped & racked on-site; RAID-6"
+      },
+      {
+        "product_name": "Version Control & Snapshots",
+        "sku": "DH-SNAP",
+        "quantity": 1,
+        "unit_price": 3400.0,
+        "total_price": 3400.0,
+        "delivery_days": 1,
+        "warranty_months": 12,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA"
+        ],
+        "notes": "256 snapshots per volume, 1-min granularity"
+      },
+      {
+        "product_name": "Disaster Recovery-as-a-Service",
+        "sku": "DH-DRAAS",
+        "quantity": 1,
+        "unit_price": 7800.0,
+        "total_price": 7800.0,
+        "delivery_days": 3,
+        "warranty_months": 12,
+        "certifications": [
+          "SOC 2 Type II",
+          "ISO 27001",
+          "FINMA",
+          "ISO 22301"
+        ],
+        "notes": "RTO < 4 hrs, RPO < 1 hr; tested quarterly"
+      }
+    ],
+    "risk_flags": [
+      "Conflicting governing law: Quote mentions Swiss law governs, but footer states governed by German law",
+      "E&OE (Errors and Omissions Excepted)",
+      "Prices exclusive of VAT"
+    ]
+  }
+}

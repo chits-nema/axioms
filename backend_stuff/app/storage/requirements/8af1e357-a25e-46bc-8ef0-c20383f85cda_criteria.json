@@ -1,0 +1,346 @@
+{
+  "source": "requirements_discovery",
+  "input": {
+    "purchase": "Cloud Storage",
+    "organisation_context": "vds",
+    "success_factors": [
+      "Low implementation effort",
+      "Strong integrations",
+      "Good sustainability credentials"
+    ],
+    "constraints": [
+      "Must comply with GDPR",
+      "Prefer EU data residency"
+    ],
+    "normalised_quotations": [
+      {
+        "vendor_name": "DataHaven AG",
+        "currency": "EUR",
+        "quote_valid_until": "2026-07-27",
+        "shipping_cost": 1200,
+        "discount": 0,
+        "payment_terms": "30 days net",
+        "items": [
+          {
+            "product_name": "Enterprise NAS Appliance \u2014 50 TB usable",
+            "sku": "DH-NAS-50T",
+            "quantity": 1,
+            "unit_price": 10200,
+            "total_price": 10200,
+            "delivery_days": 21,
+            "warranty_months": 36,
+            "certifications": [
+              "WORM",
+              "SEC 17a-4"
+            ],
+            "notes": "Hardware shipped & racked on-site; RAID-6"
+          },
+          {
+            "product_name": "Version Control & Snapshots",
+            "sku": "DH-SNAP",
+            "quantity": 1,
+            "unit_price": 3400,
+            "total_price": 3400,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [],
+            "notes": "256 snapshots per volume, 1-min granularity"
+          },
+          {
+            "product_name": "Disaster Recovery-as-a-Service",
+            "sku": "DH-DRAAS",
+            "quantity": 1,
+            "unit_price": 7800,
+            "total_price": 7800,
+            "delivery_days": 3,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 22301"
+            ],
+            "notes": "RTO < 4 hrs, RPO < 1 hr; tested quarterly"
+          }
+        ],
+        "risk_flags": [
+          "Conflicting governing law statements (Swiss law vs German law)",
+          "E&OE (Errors and Omissions Excepted)",
+          "VAT not included in subtotal"
+        ]
+      },
+      {
+        "vendor_name": "DeviceSmart AG",
+        "currency": "EUR",
+        "quote_valid_until": "2026-08-27",
+        "shipping_cost": 500,
+        "discount": 3312.5,
+        "payment_terms": "45 days net",
+        "items": [
+          {
+            "product_name": "UltraBook Business 15 \u2014 AMD Ryzen 9, 16 GB RAM, 512 GB SSD, 15.6\" FHD",
+            "sku": "DS-UB15-RYZ9",
+            "quantity": 50,
+            "unit_price": 1190,
+            "total_price": 59500,
+            "delivery_days": 7,
+            "warranty_months": 36,
+            "certifications": [
+              "ENERGY STAR",
+              "RoHS"
+            ],
+            "notes": "Budget option; upgradeable RAM & SSD"
+          },
+          {
+            "product_name": "3-Year Carry-in Warranty",
+            "sku": "DS-WARR-3CIN",
+            "quantity": 50,
+            "unit_price": 120,
+            "total_price": 6000,
+            "delivery_days": 7,
+            "warranty_months": 36,
+            "certifications": [],
+            "notes": "48-hr repair turnaround; loan device on request"
+          },
+          {
+            "product_name": "MS Autopilot Pre-enrollment & BIOS Lock",
+            "sku": "DS-AUTO-PILOT",
+            "quantity": 50,
+            "unit_price": 15,
+            "total_price": 750,
+            "delivery_days": 7,
+            "warranty_months": null,
+            "certifications": [],
+            "notes": "Pre-enrolled to tenant; BitLocker key escrowed"
+          }
+        ],
+        "risk_flags": [
+          "Warranty is carry-in only (no on-site)",
+          "Ships from Switzerland; VAT/customs at buyer risk",
+          "E&OE"
+        ]
+      },
+      {
+        "vendor_name": "FortifyEdge AG",
+        "currency": "EUR",
+        "quote_valid_until": "2026-08-25",
+        "shipping_cost": 0,
+        "discount": 3200,
+        "payment_terms": "45 days net",
+        "items": [
+          {
+            "product_name": "Endpoint Protection Platform",
+            "sku": "FE-EPP-500",
+            "quantity": 1,
+            "unit_price": 31000,
+            "total_price": 31000,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 27001",
+              "ISO 22301",
+              "Swiss FINMA",
+              "AV-TEST Certified",
+              "OPSWAT"
+            ],
+            "notes": "Includes DLP and device control"
+          },
+          {
+            "product_name": "Cloud Workload Security",
+            "sku": "FE-CWS",
+            "quantity": 1,
+            "unit_price": 14500,
+            "total_price": 14500,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 27001",
+              "ISO 22301",
+              "Swiss FINMA",
+              "CSA STAR Level 2"
+            ],
+            "notes": "Covers AWS, Azure, GCP workloads"
+          },
+          {
+            "product_name": "Incident Response Retainer (20 hrs)",
+            "sku": "FE-IRR-20",
+            "quantity": 1,
+            "unit_price": 12000,
+            "total_price": 12000,
+            "delivery_days": 1,
+            "warranty_months": 12,
+            "certifications": [
+              "ISO 27001",
+              "ISO 22301",
+              "Swiss FINMA"
+            ],
+            "notes": "Unused hours roll over; DFIR team on standby"
+          },
+          {
+            "product_name": "Implementation Services",
+            "sku": "FE-IMPL",
+            "quantity": 1,
+            "unit_price": 6500,
+            "total_price": 6500,
+            "delivery_days": 21,
+            "warranty_months": null,
+            "certifications": [
+              "ISO 27001",
+              "ISO 22301",
+              "Swiss FINMA"
+            ],
+            "notes": "On-site available at no extra cost"
+          }
+        ],
+        "risk_flags": [
+          "Swiss law governs contract",
+          "CHF/EUR rate may apply at invoice",
+          "Governed by German law unless stated otherwise (conflicting jurisdiction clauses)"
+        ]
+      },
+      {
+        "vendor_name": "GreenTech Hardware AG",
+        "currency": "EUR",
+        "quote_valid_until": "2026-09-29",
+        "shipping_cost": 0,
+        "discount": 0,
+        "payment_terms": "30 days net",
+        "items": [
+          {
+            "product_name": "EcoBook Business 15 \u2014 Core Ultra 5, 16 GB RAM, 512 GB SSD, recycled aluminium chassis",
+            "sku": "GT-ECO15-ICU5",
+            "quantity": 50,
+            "unit_price": 1050,
+            "total_price": 52500,
+            "delivery_days": 12,
+            "warranty_months": 36,
+            "certifications": [
+              "EU Ecolabel",
+              "EPEAT Gold",
+              "Carbon Neutral",
+              "RoHS",
+              "ENERGY STAR"
+            ],
+            "notes": "80% recycled materials; 100% renewable energy in production"
+          },
+          {
+            "product_name": "3-Year On-site Warranty + Eco Return Programme",
+            "sku": "GT-WARR-3YOS-ECO",
+            "quantity": 50,
+            "unit_price": 150,
+            "total_price": 7500,
+            "delivery_days": 12,
+            "warranty_months": 36,
+            "certifications": [],
+            "notes": "End-of-life unit returned; 95% components recycled or refurbished"
+          }
+        ],
+        "risk_flags": [
+          "Recycled chassis: minor cosmetic variance between units",
+          "E&OE (Errors and Omissions Excepted)"
+        ]
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "key": "integration_capability",
+      "category": "functional",
+      "label": "Integrations",
+      "description": "Ability to seamlessly integrate with existing cloud infrastructure and management tools.",
+      "score": 4
+    },
+    {
+      "key": "implementation_effort",
+      "category": "functional",
+      "label": "Implementation Effort",
+      "description": "Complexity and time required for deployment, configuration, and staff onboarding.",
+      "score": 4
+    },
+    {
+      "key": "total_cost_of_ownership",
+      "category": "financial",
+      "label": "TCO",
+      "description": "Total cost including hardware, licensing, shipping, and long-term maintenance or support fees.",
+      "score": 5
+    },
+    {
+      "key": "gdpr_compliance",
+      "category": "risks",
+      "label": "GDPR Compliance",
+      "description": "Adherence to GDPR requirements and data protection standards.",
+      "score": 5
+    },
+    {
+      "key": "data_residency",
+      "category": "risks",
+      "label": "Data Residency",
+      "description": "Ability to store and process data within the EU to meet sovereignty requirements.",
+      "score": 5
+    },
+    {
+      "key": "legal_jurisdiction_risk",
+      "category": "risks",
+      "label": "Legal Risk",
+      "description": "Clarity and stability of governing law clauses to avoid cross-border legal disputes.",
+      "score": 4
+    },
+    {
+      "key": "sustainability_credentials",
+      "category": "strategic",
+      "label": "Sustainability",
+      "description": "Alignment with environmental standards, such as EPEAT Gold, EU Ecolabel, or carbon neutrality.",
+      "score": 3
+    }
+  ],
+  "raw_model_output": {
+    "criteria": [
+      {
+        "key": "integration_capability",
+        "category": "functional",
+        "label": "Integrations",
+        "description": "Ability to seamlessly integrate with existing cloud infrastructure and management tools.",
+        "score": 4
+      },
+      {
+        "key": "implementation_effort",
+        "category": "functional",
+        "label": "Implementation Effort",
+        "description": "Complexity and time required for deployment, configuration, and staff onboarding.",
+        "score": 4
+      },
+      {
+        "key": "total_cost_of_ownership",
+        "category": "financial",
+        "label": "TCO",
+        "description": "Total cost including hardware, licensing, shipping, and long-term maintenance or support fees.",
+        "score": 5
+      },
+      {
+        "key": "gdpr_compliance",
+        "category": "risks",
+        "label": "GDPR Compliance",
+        "description": "Adherence to GDPR requirements and data protection standards.",
+        "score": 5
+      },
+      {
+        "key": "data_residency",
+        "category": "risks",
+        "label": "Data Residency",
+        "description": "Ability to store and process data within the EU to meet sovereignty requirements.",
+        "score": 5
+      },
+      {
+        "key": "legal_jurisdiction_risk",
+        "category": "risks",
+        "label": "Legal Risk",
+        "description": "Clarity and stability of governing law clauses to avoid cross-border legal disputes.",
+        "score": 4
+      },
+      {
+        "key": "sustainability_credentials",
+        "category": "strategic",
+        "label": "Sustainability",
+        "description": "Alignment with environmental standards, such as EPEAT Gold, EU Ecolabel, or carbon neutrality.",
+        "score": 3
+      }
+    ]
+  }
+}
