@@ -1,6 +1,7 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
+import { apiBaseUrl, backendRoutes } from '@/lib/api';
 
 const mode = Astro.url.searchParams.get('mode');
 const isCatalogue = mode === 'catalogue';
@@ -67,6 +68,26 @@ const selectedModeDescription = isCatalogue
             </p>
           </div>
         </div>
+
+        <div class="mt-8 rounded-2xl border border-teal-100 bg-teal-50 p-5">
+          <p class="text-sm font-semibold tracking-[0.18em] text-teal-800 uppercase">
+            Backend connection
+          </p>
+          <p class="mt-2 text-sm text-slate-600">
+            This workspace is wired to {apiBaseUrl} and the FastAPI routes below.
+          </p>
+          <div class="mt-4 grid gap-3 md:grid-cols-2">
+            {backendRoutes.map(route => (
+              <div class="rounded-2xl border border-teal-100 bg-white p-4">
+                <p class="text-xs font-semibold tracking-[0.18em] text-teal-800 uppercase">
+                  {route.label}
+                </p>
+                <p class="mt-1 text-sm font-medium text-slate-950">{route.path}</p>
+                <p class="mt-1 text-sm text-slate-600">{route.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div class="rounded-[1.75rem] border border-teal-100 bg-teal-50 p-8">
@@ -86,6 +107,14 @@ const selectedModeDescription = isCatalogue
             <li>2. Discover criteria and weighting.</li>
             <li>3. Evaluate options and explain the tradeoffs.</li>
           </ol>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-teal-200 bg-white p-5">
+          <p class="text-sm font-semibold text-teal-900">Frontend responsibility</p>
+          <p class="mt-2 text-sm text-slate-600">
+            Use DataNova to host the UI and call the backend routes; keep lovable as a design
+            reference only.
+          </p>
         </div>
       </div>
     </div>

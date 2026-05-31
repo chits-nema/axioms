@@ -11,10 +11,12 @@ import '@styles/global.css';
 interface Props {
   seo?: SEOProps; // Optional SEO properties to customize meta tags
   schema?: WithContext<Thing>; // Optional schema.org properties for structured data
+  chrome?: boolean;
+  landingFonts?: boolean;
 }
 
 // Extract `seo` and `schema` from properties or define defaults
-const { seo, schema } = Astro.props;
+const { seo, schema, chrome = true, landingFonts = false } = Astro.props;
 const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
 
 const ogTitle = seo?.title ?? 'Axioms - AI procurement decisions you can defend';
@@ -111,6 +113,17 @@ const defaultSchema: WithContext<Thing> = {
       ]}
     />
 
+    {landingFonts && (
+      <>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+      </>
+    )}
+
     {/* Remove duplicate font links during transitions */}
     <script>
       import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
@@ -124,12 +137,12 @@ const defaultSchema: WithContext<Thing> = {
     </script>
   </head>
   <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
-    <Navbar />
+    {chrome && <Navbar />}
 
     <main>
       <slot />
     </main>
 
-    <Footer />
+    {chrome && <Footer />}
   </body>
 </html>
