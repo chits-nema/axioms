@@ -1,0 +1,15 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import LandingPage from '@/components/procurement/LandingPage.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Axioms - AI procurement decisions you can defend',
+    description:
+      'Compare uploaded quotations or catalogue vendors with AI-assisted requirements discovery, weighting, scoring, and explainable procurement reports.',
+  }}
+>
+  <LandingPage />
+</BaseLayout>

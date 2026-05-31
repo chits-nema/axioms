@@ -1,0 +1,135 @@
+---
+import Navbar from '@sections/Navbar.astro';
+import Footer from '@sections/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+import { SEO, type Props as SEOProps } from 'astro-seo';
+import { Schema } from 'astro-seo-schema';
+import type { WithContext, Thing } from 'schema-dts';
+import { AstroFont } from 'astro-font';
+import '@styles/global.css';
+
+interface Props {
+  seo?: SEOProps; // Optional SEO properties to customize meta tags
+  schema?: WithContext<Thing>; // Optional schema.org properties for structured data
+}
+
+// Extract `seo` and `schema` from properties or define defaults
+const { seo, schema } = Astro.props;
+const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
+
+const ogTitle = seo?.title ?? 'Axioms - AI procurement decisions you can defend';
+const ogDescription =
+  seo?.description ??
+  'Compare quotations or catalogue vendors with AI-assisted requirements discovery, weighting, scoring, and explainable procurement reports.';
+
+// Define default JSON-LD Schema.org data if no schema is passed
+const defaultSchema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  inLanguage: 'en-US',
+  '@id': Astro.url.href,
+  url: Astro.url.href,
+  name: 'Axioms',
+  description:
+    'AI-assisted procurement decisions with quotation normalisation, catalogue RAG, priority discovery, weighted scoring, and defensible reports.',
+  isPartOf: {
+    '@type': 'WebSite',
+    url: `${Astro.site}`,
+    name: 'Axioms',
+    description:
+      'Axioms helps procurement teams compare vendors, understand tradeoffs, and produce explainable recommendations.',
+  },
+};
+---
+
+<html lang="en" class="scroll-pt-32">
+  <head>
+    {/* SEO Meta Tags */}
+    <SEO
+      charset="utf-8"
+      title={seo?.title ?? 'Axioms'}
+      description={seo?.description ??
+        'Compare quotations or catalogue vendors with AI-assisted requirements discovery, weighting, scoring, and explainable procurement reports.'}
+      openGraph={{
+        basic: {
+          title: ogTitle,
+          type: 'website',
+          image: socialImage,
+        },
+        optional: {
+          description: ogDescription,
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: ogTitle,
+        description: ogDescription,
+        image: socialImage,
+        imageAlt: 'Axioms procurement decision dashboard.',
+      }}
+      extend={{
+        link: [
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+        meta: [
+          { name: 'viewport', content: 'width=device-width' },
+          { name: 'generator', content: `${Astro.generator}` },
+        ],
+      }}
+    />
+    {/* Schema.org JSON-LD */}
+    <Schema item={schema ?? defaultSchema} />
+
+    {/* Client-Side Router for page transitions */}
+    <ClientRouter />
+
+    {/* Font Definitions */}
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'DM Sans',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'h1, h2, h3, h4',
+          fallback: 'sans-serif',
+        },
+        {
+          src: [],
+          name: 'Work Sans',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'body',
+          fallback: 'sans-serif',
+        },
+      ]}
+    />
+
+    {/* Remove duplicate font links during transitions */}
+    <script>
+      import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
+      document.addEventListener('astro:before-swap', e =>
+        [
+          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
+            'link[as="font"]'
+          ),
+        ].forEach(link => link.remove())
+      );
+    </script>
+  </head>
+  <body class="bg-off-white selection:bg-teal-400 selection:text-slate-700">
+    <Navbar />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
