@@ -1,9 +1,11 @@
 import json
 from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import Response
 from pathlib import Path
 from pydantic import BaseModel
 from app.weighted_metrics.matrix_calc import build_comparison_matrix
 from app.weighted_metrics.llm_scorer import recommend_vendor
+from app.services.report_generator import generate_report_pdf
 
 router = APIRouter(prefix="/evaluate", tags=["evaluate"])
 
@@ -12,7 +14,7 @@ class EvaluateRequest(BaseModel):
     normalised_storage_paths: list[str]
 
 @router.post("")
-def evaluate(request: EvaluateRequest): 
+def evaluate(request: EvaluateRequest, export_pdf: bool =False): 
     #Load weighting input (criteria + tradeoff answers)
     weighting_path = Path(request.weighting_input_storage_path)
     if not weighting_path.exists():
@@ -57,6 +59,21 @@ def evaluate(request: EvaluateRequest):
     rankings = matrix.reset_index().to_dict(orient="records")
     recommendation = recommend_vendor(rankings,criteria)
     
+    if export_pdf: 
+        print("recommendation keys:", recommendation.keys())
+        print("recommendation:", recommendation)
+        pdf_bytes = generate_report_pdf(
+            product="Vendor Evaluation",
+            rankings=rankings,
+            recommendation=recommendation,
+            criteria=criteria
+        ) 
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={"Content-Disposition": "attachment; filename=evaluation_report.pdf"}
+        )
+
     return {
         "status": "success",
         "rankings": rankings,

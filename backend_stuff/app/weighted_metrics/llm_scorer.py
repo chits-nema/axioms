@@ -84,7 +84,7 @@ def recommend_vendor(matrix_records:list[dict], criteria: list[dict]) -> dict:
     
     Respond ONLY in this JSON format: 
     {{
-        "recommend_vendor": "<vendor name>"
+        "recommended_vendor": "<vendor name>"
         "reasoning": "<2-3 sentence explanation citing specific scores and buyer priorities>",
         "trade_offs": "<1-2 sentence note on what the buyer gives up by not choosing the runner-up>"
     }}
