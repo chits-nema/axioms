@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, status
 from pathlib import Path
 from pydantic import BaseModel
 from app.weighted_metrics.matrix_calc import build_comparison_matrix
+from app.weighted_metrics.llm_scorer import recommend_vendor
 
 router = APIRouter(prefix="/evaluate", tags=["evaluate"])
 
@@ -53,7 +54,11 @@ def evaluate(request: EvaluateRequest):
             detail=str(exc)
         ) from exc
     
+    rankings = matrix.reset_index().to_dict(orient="records")
+    recommendation = recommend_vendor(rankings,criteria)
+    
     return {
         "status": "success",
-        "rankings": matrix.reset_index().to_dict(orient="records")
+        "rankings": rankings,
+        "recommendation": recommendation
     }

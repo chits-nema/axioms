@@ -11,7 +11,7 @@ from app.services.normaliser import (
     generate_metrics_from_context,
 )
 from app.weighted_metrics.matrix_calc import build_comparison_matrix
-
+from app.weighted_metrics.llm_scorer import recommend_vendor
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
 
@@ -74,12 +74,15 @@ def evaluate_catalog_purchase(request: PurchaseRequest) -> dict[str, Any]:
     except Exception as exc: 
         raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=str(exc)) from exc
     
+    evaluation_results = matrix.reset_index().to_dict(orient="records")
+    recommendation = recommend_vendor(evaluation_results,criteria)
     return {
         "status": "success", 
         "evaluated_product": request.product,
         "metrics_used": metrics,
         "generated_metrics_template": generated_metrics_template,
-        "evaluation_results": matrix.reset_index().to_dict(orient="records")
+        "evaluation_results": evaluation_results,
+        "recommendation": recommendation
     }
 
 def _generate_metrics_for_catalog(request: PurchaseRequest) -> tuple[list[str], dict[str, Any]]:
