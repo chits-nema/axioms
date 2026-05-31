@@ -64,3 +64,31 @@ def score_vendor_on_metric(
     raw_output = _call_llm(prompt)
 
     return json.loads(raw_output)
+
+def recommend_vendor(matrix_records:list[dict], criteria: list[dict]) -> dict: 
+    """Takes the ranked matrix and asks LLM to give a final vendor recommendation
+    matrix_records: rankings list from matrix.reset_index().to_dict(orient="records")
+    criteria: the original criteria list w/ descriptions
+    """
+
+    prompt = f"""
+    You are an impartial B2B procurement advisor. 
+    Based on the following vendor evaluation matrix, recommend the best vendor and explain why.
+    Consider the weighted scores, individual metric scores, and the buyer's priorities.
+
+    Criteria used: 
+    {json.dumps(criteria, indent=2)}
+
+    Vendor evaluation results:
+    {json.dumps(criteria, indent=2)}
+    
+    Respond ONLY in this JSON format: 
+    {{
+        "recommend_vendor": "<vendor name>"
+        "reasoning": "<2-3 sentence explanation citing specific scores and buyer priorities>",
+        "trade_offs": "<1-2 sentence note on what the buyer gives up by not choosing the runner-up>"
+    }}
+    """
+
+    raw_output = _call_llm(prompt)
+    return json.loads(raw_output)
