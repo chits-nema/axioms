@@ -1,3 +1,10 @@
+packages:
+  - '.'
+
+peerDependencyRules:
+  allowedVersions:
+    '@keystatic/astro>astro': '6'
+
 allowBuilds:
   esbuild: true
   sharp: true

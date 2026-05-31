@@ -11,13 +11,6 @@
     "preview": "astro preview",
     "astro": "astro"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "@keystatic/astro>astro": "6"
-      }
-    }
-  },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
     "@astrojs/db": "^0.21.2",
